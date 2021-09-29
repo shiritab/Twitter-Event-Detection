@@ -2,7 +2,7 @@
   <div id="home-page">
       <h1> Trending </h1>
       <!-- a select button for algorithm picker -->
-      <!-- <b-form-select v-model="selected" :options="algorithms"></b-form-select> -->
+      <!-- <b-form-select v-model="selected" :options="[SEDTWik, twembeddings]"></b-form-select> -->
       <Card :infos=infos></Card>
   </div>
 </template>
