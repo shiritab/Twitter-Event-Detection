@@ -1,9 +1,9 @@
 <template>
   <div>
-    <b-card-group>
+    <b-card-group deck>
       <b-card v-for="info in infos"
         border-variant="info"
-        header="info.title"
+        :header="info.title"
         header-border-variant="info"
         header-text-variant="info"
         align="center"

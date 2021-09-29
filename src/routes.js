@@ -1,12 +1,12 @@
-// import Main from "./pages/MainPage";
+import HomePage from "./pages/HomePage.vue";
 // import NotFound from "./pages/NotFoundPage";
 
 const routes = [
-  // {
-  //   path: "/",
-  //   name: "home",
-  //   component: Home
-  // },
+  {
+    path: "/",
+    name: "home",
+    component: HomePage
+  },
   // {
   //   path: "*",
   //   name: "notFound",

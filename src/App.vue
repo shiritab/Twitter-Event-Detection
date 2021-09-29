@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <b-navbar toggleable type="dark" variant="dark">
-        <b-navbar-brand href="#">Twitter Event Detection</b-navbar-brand>
+        <b-navbar-brand :to='{ name: "home" }'>Twitter Event Detection</b-navbar-brand>
         <!-- <b-button v-b-toggle.sidebar-1>Toggle Sidebar</b-button> -->
         <b-sidebar id="sidebar-footer" bg-variant="dark" text-variant="light" title="Twitter Event Detection" is-nav>
             <b-navbar-nav class="ml-auto">
@@ -24,6 +24,7 @@
             </template>
         </b-navbar-toggle>
     </b-navbar>
+    <router-view />
   </div>
 </template>
 
