@@ -18,7 +18,8 @@ import {
     IconsPlugin,
     ButtonPlugin,
     FormSelectPlugin,
-    CardPlugin
+    CardPlugin,
+    FormDatepickerPlugin,
 } from "bootstrap-vue";
 [
     SidebarPlugin,
@@ -26,7 +27,8 @@ import {
     IconsPlugin,
     ButtonPlugin,
     FormSelectPlugin,
-    CardPlugin
+    CardPlugin,
+    FormDatepickerPlugin,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 

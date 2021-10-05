@@ -8,6 +8,8 @@
                 <b-nav-item href="#"> # Trending</b-nav-item>
                 <b-nav-item href="#"> = Compare</b-nav-item>
                 <b-nav-item href="#"> + Login</b-nav-item>
+                <b-nav-item :to="{ name: 'events'}"> Events </b-nav-item>
+                <b-nav-item :to="{ name: 'event', params:{id:123}}"> Event </b-nav-item>
                 <b-nav-item href="#" disabled>Disabled</b-nav-item>
             </b-navbar-nav>
             <template #footer="{ hide }">
