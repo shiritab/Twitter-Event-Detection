@@ -5,7 +5,7 @@
         <!-- <b-button v-b-toggle.sidebar-1>Toggle Sidebar</b-button> -->
         <b-sidebar id="sidebar-footer" bg-variant="dark" text-variant="light" title="Twitter Event Detection" is-nav>
             <b-navbar-nav class="ml-auto">
-                <b-nav-item href="#"> # Trending</b-nav-item>
+                <b-nav-item :to='{ name: "home" }'> # Trending</b-nav-item>
                 <b-nav-item href="#"> = Compare</b-nav-item>
                 <b-nav-item href="#"> + Login</b-nav-item>
                 <b-nav-item :to="{ name: 'events'}"> Events </b-nav-item>

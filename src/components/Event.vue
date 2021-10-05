@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="eventContainer">
       <h1>"{{ EventName }}"</h1>
       <br>
       <Tweet :tweets="tweetsList"></Tweet>
@@ -56,9 +56,11 @@ export default {
 }
 </script>
 
-<style scope>
+<style scoped>
     h1{
-        text-align: center;
         font-style: italic;        
+    }
+    #eventContainer{
+        text-align: center;
     }
 </style>

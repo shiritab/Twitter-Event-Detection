@@ -1,6 +1,7 @@
 <template>
   <div id="home-page">
       <h1> Trending </h1>
+      <br>
       <!-- a select button for algorithm picker -->
       <b-form-select style="width:20%" v-model="selected" :options="['SEDTWik', 'twembeddings', 'algorithm 3','algorithm 4']"></b-form-select>
       <!-- <Card :infos=infos></Card> -->
