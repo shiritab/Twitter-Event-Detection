@@ -1,7 +1,7 @@
 <template>
     <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:30%; margin-right:3%">
-      <h3 class="text-xl text-gray-600 mb-4">treemap</h3>
-      <apexchart type="treemap" :height="280" :options="options" :series="series"></apexchart>
+      <h3 class="text-xl text-gray-600 mb-4" >treemap</h3>
+      <apexchart type="treemap" :height="280" :options="options" :series="series" @click="change"></apexchart>
     </div>
 </template>
 
@@ -15,6 +15,11 @@ export default {
     },
     props:{
         data:{type:Object}
+    },
+    methods:{
+      change(){
+        console.log("hello")
+      }
     },
     data(){
         return{
@@ -51,15 +56,25 @@ export default {
           ],
           options: {
             plotOptions: {
+              
               treemap: {
                 distributed: true,
                
               }
+            },
+            
+              events: {
+                click(event, chartContext, config) {
+                    console.log(this.categories);
+                    console.log(config.dataPointIndex);
             }
+            }
+          
+            
           },
-  
-
+          
 }
+
     }
 }
 </script>

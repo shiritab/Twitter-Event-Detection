@@ -19,19 +19,27 @@ export default {
 data(){
         return{
   
-
+            categories: ['event 1', 'event 2', 'event 3', 'event 4', 'event 5', 'event 6'],
             options : {
             chart: {
                 id: 'pageview-chart',
                 toolbar: {
                 show: false,
                 },
+                
+            events: {
+                click(event, chartContext, config) {
+                    console.log(this.categories);
+                    console.log(config.dataPointIndex);
+                    change(config.dataPointIndex)
+            }
+            }
             },
             dataLabels: {
                 enabled: false,
             },
             xaxis: {
-                categories: ['event 1', 'event 2', 'event 3', 'event 4', 'event 5', 'event 6'],
+                categories: this.categories,
             },
             },
 
@@ -40,6 +48,11 @@ data(){
                 data: [0.8, 0.59, 0.7, 0.7, 0.3, 0.9],
             },
             ],}
+},
+methods:{
+    change(num){
+        console.log(num);
+    }
 }
   
   
