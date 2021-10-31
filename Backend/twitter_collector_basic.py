@@ -1,4 +1,4 @@
-
+import  flask
 class TwitterCollector:
     def __init__(self):
         pass
@@ -62,9 +62,10 @@ class TwitterCollector:
                 print(line)
                 tweet = api.get_status(line)
                 print(tweet._json)
+
                 data.append(tweet._json)
         with open(output_json, 'w') as outfile:
-            json.dump(data, outfile)
+           json.dump(data,outfile)
 
 
 
