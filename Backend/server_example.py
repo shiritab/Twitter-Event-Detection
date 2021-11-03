@@ -4,6 +4,7 @@ import input_adapter
 from functools import wraps
 import  twitter_collector_basic as tw_cl
 
+import  SEDTWik.main as sedtwik_main
 
 
 app = Flask(__name__)
@@ -11,6 +12,7 @@ api=Api(app)
 Input_Adapter = input_adapter.Adapter()
 
 # example to the use of flask server & endpoints
+
 def home_decorator():
     def _home_decorator(f):
         @wraps(f)
@@ -35,6 +37,11 @@ class Router(Resource):
         Tw_Cl=tw_cl.TwitterCollector()
         Tw_Cl.read_from_twitter()
         Input_Adapter.from_twitter_to_sedtwik()
+        # Todo :ask Aviad & maor how to excute from here the function
+        #Todo : suumarization methods that used by you?
+
+        sedtwik_main.main_function()
+
         return {"data":"this is endpoint_example"}
     def post(self):
         return {"data":"this is post endpoint_example"}

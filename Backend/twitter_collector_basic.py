@@ -62,8 +62,12 @@ class TwitterCollector:
                 print(line)
                 tweet = api.get_status(line)
                 print(tweet._json)
-
                 data.append(tweet._json)
+
+
+        with open("data.json", 'a') as filehandle:
+            filehandle.write("%s\n" % json.dumps(tweet._json))
+
         with open(output_json, 'w') as outfile:
            json.dump(data,outfile)
 

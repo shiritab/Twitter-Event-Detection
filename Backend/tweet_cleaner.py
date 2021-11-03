@@ -13,6 +13,8 @@ from nltk.tokenize import word_tokenize
 import string
 import nltk
 import re
+
+
 class TweetCleaner:
     def __init__(self, remove_stop_words=False, remove_retweets=False, stopwords_file='NLTK_DEFAULT'):
         """
@@ -90,3 +92,34 @@ class TweetCleaner:
         cleaned_text = retweet_info + cleaned_text
 
         return cleaned_text
+
+
+class EntityExtractor:
+    def __init__(self):
+        pass
+
+    def add_named_entity(self, tweet_json):
+        tweet_json['named_entities'] = list(map(str, (self.nlp(tweet_json['text']).ents)))
+        return tweet_json
+
+    def get_entities_from_chunk(self, namedEnt):
+        entities = []
+        for chunk in namedEnt:
+            if hasattr(chunk, 'label'):
+                word = ' '.join(c for c, tag in chunk)
+                entities.append(word)
+            # else:
+            #     word, tag = chunk
+            #     # if tag in ['VBG', 'CD', 'JJ', 'VB', 'VBN'] or 'NN' in tag:
+            #     #     entities.append(word)
+        return entities
+
+    def apply(self, tweet_jsons):
+        # return [self.add_named_entity(tweet) for tweet in tqdm(tweet_jsons, desc='extract entities')]
+
+        all_data = [nltk.word_tokenize(t['text']) for t in tweet_jsons]
+        tagged = nltk.pos_tag_sents(all_data)
+        chunked = list(nltk.ne_chunk_sents(tagged, binary=True))
+        for tweet_json, namedEnt in tqdm(zip(tweet_jsons, chunked), desc='extract entities', total=len(tweet_jsons)):
+            tweet_json['named_entities'] = self.get_entities_from_chunk(namedEnt)
+        return tweet_jsons
