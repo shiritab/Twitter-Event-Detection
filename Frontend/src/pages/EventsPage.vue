@@ -61,18 +61,17 @@ export default {
       }
     },
     methods:{
-        async getEvents(){
-        try{
-            const response = await this.axios.get(
-            `http://localhost:5000/events/summary`
-            );
-            console.log(response)
-            this.events = response.data;
-        }catch(error){
-            console.log(error);
-        }
-        }
-    },
+    async getEvents(){
+      try{
+        const response = await this.axios.get(
+          `http://127.0.0.1:5000/events/summary`
+        );
+        console.log(response)
+        this.events =response.data.events;
+      }catch(error){
+        console.log(error);
+      }
+    }},
     computed:{
         eventsByValue: function(){
             var filteredEvents = this.events.filter((event)=>{
@@ -81,6 +80,10 @@ export default {
             return filteredEvents;
         }
     },
+    created(){
+        console.log("created ")
+        this.getEvents();
+    }
 
 }
 </script>
