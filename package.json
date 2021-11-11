@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "build": "vue-cli-service build",
-    "serve": "vue-cli-service serve"
+    "build": "vue-cli-service build Frontend/src/main.js",
+    "serve": "vue-cli-service serve Frontend/src/main.js"
   },
   "name": "Twitter-Event-Detection",
   "description": "",
