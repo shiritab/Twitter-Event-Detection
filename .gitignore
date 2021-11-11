@@ -2,4 +2,6 @@
 /Backend/test.py
 /Backend/tweets_from_api.txt
 /.idea
-/SEDTWik/
+
+node_modules
+.dist
