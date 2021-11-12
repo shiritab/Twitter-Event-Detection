@@ -13,6 +13,7 @@ info:
 servers:
 - url: https://virtserver.swaggerhub.com/shorlaks/twitter_event_detection/1.0.0
   description: SwaggerHub API Auto Mocking
+
 tags:
 - name: admins
   description: Secured Admin-only calls
