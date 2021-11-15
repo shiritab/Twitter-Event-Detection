@@ -21,6 +21,7 @@ import {
     CardPlugin,
     FormDatepickerPlugin,
     TablePlugin,
+    LayoutPlugin 
     
 } from "bootstrap-vue";
 [
@@ -32,6 +33,7 @@ import {
     CardPlugin,
     FormDatepickerPlugin,
     TablePlugin,
+    LayoutPlugin 
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
