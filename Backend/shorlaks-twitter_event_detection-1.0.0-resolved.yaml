@@ -231,7 +231,13 @@ components:
       properties:
         Id:
           type: string
-          example: "264563843"
+          example: 264563843
+        date:
+          type: string
+          example: 2021-02-02
+        author:
+          type: string
+          example: niv
         text:
           type: string
           example: Evarybody knows the Sorlaks are the best
@@ -241,6 +247,9 @@ components:
     eventObject:
       type: object
       properties:
+        date:
+          type: string
+          example: 2021-02-02
         lable:
           type: string
           example: event 1
@@ -250,16 +259,18 @@ components:
         related_tweets:
           type: array
           items:
-            $ref: '#/components/schemas/tweetObject'
-    authorObject:
-      type: object
-      properties:
-        authorId:
-          type: string
-          example: realDonaldTrump
-        number_of_tweets:
-          type: integer
-          example: 7
+            type: int
+            # $ref: '#/components/schemas/tweetObject'
+            example: [1,2,3,4]
+    # authorObject:
+    #   type: object
+    #   properties:
+    #     authorId:
+    #       type: string
+    #       example: realDonaldTrump
+    #     number_of_tweets:
+    #       type: integer
+    #       example: 7
     inline_response_200:
       type: object
       properties:
