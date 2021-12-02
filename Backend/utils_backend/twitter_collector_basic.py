@@ -2,7 +2,7 @@ import  flask
 class TwitterCollector:
     def __init__(self):
         pass
-    def read_from_twitter(self,text_path="list_of_tweets.txt",output_json="tweets_from_api.txt"):
+    def read_from_twitter(self,text_path=r"C:\Users\meiri\Documents\GitHub\Twitter-Event-Detection\Backend\data\main_files\list_of_tweets.txt",output_json="tweets_from_api.txt"):
 
         # Import the necessary package to process data in JSON format
         try:

@@ -1,5 +1,5 @@
 import json
-import tweet_cleaner
+from Backend.utils_backend import tweet_cleaner
 import re
 
 
@@ -26,7 +26,7 @@ class Adapter:
                 try:
                     # Read in one line of the file, convert it into a json object
                     if 'text' in tweet:  # only messages contains 'text' field is a tweet
-
+                        tweet_to_write["tweet_id"]=tweet['tweet_id']
                         tweet_to_write['created_at']=tweet['created_at']
                         # tweet_to_write['text']=tweet['text']
                         tweet_to_write['text'] = cleaner.get_cleaned_text(tweet['text'])
