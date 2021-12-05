@@ -49,12 +49,12 @@ export default {
         events: [
             {
                 id: 123,
-                name: "Take a photo",
+                event_name: "Take a photo",
                 date: "2021-10-05",
             },
             {
                 id: 2,
-                name: "Elections day",
+                event_name: "Elections day",
                 date: "2021-06-01",
             },
         ]
@@ -82,7 +82,7 @@ export default {
     },
     created(){
         console.log("created ")
-        this.getEvents();
+        // this.getEvents();
     }
 
 }
