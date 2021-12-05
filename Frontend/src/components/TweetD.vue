@@ -50,28 +50,12 @@ export default{
   components:{
     Tweet
   },
-  data(){
-    return{
-      tweets:[
-        {
-          id:"256292946331181056"
-        },
-        {
-          id:"256334302034399232"
-        },
-        {
-          id:"256335853738160128"
-        },
-        {
-          id:"256346272506712064"
-        },
-        {
-          id:"256346650132508673"
-        },
-
-      ],
-    }
-  }
+  props:{
+        tweets:{
+            type: Array,
+            require: true,
+        }
+  },
 }
 </script>
 

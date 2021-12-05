@@ -2,9 +2,10 @@
   <div>
     <br>
     <b-form-datepicker ref="datepicker"
-    v-model="value"
+    v-model="dateValue"
     :min="min"
     :max="max"
+    @input="getEventsByDate()"
     style="width: 18.3rem; margin: auto"
     locale="en"></b-form-datepicker>
     <br>
@@ -17,12 +18,12 @@
                 <b-card-text>{{ event.name  }}</b-card-text>
             </router-link>
         </b-card> -->
-        <b-card v-for="event in eventsByValue"
-            :key="event.event_name"
+        <b-card v-for="event in events"
+            :key="event.event"
             style="max-width: 20rem; margin: auto;"
             bg-variant="light" class="text-center">
-            <router-link :to="{ name: 'event', params:{id:event.event_name}}">
-                <b-card-text>{{ event.event_name  }}</b-card-text>
+            <router-link :to="{ name: 'event', params:{id:event.event, tweets:event.tweets}}">
+                <b-card-text>{{ event.event  }}</b-card-text>
             </router-link>
         </b-card>
     </b-card-group>
@@ -43,33 +44,77 @@ export default {
       const maxDate = new Date(today)
 
       return {
-        value: '',
+        dateValue: '',
         min: minDate,
         max: maxDate,
-        events: [
-            {
-                id: 123,
-                event_name: "Take a photo",
-                date: "2021-10-05",
-            },
-            {
-                id: 2,
-                event_name: "Elections day",
-                date: "2021-06-01",
-            },
+        events: [],
+
+        // json example
+        eventsList: [
+          {event: "bla",
+              tweets:[
+                  {
+                  id:"256292946331181056"
+                  },
+                  {
+                  id:"256334302034399232"
+                  },
+                  {
+                  id:"256335853738160128"
+                  },
+                  {
+                  id:"256346272506712064"
+                  },
+                  {
+                  id:"256346650132508673"
+                  },
+              ],},
+            {event: "bla1",
+              tweets:[
+                  {
+                  id:"256292946331181056"
+                  },
+                  {
+                  id:"256334302034399232"
+                  },
+                  {
+                  id:"256335853738160128"
+                  },
+                  {
+                  id:"256346272506712064"
+                  },
+                  {
+                  id:"256346650132508673"
+                  },
+              ],}
+            // {
+            //     id: 123,
+            //     event_name: "Take a photo",
+            //     date: "2021-10-05",
+            // },
+            // {
+            //     id: 2,
+            //     event_name: "Elections day",
+            //     date: "2021-06-01",
+            // },
         ]
+        //
       }
     },
     methods:{
-    async getEvents(){
+    async getEventsByDate(){
+      // pass
       try{
-        const response = await this.axios.get(
-          `http://127.0.0.1:5000/events/summary`
-        );
-        console.log(response)
-        this.events =response.data.events;
+        if(this.dateValue == "2021-10-05"){
+          this.events = this.eventsList;
+        }
+        // const response = await this.axios.get(
+        //   `http://127.0.0.1:5000/events/${this.dateValue}`
+        // );
+        // console.log(response)
+        // this.events =response.data.events;
       }catch(error){
-        console.log(error);
+        // console.log(error);
       }
     }},
     computed:{

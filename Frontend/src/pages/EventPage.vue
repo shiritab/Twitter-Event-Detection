@@ -1,6 +1,6 @@
 <template>
   <div>
-      <Event :id="1" :name="'Take a photo'"></Event>
+      <Event :id="1" :name="$route.params.id" :tweets="tweets"></Event>
   </div>
 </template>
 
@@ -10,6 +10,16 @@ export default {
     name: "EventPage",
     components:{
         Event,
+    },
+    props:{
+        tweets:{
+            type: Array,
+            required: true,
+        }
+    },
+    created(){
+        console.log("created event page");
+        console.log(this.tweets);
     }
 }
 </script>
