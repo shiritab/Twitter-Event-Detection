@@ -1,8 +1,8 @@
 /detection_models/
 /Backend/test.py
 /Backend/tweets_from_api.txt
-/.idea
-
-node_modules
+/Backend/.idea/
 .dist
-data
+/Backend/data/
+/node_modules/
+/Backend/.idea/
