@@ -12,12 +12,18 @@ CORS(app, supports_credentials=True)
 
 # example to the use of flask server & endpoints
 
+import pandas as pd
+
+
+df=pd.read_csv(r"C:\Users\meiri\Desktop\חומרים לימודיים\שנה ג\Downloads\relevant_tweets.tsv", sep='\t')
+df.to_csv('results_csv', index=False,float_format='%.16f')
+# print(df.iloc[:,1].values)
 class Router(Resource):
     def get(self):
         Tw_Cl=tw_cl.TwitterCollector()
         Tw_Cl.read_from_twitter()
         Input_Adapter.from_twitter_to_sedtwik()
-        sedwik_main.mainFunc()
+        # sedwik_main.mainFunc()
 
         return {"data":"this is endpoint_example"}
     def post(self):

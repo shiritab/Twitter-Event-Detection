@@ -13,10 +13,9 @@ def mainFunc():
     wiki_titles_file = '../data/enwiki-titles-unstemmed.txt'
     seg_prob_file = '../data/seg_prob_2012_Oct_11-22.json'
     wiki_Qs_file = '../data/WikiQsEng_non_zero_processed.json'
-    summarization_list=[]
-    tweets_ids=[]
+
     to_ret_events=[]
-    summary_model=summarization()
+    # summary_model=summarization()
     remove_retweets = True
     max_segment_length = 4
     hashtag_wt = 3
@@ -65,6 +64,9 @@ def mainFunc():
         os.makedirs(event_output_dir)
     event_no = 0
     for e, event_worthiness in events:
+        summarization_list = []
+        tweets_ids = []
+        tmp_dict = {}
         event_no += 1
         print('\nEVENT:', event_no, 'News Worthiness:', event_worthiness)
         f = open(event_output_dir + str(event_no) + '.txt', 'w')
@@ -77,11 +79,10 @@ def mainFunc():
                 summarization_list.append(text)
                 tweets_ids.append(tweet_id)
             f.write('-----------------------------------------------------------\n')
-            tmp_dict={}
             tmp_dict["tweets"]=tweets_ids
             tmp_dict["event"]=seg_name
-            tmp_dict["segmentation"]=summarization_list
-            to_ret_events.append(tmp_dict)
+            tmp_dict["segmentation"]=e
+        to_ret_events.append(tmp_dict)
         f.close()
     return to_ret_events
 if __name__ == '__main__':
