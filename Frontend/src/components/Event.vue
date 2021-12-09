@@ -2,16 +2,17 @@
   <div id="eventContainer">
       <h1>"{{ EventName }}"</h1>
       <br>
-      <Tweet :tweets="tweetsList"></Tweet>
+      <!-- <Tweet :tweets="tweetsList"></Tweet> -->
+      <TweetD></TweetD>
   </div>
 </template>
 
 <script>
-import Tweet from "./Tweet.vue"
+import TweetD from "./TweetD.vue"
 export default {
     name: "Event",
     components:{
-        Tweet,
+        TweetD,
     },
     props:{
         id:{
