@@ -1,0 +1,385 @@
+C:\Users\meiri\AppData\Local\Programs\Python\Python38\python.exe C:/Users/meiri/Documents/GitHub/Twitter-Event-Detection/Backend/sedwik_main.py
+Initializing SEDTWik Segmenter
+SEDTWik Segmenter Ready
+
+Initializing BurstySegmentExtractor
+BurstySegmentExtractor Ready
+
+Reading SubWindows
+SubWindow: 00_hour.json
+SubWindow: Sedtwik_input.json
+Done
+
+----- TimeWindow[1-2] -----
+No. of Tweets: 100168
+SubWindow #1, No. of Tweets: 100152
+SubWindow #2, No. of Tweets: 16
+
+Extracting Bursty Segments
+Total Segments: 50923
+Bursty Segments: 316
+Computing similarity between bursty segments
+1 reasons why we dont get along 10.0377
+2 things about my boyfriend 7.36302
+3 welcome back tvd 7.28566
+4 ian somerhalder 6.44495
+5 vp debate 6.31928
+6 wan na 6.12516
+7 tvd 5.72041
+8 cant wait 5.28308
+9 xfactor 5.28124
+10 gon na 5.21591
+11 oomf 5.03399
+12 dont know 4.97620
+13 x factor 4.82927
+14 justin bieber 4.74536
+15 vampire diaries 4.71367
+16 jonas brothers 4.58717
+17 tbt 4.49992
+18 got ta 4.26288
+19 paul ryan 4.26210
+20 best friends 4.25115
+21 youtube 4.24940
+22 debate 4.18202
+23 debates 4.15766
+24 dont want 4.03095
+25 feel like 4.02352
+26 really want 3.99424
+27 let go 3.98048
+28 tvds 3.96788
+29 im gon na 3.90846
+30 vpdebate 3.88508
+31 first time 3.87540
+32 v pdebate 3.84707
+33 jersey shore 3.65537
+34 jb radio city 3.61442
+35 tcot 3.55922
+36 one direction 3.52808
+37 one day 3.51233
+38 thursday night football 3.34728
+39 mitt romney 3.21725
+40 ask questions 3.19953
+41 joe biden 3.17618
+42 dont care 3.13844
+43 looks like 3.04798
+44 awkward moment 3.03376
+45 lets go 3.00769
+46 good morning 2.99815
+47 wish could 2.96009
+48 aint got 2.93672
+49 things about my girlfriend 2.90614
+50 tomorrow night 2.87900
+51 get glue 2.87847
+52 steelers 2.87230
+53 say love 2.86931
+54 one person 2.85247
+55 every time 2.85207
+56 romney ryan 2.83929
+57 yankees 2.83209
+58 vice presidential debate 2.81114
+59 gary johnson and jim gray 2.79856
+60 feel good 2.78717
+61 paulryanvp 2.76466
+62 x factor usa 2.75199
+63 right time 2.71462
+64 never give 2.69351
+65 steeler nation 2.69202
+66 rick ross 2.65241
+67 im ready 2.60807
+68 factsaboutme 2.59424
+69 wan na go 2.58829
+70 best friend 2.49526
+71 even though 2.47091
+72 facts about me 2.41550
+73 current 2.41139
+74 win 2.39421
+75 look like 2.38978
+76 im glad 2.38944
+77 vampirediaries 2.38815
+78 team follow back 2.35658
+79 thank god 2.35361
+80 throwbackthursday 2.35273
+81 cell phone 2.34548
+82 nick jonas 2.33782
+83 looking forward 2.29674
+84 impact live 2.28956
+85 high school 2.26542
+86 smh 2.26217
+87 the vampire diaries 2.26065
+88 blessed 2.24915
+89 next day 2.24158
+90 good day 2.23637
+91 get ready 2.23506
+92 orioles 2.22470
+93 jobs 2.21606
+94 im tired 2.18601
+95 joe biden movies 2.14038
+96 nfl 2.13261
+97 mike wallace 2.12619
+98 school tomorrow 2.12457
+99 fact 2.10519
+100 titans 2.09528
+101 big bang theory 2.08341
+102 rock 2.08032
+103 retweet 2.06308
+104 fab found tour 2.06097
+105 always mind 2.05229
+106 would rather 2.04847
+107 barack obama 2.04801
+108 truth 2.04260
+109 lovehim 2.03717
+110 winning 2.03388
+111 breast cancer 2.02991
+112 chris johnson 2.02560
+113 end the lockout 2.02536
+114 go back 2.02137
+115 chris brown 2.00459
+116 live streaming 1.99980
+117 look eyes 1.98621
+118 national coming out day 1.97948
+119 want go 1.97909
+120 people say 1.97864
+121 vice presidential 1.97422
+122 people change 1.97079
+123 nicki minaj 1.95088
+124 one thing 1.93409
+125 last year 1.93071
+126 thats way 1.92711
+127 cant stand 1.92359
+128 dont forget 1.91764
+129 letsgo 1.91593
+130 sorrynotsorry 1.91386
+131 follow follow 1.90848
+132 fml 1.90155
+133 gop 1.89996
+134 last night 1.89212
+135 pep rally 1.85979
+136 ryans choice 1.85296
+137 s baby follow train 1.85118
+138 wtf 1.84631
+139 taylor swift 1.84515
+140 tnf 1.83893
+141 thingsaboutmyboyfriend 1.83406
+142 feels like 1.83191
+143 dont give fuck 1.83105
+144 teaparty 1.83032
+145 need get 1.81720
+146 shut fuck 1.81434
+147 tara simon 1.79702
+148 dont let 1.79677
+149 im gone 1.79513
+150 stephanie cutter 1.77963
+151 la reid 1.77482
+152 good time 1.76861
+153 years ago 1.76682
+154 cant get 1.76345
+155 lets get 1.75768
+156 bros hoes 1.75302
+157 ice cream 1.73262
+158 might well 1.72411
+159 los angeles 1.71668
+160 look back 1.71408
+161 football game 1.71396
+162 dont worry 1.70993
+163 dont say 1.70962
+164 get back 1.70612
+165 never get 1.69348
+166 nascar 1.68989
+167 anyone else 1.68474
+168 j o e j o n a s 1.68332
+169 years old 1.68168
+170 biden 1.67799
+171 looking like 1.67096
+172 nowplaying 1.66914
+173 want see 1.66830
+174 david correy 1.65894
+175 wan na see 1.65210
+176 whats going 1.65195
+177 fall love 1.64810
+178 talk shit 1.63563
+179 go school 1.63550
+180 tell truth 1.63500
+181 kevin jonas 1.63191
+182 diced pineapples 1.63095
+183 like option 1.61979
+184 now playing 1.60812
+185 ebay 1.60531
+186 remember titans 1.60321
+187 postseason 1.60157
+188 pretty much 1.60017
+189 holy shit 1.59684
+190 much better 1.59547
+191 still want 1.59264
+192 diamond white 1.59169
+193 real talk 1.58188
+194 eye contact 1.57651
+195 rip amanda todd 1.57139
+196 mlb 1.57097
+197 computer history 1.57073
+198 phone call 1.56624
+199 oh well 1.56496
+200 didnt know 1.56431
+201 year old 1.56193
+202 new video 1.55874
+203 photo shoot 1.55115
+204 dont make 1.55032
+205 sounds like 1.54909
+206 next year 1.54298
+207 every day 1.54225
+208 fat joe 1.53986
+209 get done 1.53532
+210 go hard 1.53345
+211 teamfollowback 1.53122
+212 excited 1.52919
+213 new season 1.52553
+214 th grade 1.52079
+215 big booty 1.52069
+216 im bored 1.51874
+217 xfactorusa 1.51615
+218 let know 1.51491
+219 sadtweet 1.51356
+220 never seen 1.50449
+221 another chance 1.50287
+222 coming soon 1.50129
+223 go home 1.49891
+224 oh god 1.49059
+225 mo yan 1.48437
+226 throwback thursday 1.48127
+227 health care 1.48117
+228 wan na fuck 1.47532
+229 scott snyder 1.47470
+230 shit like 1.47207
+231 dont trust 1.46997
+232 whole life 1.46873
+233 never know 1.46725
+234 free 1.46259
+235 gary johnson 1.46167
+236 know know 1.45464
+237 come back 1.44866
+238 annoying 1.44752
+239 good luck 1.44232
+240 new friends 1.43292
+241 wan na talk 1.43137
+242 someone else 1.42861
+243 delena 1.42702
+244 people need 1.42154
+245 jason aldean 1.41097
+246 gangnam style 1.41055
+247 walk away 1.40365
+248 cant see 1.39746
+249 ryan 1.39697
+250 jason brock 1.39563
+251 wan na get 1.39525
+252 yoga pants 1.38711
+253 realtalk 1.37376
+254 wshh 1.36860
+255 scooter braun 1.36255
+256 pakistan 1.35210
+257 pissed 1.34971
+258 people know 1.34897
+259 many times 1.34420
+260 everything else 1.33943
+261 martha raddatz 1.33347
+262 already know 1.33331
+263 got ta get 1.32882
+264 homecoming 1.32873
+265 whole world 1.32597
+266 turn around 1.32504
+267 lil wayne 1.32481
+268 giving away 1.31897
+269 subtweet 1.31325
+270 need someone 1.31243
+271 giveaway 1.31167
+272 classic 1.31070
+273 people like 1.30903
+274 oh yeah 1.30877
+275 salute 1.29499
+276 give fuck 1.29285
+277 trying get 1.29063
+278 good times 1.28744
+279 election 1.28521
+280 october th 1.28439
+281 love much 1.28072
+282 seniors 1.28059
+283 could tell 1.27810
+284 gabf 1.27562
+285 simple 1.27413
+286 centre college 1.27371
+287 kick ass 1.27357
+288 love mom 1.27234
+289 suck dick 1.27049
+290 long time 1.26977
+291 every girl 1.26963
+292 everything everything 1.26696
+293 never trust a stud 1.26540
+294 greys anatomy 1.25593
+295 textmethis 1.25418
+296 one time 1.25376
+297 my worst fear 1.24620
+298 feel bad 1.24417
+299 quotes 1.24402
+300 get along 1.24199
+301 talking shit 1.23959
+302 gift card 1.23743
+303 love love 1.23713
+304 the x factor usa 1.23617
+305 hip hop 1.23437
+306 msnbc 1.23359
+307 dont love 1.23204
+308 feels good 1.22940
+309 really hope 1.22613
+310 taco bell 1.22607
+311 bus driver 1.22512
+312 van jones 1.22333
+313 bite tongue 1.22244
+314 sorry not sorry 1.22041
+315 jim lee 1.21970
+316 new york 1.21694
+
+Events will be saved in results/2012-10-12/
+
+EVENT: 1 News Worthiness: 2.031326786464222
+wan na
+wan na go
+wan na see
+wan na fuck
+wan na talk
+wan na get
+
+EVENT: 2 News Worthiness: 0.8015432721349235
+reasons why we dont get along
+welcome back tvd
+ian somerhalder
+vp debate
+tvd
+cant wait
+xfactor
+gon na
+oomf
+dont know
+x factor
+justin bieber
+vampire diaries
+tbt
+got ta
+paul ryan
+best friends
+debate
+debates
+dont want
+
+EVENT: 3 News Worthiness: 0.5212125034346582
+yankees
+win
+orioles
+fab found tour
+breast cancer
+postseason
+mlb
+walk away
+turn around
+giving away
+giveaway
+gift card
+
+Process finished with exit code 0

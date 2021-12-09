@@ -1,9 +1,9 @@
 <template>
   <div id="eventContainer">
-      <h1>"{{ EventName }}"</h1>
+      <h1>"{{ name }}"</h1>
       <br>
       <!-- <Tweet :tweets="tweetsList"></Tweet> -->
-      <TweetD></TweetD>
+      <TweetD :tweets="tweets"></TweetD>
   </div>
 </template>
 
@@ -32,28 +32,28 @@ export default {
             EventName: "Take a photo",
             tweetsList:[
                 {
-                    id: 1,
-                    date: "05/10/2021",
-                    content: "@shirit: I just posted a photo yesterday."
+                id:"256292946331181056"
                 },
                 {
-                    id: 2,
-                    date: "05/10/2021",
-                    content: "@guygool: Today I am having a photoshoot for LinkedIn profile pic."
+                id:"256334302034399232"
                 },
                 {
-                    id: 3,
-                    date: "05/10/2021",
-                    content: "@nivmeir: My fiance and I took a picture of us in the USA."
+                id:"256335853738160128"
                 },
                 {
-                    id: 4,
-                    date: "05/10/2021",
-                    content: "@nivmeir: link to our new photo https://fb.com/nivmeir/123%73?USA."
+                id:"256346272506712064"
                 },
+                {
+                id:"256346650132508673"
+                },
+
             ],
         }
     },
+    created(){
+        console.log("created event");
+        console.log(this.tweets);
+    }
 }
 </script>
 
