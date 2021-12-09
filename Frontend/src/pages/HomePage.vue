@@ -14,6 +14,8 @@
                     <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
                 </svg>
             </div>
+
+            <!-- Total tweets -->
             <div class="px-4 text-gray-700">
                 <h3 class="text-sm tracking-wider">Total Tweets</h3>
                 <p class="text-3xl">{{total_tweets}}</p>
@@ -28,6 +30,8 @@
                     <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
                 </svg>
             </div>
+
+            <!-- Total authors -->
             <div class="px-4 text-gray-700">
                 <h3 class="text-sm tracking-wider">Total Autors</h3>
                 <p class="text-3xl">{{total_autors}}</p>
@@ -40,23 +44,35 @@
                     <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zm9.954 3H2.545c-.3 0-.545.224-.545.5v1c0 .276.244.5.545.5h10.91c.3 0 .545-.224.545-.5v-1c0-.276-.244-.5-.546-.5zM8.5 7a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM3 10.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"/>
                 </svg>
             </div>
+
+            <!-- Total events -->
             <div class="px-4 text-gray-700">
                 <h3 class="text-sm tracking-wider">Total Events</h3>
-                <p class="text-3xl">{{total_events}}</p>
+                <p class="text-3xl">{{json_return.length}}</p>
             </div>
         </div>
     </div>
 
         
         
-                <Graph></Graph>
-                <br>
+    <Graph></Graph>
+    <br>
 <br>
-                <h3>All Events</h3>
-                <div class="table">
-                        <b-table   :items="tweeetsInfo" :fields="fieldsTweetsInfo" striped responsive="sm" selectable @row-clicked="myRowClickHandler">
-                </b-table>
-                </div>
+    <h3>All Events</h3>
+    <!-- <div class="table">
+            <b-table   :items="tweeetsInfo" :fields="fieldsTweetsInfo" striped responsive="sm" selectable @row-clicked="myRowClickHandler">
+    </b-table>
+    </div> -->
+    <b-table fixed striped hover :items="json_return" :fields="fieldsTweetsInfo">
+        <template #cell(num_of_tweets)="data">
+            {{data.item.tweets.length}}
+        </template>
+        <template #cell(event)="data">
+            <router-link :to="{ name: 'event', params: {id:data.item.event, tweets:data.item.tweets}}">
+                {{data.item.event}}
+            </router-link>
+        </template>
+    </b-table>
 
 
   </div>
@@ -82,7 +98,53 @@ export default {
             total_autors:10000,
             total_tweets:39325000,
             total_events:28,
-            fieldsTweetsInfo:['event summary', 'num of tweets', 'Segmentation'],
+
+            // json format for events/summary
+            fieldsTweetsInfo:['event', 'num_of_tweets', 'segmentation'],
+            json_return:[
+                {
+                    event: "bla",
+                    tweets:[
+                        {
+                        id:"256292946331181056"
+                        },
+                        {
+                        id:"256334302034399232"
+                        },
+                        {
+                        id:"256335853738160128"
+                        },
+                        {
+                        id:"256346272506712064"
+                        },
+                        {
+                        id:"256346650132508673"
+                        },
+                    ],
+                    segmentation:"[take], [photo], [take a photo]"
+                },
+                {event: "bla1",
+                tweets:[
+                    {
+                    id:"256292946331181056"
+                    },
+                    {
+                    id:"256334302034399232"
+                    },
+                    {
+                    id:"256335853738160128"
+                    },
+                    {
+                    id:"256346272506712064"
+                    },
+                    {
+                    id:"256346650132508673"
+                    },
+                ],
+                segmentation: "[mo yan], [chinese writer], [nobel prize literature]"}
+            ],
+            //
+
             tweeetsInfo:[ {'event summary':'Take a photo','num of tweets':'4','Segmentation':"[take], [photo], [take a photo]"},
             {'event summary':'Chinese author Mo Yan wins the Nobel Prize in Literature','num of tweets':'2987','Segmentation':"[mo yan], [chinese writer], [nobel prize literature]"},
             {'event summary':'X Factor UK finalists James Arthur and Rylan Clark give a live show in London.','num of tweets':'1000','Segmentation':"[xfactor], [x factor], [james arthur], [rylan clark]"},
@@ -94,14 +156,26 @@ export default {
 
         }
     },
-     methods: {
+    methods: {
         myRowClickHandler(record, index) {
-    // 'record' will be the row data from items
-    // `index` will be the visible row number (available in the v-model 'shownItems')
-    console.log(record); // This will be the item data for the row
-    this.$router.push({ name: 'event', params: 1 });
-  }
-    }
+            // 'record' will be the row data from items
+            // `index` will be the visible row number (available in the v-model 'shownItems')
+            console.log(record); // This will be the item data for the row
+            this.$router.push({ name: 'event', params: 1 });
+        },
+        async getEventSummary(){
+            try{
+                const events = this.axios.get('http://127.0.0.1:5000/events/summary');
+                this.json_return = events;
+            } catch(error){
+                console.log(`error ${error}\noccured at getEventsSummary on HomePage.vue`);
+            }
+        }
+    },
+    created(){
+        console.log("HomePage created");
+        this.getEventSummary();
+    },
 }
 </script>
 

@@ -116,30 +116,21 @@ paths:
                 $ref: '#/components/schemas/inline_response_200_1'
         "204":
           description: could not retrieve information
-  /events/event_by_date:
+  /events/{date}:
     get:
       tags:
       - events
-      summary: returns all events withins a time interval
+      summary: returns all events by date
       parameters:
-      - name: start
-        in: query
-        description: start of the time interval
+      - name: date
+        in: path
+        description: date of event
         required: true
         style: form
         explode: false
         schema:
           type: string
           example: 24-Feb-2021 00:03:21 GMT
-      - name: end
-        in: query
-        description: end of the time interval
-        required: true
-        style: form
-        explode: false
-        schema:
-          type: string
-          example: 25-Feb-2021 00:03:21 GMT
       responses:
         "200":
           description: success
@@ -247,15 +238,9 @@ components:
     eventObject:
       type: object
       properties:
-        date:
+        name:
           type: string
-          example: 2021-02-02
-        lable:
-          type: string
-          example: event 1
-        description:
-          type: string
-          example: description of what happend on the event
+          example: hadassa has given birth
         related_tweets:
           type: array
           items:
