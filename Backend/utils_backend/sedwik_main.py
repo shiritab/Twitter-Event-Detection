@@ -3,7 +3,7 @@ import os
 from Backend.sedwik.EventSegmentClusterer import get_events, get_seg_similarity
 from Backend.sedwik.TimeWindow import TimeWindow
 from Backend.sedwik.TwitterEventDetector import TwitterEventDetector
-
+from Backend.summarization.lexrank_model import summarization
 def mainFunc():
     # Parameters
     original_tweet_dir = '../data/original_tweets/' # end with '/'
@@ -13,7 +13,10 @@ def mainFunc():
     wiki_titles_file = '../data/enwiki-titles-unstemmed.txt'
     seg_prob_file = '../data/seg_prob_2012_Oct_11-22.json'
     wiki_Qs_file = '../data/WikiQsEng_non_zero_processed.json'
-
+    summarization_list=[]
+    tweets_ids=[]
+    to_ret_events=[]
+    summary_model=summarization()
     remove_retweets = True
     max_segment_length = 4
     hashtag_wt = 3
@@ -68,11 +71,18 @@ def mainFunc():
         f.write(str(e)+' '+str(event_worthiness)+'\n\n')
         for seg_name in e:
             print(seg_name)
-            f.write('SEGMENT:' + seg_name+'\n')
-            for text in set(tw.get_tweets_containing_segment(seg_name)):
-                f.write(text+'\n')
+            f.write('SEGMENT:' + seg_name + '\n')
+            for tweet_id, text in set(tw.get_tweets_containing_segment(seg_name)):
+                f.write(f'{tweet_id} {text}\n')
+                summarization_list.append(text)
+                tweets_ids.append(tweet_id)
             f.write('-----------------------------------------------------------\n')
+            tmp_dict={}
+            tmp_dict["tweets"]=tweets_ids
+            tmp_dict["event"]=seg_name
+            tmp_dict["segmentation"]=summarization_list
+            to_ret_events.append(tmp_dict)
         f.close()
-
+    return to_ret_events
 if __name__ == '__main__':
     mainFunc()

@@ -25,18 +25,8 @@ class Router(Resource):
 
 class events(Resource):
     def get(selfs):
-        return jsonify({"events": [{
-            "date": "2021-11-11",
-            "event_name": "Bibi lose elections",
-            "event_description": "during the last elections Benjanim Netanyahu lost to Naftalie Bennet",
-            "tweets": [
-                {
-                    "Id": "264563843",
-                    "text": "Evarybody knows the Sorlaks are the best",
-                    "url": "www.twitter.com"
-                }
-            ]
-        }]})
+        return jsonify(sedwik_main.mainFunc())
+
 class sedtwik(Resource):
     def get(self):
         return {"data": "without router"}
