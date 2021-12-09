@@ -30,8 +30,8 @@ export default {
     <b-row >
       <b-col class="row">
         <Tweet v-for="tweet in tweets"
-        :key="tweet.id"
-        :id="tweet.id"
+        :key="tweet"
+        :id="tweet"
         class = "tweets_class"
         >
         </Tweet>

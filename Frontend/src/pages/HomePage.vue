@@ -55,24 +55,24 @@
 
         
         
-                <Graph></Graph>
-                <br>
+    <Graph></Graph>
+    <br>
 <br>
-                <h3>All Events</h3>
-                <!-- <div class="table">
-                        <b-table   :items="tweeetsInfo" :fields="fieldsTweetsInfo" striped responsive="sm" selectable @row-clicked="myRowClickHandler">
-                </b-table>
-                </div> -->
-                <b-table fixed striped hover :items="json_return" :fields="fieldsTweetsInfo">
-                    <template #cell(num_of_tweets)="data">
-                        {{data.item.tweets.length}}
-                    </template>
-                    <template #cell(event)="data">
-                        <router-link :to="{ name: 'event', params: {id:data.item.event, tweets:data.item.tweets}}">
-                            {{data.item.event}}
-                        </router-link>
-                    </template>
-                </b-table>
+    <h3>All Events</h3>
+    <!-- <div class="table">
+            <b-table   :items="tweeetsInfo" :fields="fieldsTweetsInfo" striped responsive="sm" selectable @row-clicked="myRowClickHandler">
+    </b-table>
+    </div> -->
+    <b-table fixed striped hover :items="json_return" :fields="fieldsTweetsInfo">
+        <template #cell(num_of_tweets)="data">
+            {{data.item.tweets.length}}
+        </template>
+        <template #cell(event)="data">
+            <router-link :to="{ name: 'event', params: {id:data.item.event, tweets:data.item.tweets}}">
+                {{data.item.event}}
+            </router-link>
+        </template>
+    </b-table>
 
 
   </div>
@@ -100,27 +100,29 @@ export default {
             total_events:28,
 
             // json format for events/summary
-            fieldsTweetsInfo:['event', 'num_of_tweets', 'Segmentation'],
+            fieldsTweetsInfo:['event', 'num_of_tweets', 'segmentation'],
             json_return:[
-                {event: "bla",
-                tweets:[
-                    {
-                    id:"256292946331181056"
-                    },
-                    {
-                    id:"256334302034399232"
-                    },
-                    {
-                    id:"256335853738160128"
-                    },
-                    {
-                    id:"256346272506712064"
-                    },
-                    {
-                    id:"256346650132508673"
-                    },
-                ],
-                Segmentation:"[take], [photo], [take a photo]"},
+                {
+                    event: "bla",
+                    tweets:[
+                        {
+                        id:"256292946331181056"
+                        },
+                        {
+                        id:"256334302034399232"
+                        },
+                        {
+                        id:"256335853738160128"
+                        },
+                        {
+                        id:"256346272506712064"
+                        },
+                        {
+                        id:"256346650132508673"
+                        },
+                    ],
+                    segmentation:"[take], [photo], [take a photo]"
+                },
                 {event: "bla1",
                 tweets:[
                     {
@@ -139,7 +141,7 @@ export default {
                     id:"256346650132508673"
                     },
                 ],
-                Segmentation: "[mo yan], [chinese writer], [nobel prize literature]"}
+                segmentation: "[mo yan], [chinese writer], [nobel prize literature]"}
             ],
             //
 
@@ -154,14 +156,26 @@ export default {
 
         }
     },
-     methods: {
+    methods: {
         myRowClickHandler(record, index) {
-        // 'record' will be the row data from items
-        // `index` will be the visible row number (available in the v-model 'shownItems')
-        console.log(record); // This will be the item data for the row
-        this.$router.push({ name: 'event', params: 1 });
+            // 'record' will be the row data from items
+            // `index` will be the visible row number (available in the v-model 'shownItems')
+            console.log(record); // This will be the item data for the row
+            this.$router.push({ name: 'event', params: 1 });
+        },
+        async getEventSummary(){
+            try{
+                const events = this.axios.get('http://127.0.0.1:5000/events/summary');
+                this.json_return = events;
+            } catch(error){
+                console.log(`error ${error}\noccured at getEventsSummary on HomePage.vue`);
+            }
         }
-    }
+    },
+    created(){
+        console.log("HomePage created");
+        this.getEventSummary();
+    },
 }
 </script>
 
