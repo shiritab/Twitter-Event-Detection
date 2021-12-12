@@ -29,9 +29,9 @@ export default {
   <b-container class="bv-example-row">
     <b-row >
       <b-col class="row">
-        <Tweet v-for="tweet in tweets"
-        :key="tweet"
-        :id="tweet"
+        <Tweet  v-for="tweet in tweets"
+        :key="tweet.id"
+        :id="tweet.id"
         class = "tweets_class"
         >
         </Tweet>
