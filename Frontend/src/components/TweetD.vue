@@ -29,9 +29,15 @@ export default {
   <b-container class="bv-example-row">
     <b-row >
       <b-col class="row">
+<<<<<<< HEAD
         <Tweet v-for="tweet in tweets.slice(0,5)"
         :key="tweet"
         :id="tweet"
+=======
+        <Tweet  v-for="tweet in tweets"
+        :key="tweet.id"
+        :id="tweet.id"
+>>>>>>> shiri
         class = "tweets_class"
         >
         </Tweet>

@@ -174,7 +174,7 @@ export default {
     },
     created(){
         console.log("HomePage created");
-        this.getEventSummary();
+        //this.getEventSummary();
     },
 }
 </script>
