@@ -165,8 +165,8 @@ export default {
         },
         async getEventSummary(){
             try{
-                const events = this.axios.get('http://127.0.0.1:5000/events/summary');
-                this.json_return = events;
+                const events = await this.axios.get('http://127.0.0.1:5000/events/summary');
+                this.json_return = events.data;
             } catch(error){
                 console.log(`error ${error}\noccured at getEventsSummary on HomePage.vue`);
             }

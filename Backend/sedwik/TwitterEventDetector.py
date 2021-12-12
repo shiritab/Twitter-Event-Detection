@@ -1,3 +1,4 @@
+import datetime
 from collections import OrderedDict
 import json
 from math import exp
@@ -56,7 +57,11 @@ class TwitterEventDetector():
             json_tweet = json.loads(line)
             tweet_count += 1
             tweet_id=json_tweet['tweet_id']
-            date=json_tweet['date']
+
+
+            timestamp=json_tweet['date']
+            date = datetime.datetime.fromtimestamp(int(timestamp) / 1000)  # using the local timezone
+            date=date.strftime("%Y-%m-%d")
             user_id = json_tweet['user']['id']
             retweet_count = json_tweet['retweet_count']
             followers_count = json_tweet['user']['followers_count']
@@ -68,7 +73,7 @@ class TwitterEventDetector():
                     new_seg = Segment(seg)
                     new_seg.newsworthiness = self.get_segment_newsworthiness(seg)
                     segments[seg] = new_seg
-                segments[seg].add_tweet(tweet_id,user_id, tweet_text, retweet_count, followers_count)
+                segments[seg].add_tweet(tweet_id,user_id, tweet_text, retweet_count, followers_count,date)
         f.close()
         
         sw = SubWindow(segments, tweet_count)

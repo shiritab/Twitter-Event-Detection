@@ -1,3 +1,5 @@
+import json
+
 from flask import Flask,jsonify
 from flask_restful import Api,Resource,reqparse
 from Backend.utils_backend import  input_adapter,sedwik_main,twitter_collector_basic as tw_cl
@@ -13,10 +15,13 @@ CORS(app, supports_credentials=True)
 # example to the use of flask server & endpoints
 
 import pandas as pd
+import datetime
 
 
-df=pd.read_csv(r"C:\Users\meiri\Desktop\חומרים לימודיים\שנה ג\Downloads\relevant_tweets.tsv", sep='\t')
-df.to_csv('results_csv', index=False,float_format='%.16f')
+
+#
+# df=pd.read_csv(r"C:\Users\meiri\Desktop\חומרים לימודיים\שנה ג\Downloads\relevant_tweets.tsv", sep='\t')
+# df.to_csv('results_csv', index=False,float_format='%.16f')
 # print(df.iloc[:,1].values)
 class Router(Resource):
     def get(self):
@@ -31,7 +36,9 @@ class Router(Resource):
 
 class events(Resource):
     def get(selfs):
-        return jsonify(sedwik_main.mainFunc())
+        with open(r"C:\Users\meiri\Documents\GitHub\Twitter-Event-Detection\Backend\results\proccess_data.json") as file:
+            data = json.load(file)
+            return jsonify(data)
 
 class sedtwik(Resource):
     def get(self):
@@ -40,6 +47,7 @@ class sedtwik(Resource):
 api.add_resource(Router,"/excute_sedtwik")
 
 api.add_resource(events,"/events/summary")
+api.add_resource(sedtwik,"/")
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -82,6 +82,7 @@ def mainFunc():
             tmp_dict["tweets"]=tweets_ids
             tmp_dict["event"]=seg_name
             tmp_dict["segmentation"]=e
+
         to_ret_events.append(tmp_dict)
         f.close()
     return to_ret_events
