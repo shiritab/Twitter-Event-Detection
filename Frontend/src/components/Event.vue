@@ -3,7 +3,7 @@
       <h1>"{{ name }}"</h1>
       <br>
       <!-- <Tweet :tweets="tweetsList"></Tweet> -->
-      <TweetD :tweets="tweets"></TweetD>
+      <TweetD  :tweets="tweets"></TweetD>
   </div>
 </template>
 

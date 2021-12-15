@@ -1,7 +1,7 @@
 <template>
     <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:30%; margin-right:3%">
       <h3 class="text-xl text-gray-600 mb-4" >treemap</h3>
-      <apexchart type="treemap" :height="280" :options="options" :series="series" @click="change"></apexchart>
+      <apexchart ref="realtimeChart" type="treemap" :height="280" :options="options" :series="series" @click="change"></apexchart>
     </div>
 </template>
 
@@ -14,44 +14,48 @@ export default {
         
     },
     props:{
-        data:{type:Object}
+        json_data:{type:Array}
     },
     methods:{
       change(){
         console.log("hello")
+      },
+      make_data(){
+    
+        this.json_data.forEach((event)=>{
+          var dict={x:event.event,y:event.tweets.length};
+          this.list_data.push(dict);
+        })
       }
+    },
+    created (){
+      console.log(this.json_data);
+      this.make_data();
+      this.series[0].data=this.list_data;
+
+      console.log(this.series);
+
+    },
+    watch: { 
+      	json_data: function(newVal, oldVal) { // watch it
+          console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+          this.json_data=newVal
+          this.make_data();
+          
+      this.$refs.realtimeChart.updateSeries([{
+        data: this.series[0].data,
+      }], false, true);
+    
+
+
+        }
     },
     data(){
         return{
-            
+            list_data:[],
         series: [
             {
-              data: [
-                {
-                  x: 'event 1',
-                  y: 218
-                },
-                {
-                  x: 'event 2',
-                  y: 149
-                },
-                {
-                  x: 'event 3',
-                  y: 184
-                },
-                {
-                  x: 'event 4',
-                  y: 55
-                },
-                {
-                  x: 'event 5',
-                  y: 84
-                },
-                {
-                  x: 'event 6',
-                  y: 43
-                }, 
-              ]
+              data: []
             }
           ],
           options: {

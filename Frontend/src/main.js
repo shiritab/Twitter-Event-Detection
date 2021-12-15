@@ -21,7 +21,9 @@ import {
     CardPlugin,
     FormDatepickerPlugin,
     TablePlugin,
-    LayoutPlugin 
+    LayoutPlugin,
+
+    PaginationPlugin
     
 } from "bootstrap-vue";
 [
@@ -33,7 +35,8 @@ import {
     CardPlugin,
     FormDatepickerPlugin,
     TablePlugin,
-    LayoutPlugin 
+    LayoutPlugin ,
+    PaginationPlugin
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 

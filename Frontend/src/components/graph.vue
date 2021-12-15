@@ -1,8 +1,8 @@
 <template>
   <div id="charts">
-      <Area :data="data"></Area>
-      <RadialBar :data="data"></RadialBar>
-      <Treemap :data="data"></Treemap>
+      <Area :json_data="json_data"></Area>
+      <RadialBar :json_data="json_data"></RadialBar>
+      <Treemap :json_data="json_data"></Treemap>
 
 
   </div>
@@ -25,11 +25,27 @@ export default {
         types_arr:
         {
             type:Array
+        },
+        json_data:{
+            type:Array
+
         }
     },
     data(){
         return{
-            data:new Object
+        }
+    },
+
+    created(){
+        console.log("graph mounted")
+        console.log(this.json_data);
+
+
+    },
+    watch: { 
+      	json_data: function(newVal, oldVal) { // watch it
+          console.log('Prop changed: ', newVal, ' | was: ', oldVal);
+          this.json_data=newVal;
         }
     }
 

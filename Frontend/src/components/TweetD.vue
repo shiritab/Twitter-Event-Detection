@@ -26,12 +26,17 @@ export default {
 </style>-->
 
 <template>
-  <b-container class="bv-example-row">
+<div>
+
+
+
+  <b-container id="tweets-show" class="bv-example-row">
     <b-row >
       <b-col class="row">
-        <Tweet v-for="tweet in tweets.slice(0,5)"
+        <Tweet v-for="tweet in tweets_to_show"
         :key="tweet"
         :id="tweet"
+      
         class = "tweets_class"
         >
         </Tweet>
@@ -41,6 +46,16 @@ export default {
   <!-- <Tweet id="692527862369357824" style="width: 5px; padding: 2px;">
     <div class="spinner"></div>
   </Tweet> -->
+
+    <b-pagination style="display:inline-flex"
+      v-model="currentPage"
+      :total-rows="tweets.length"
+      :per-page=10
+      :align="center"
+      aria-controls="tweets-show"
+      @change="onPageChange"
+    ></b-pagination>
+</div>
 </template>
 
 <script>import { Tweet } from 'vue-tweet-embed'
@@ -56,6 +71,26 @@ export default{
             require: true,
         }
   },
+  data()  {
+
+return{
+  tweets_to_show:this.tweets.slice(0,10),
+  currentPage:1
+}
+
+  },
+  methods:{
+    onPageChange(page){
+      console.log(page)
+      
+      this.tweets_to_show=this.tweets.slice(page*10-10,page*10)
+
+
+    }
+  }
+
+
+
 }
 </script>
 
@@ -69,4 +104,6 @@ export default{
 .row col{
   max-height: 10px;
 }
+
+
 </style>

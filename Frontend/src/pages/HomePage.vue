@@ -55,7 +55,7 @@
 
         
         
-    <Graph></Graph>
+    <Graph :v-if="created" :json_data="json_return"></Graph>
     <br>
 <br>
     <h3>All Events</h3>
@@ -98,6 +98,7 @@ export default {
             total_autors:10000,
             total_tweets:39325000,
             total_events:28,
+            created:false,
 
             // json format for events/summary
             fieldsTweetsInfo:['event', 'num_of_tweets', 'segmentation'],
@@ -168,6 +169,7 @@ export default {
                 const events = await this.axios.get('http://127.0.0.1:5000/events/summary');
                 this.json_return = events.data;
             } catch(error){
+                this.json_return=require("../proccess_data.json")
                 console.log(`error ${error}\noccured at getEventsSummary on HomePage.vue`);
             }
         }
@@ -175,7 +177,12 @@ export default {
     created(){
         console.log("HomePage created");
         this.getEventSummary();
+        this.created=true;
+
     },
+
+
+    
 }
 </script>
 
