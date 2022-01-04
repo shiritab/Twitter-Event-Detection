@@ -16,7 +16,7 @@ class Segment:
     def __str__(self):
         return 'Segment:'+self.segment+', freq:'+str(self.freq)+', user_count:'+str(self.get_user_count())
 
-    def add_tweet(self,tweet_id,user_id, text, retweet_count, followers_count,date):
+    def add_tweet(self,tweet_id,user_id, text, retweet_count, followers_count,date,dirty_text):
         self.tweets.append(text)
         self.tweet_ids.append(tweet_id)
         self.user_set.add(user_id)
@@ -24,6 +24,7 @@ class Segment:
         self.date=date
         self.retweet_count += retweet_count
         self.followers_count += followers_count
+        self.dirty_text=dirty_text
         
     def get_user_count(self):
         return len(self.user_set)

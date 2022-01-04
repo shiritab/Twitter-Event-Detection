@@ -9,7 +9,7 @@ def mainFunc():
     original_tweet_dir = '../data/original_tweets/' # end with '/'
     clean_tweet_dir = '../data/cleaned_tweets/without_retweets/' # end with '/'
     subwindow_dir = '../data/cleaned_tweets/without_retweets/2012-10-12/' # each file is a subwindow in this folder
-    event_output_dir = '../results/2012-10-12'
+    event_output_dir = '../results/last_res'
     wiki_titles_file = '../data/enwiki-titles-unstemmed.txt'
     seg_prob_file = '../data/seg_prob_2012_Oct_11-22.json'
     wiki_Qs_file = '../data/WikiQsEng_non_zero_processed.json'
@@ -74,15 +74,15 @@ def mainFunc():
         for seg_name in e:
             print(seg_name)
             f.write('SEGMENT:' + seg_name + '\n')
-            for tweet_id, text in set(tw.get_tweets_containing_segment(seg_name)):
-                f.write(f'{tweet_id} {text}\n')
+            for tweet_id, text,dirty in set(tw.get_tweets_containing_segment(seg_name)):
+                dir= ''.join([w if ord(w) < 128 else ' ' for w in dirty])
+                f.write(f'{tweet_id} {text}{dir}\n')
                 summarization_list.append(text)
                 tweets_ids.append(tweet_id)
             f.write('-----------------------------------------------------------\n')
             tmp_dict["tweets"]=tweets_ids
             tmp_dict["event"]=seg_name
             tmp_dict["segmentation"]=e
-
         to_ret_events.append(tmp_dict)
         f.close()
     return to_ret_events

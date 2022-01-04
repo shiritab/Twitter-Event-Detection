@@ -77,7 +77,7 @@ class TimeWindow:
             segment = sw.segments.get(seg_name,None)
             if not segment == None:
                 # tweets += segment.tweets
-                tweets += list(zip(segment.tweet_ids, segment.tweets))
+                tweets += list(zip(segment.tweet_ids, segment.tweets,segment.dirty_text))
 
         return tweets
         

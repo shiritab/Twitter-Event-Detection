@@ -28,7 +28,7 @@ class Router(Resource):
         Tw_Cl=tw_cl.TwitterCollector()
         Tw_Cl.read_from_twitter()
         Input_Adapter.from_twitter_to_sedtwik()
-        # sedwik_main.mainFunc()
+        sedwik_main.mainFunc()
 
         return {"data":"this is endpoint_example"}
     def post(self):
