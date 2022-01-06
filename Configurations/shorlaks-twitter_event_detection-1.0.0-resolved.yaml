@@ -24,7 +24,7 @@ tags:
 - name: authors
   description: End points related to information about authors
 paths:
-  /events/summary/:algorithm:
+  /events/summary/{algorithm}:
     get:
       tags:
       - events

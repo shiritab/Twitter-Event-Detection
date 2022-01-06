@@ -100,51 +100,52 @@ export default {
             total_tweets:39325000,
             total_events:28,
             created:false,
-
+            sedweek:true,
             // json format for events/summary
             fieldsTweetsInfo:['event', 'num_of_tweets', 'segmentation'],
-            json_return:[
-                {
-                    event: "bla",
-                    tweets:[
-                        {
-                        id:"256292946331181056"
-                        },
-                        {
-                        id:"256334302034399232"
-                        },
-                        {
-                        id:"256335853738160128"
-                        },
-                        {
-                        id:"256346272506712064"
-                        },
-                        {
-                        id:"256346650132508673"
-                        },
-                    ],
-                    segmentation:"[take], [photo], [take a photo]"
-                },
-                {event: "bla1",
-                tweets:[
-                    {
-                    id:"256292946331181056"
-                    },
-                    {
-                    id:"256334302034399232"
-                    },
-                    {
-                    id:"256335853738160128"
-                    },
-                    {
-                    id:"256346272506712064"
-                    },
-                    {
-                    id:"256346650132508673"
-                    },
-                ],
-                segmentation: "[mo yan], [chinese writer], [nobel prize literature]"}
-            ],
+            json_return:[],
+            // json_return:[
+            //     {
+            //         event: "bla",
+            //         tweets:[
+            //             {
+            //             id:"256292946331181056"
+            //             },
+            //             {
+            //             id:"256334302034399232"
+            //             },
+            //             {
+            //             id:"256335853738160128"
+            //             },
+            //             {
+            //             id:"256346272506712064"
+            //             },
+            //             {
+            //             id:"256346650132508673"
+            //             },
+            //         ],
+            //         segmentation:"[take], [photo], [take a photo]"
+            //     },
+            //     {event: "bla1",
+            //     tweets:[
+            //         {
+            //         id:"256292946331181056"
+            //         },
+            //         {
+            //         id:"256334302034399232"
+            //         },
+            //         {
+            //         id:"256335853738160128"
+            //         },
+            //         {
+            //         id:"256346272506712064"
+            //         },
+            //         {
+            //         id:"256346650132508673"
+            //         },
+            //     ],
+            //     segmentation: "[mo yan], [chinese writer], [nobel prize literature]"}
+            // ],
             //
 
             tweeetsInfo:[ {'event summary':'Take a photo','num of tweets':'4','Segmentation':"[take], [photo], [take a photo]"},
@@ -160,8 +161,6 @@ export default {
     },
     methods: {
         myRowClickHandler(record, index) {
-            // 'record' will be the row data from items
-            // `index` will be the visible row number (available in the v-model 'shownItems')
             console.log(record); // This will be the item data for the row
             this.$router.push({ name: 'event', params: 1 });
         },
