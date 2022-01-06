@@ -3,7 +3,7 @@
       <h1> Trending </h1>
       <br>
       <!-- a select button for algorithm picker -->
-      <b-form-select style="width:20%" v-model="selected" :options="['SEDTWik', 'twembeddings', 'algorithm 3','algorithm 4']"></b-form-select>
+      <b-form-select style="width:20%" v-model="algorithm" :options="['sedwik', 'twembeddings', 'algorithm 3','algorithm 4']" v-on:change="getEventSummary();" ></b-form-select>
     <br>
     <br>
         
@@ -58,21 +58,22 @@
     <Graph :v-if="created" :json_data="json_return"></Graph>
     <br>
 <br>
-    <h3>All Events</h3>
-    <!-- <div class="table">
-            <b-table   :items="tweeetsInfo" :fields="fieldsTweetsInfo" striped responsive="sm" selectable @row-clicked="myRowClickHandler">
-    </b-table>
-    </div> -->
-    <b-table fixed striped hover :items="json_return" :fields="fieldsTweetsInfo">
-        <template #cell(num_of_tweets)="data">
-            {{data.item.tweets.length}}
-        </template>
-        <template #cell(event)="data">
-            <router-link :to="{ name: 'event', params: {id:data.item.event, tweets:data.item.tweets}}">
-                {{data.item.event}}
-            </router-link>
-        </template>
-    </b-table>
+        <h3>All Events</h3>
+        <!-- <div class="table">
+                <b-table   :items="tweeetsInfo" :fields="fieldsTweetsInfo" striped responsive="sm" selectable @row-clicked="myRowClickHandler">
+        </b-table>
+        </div> -->
+        <b-table fixed striped hover :items="json_return" :fields="fieldsTweetsInfo">
+            <template #cell(num_of_tweets)="data">
+                {{data.item.tweets.length}}
+            </template>
+            <template #cell(event)="data">
+                <router-link :to="{ name: 'event', params: {id:data.item.event, tweets:data.item.tweets}}">
+                    {{data.item.event}}
+                </router-link>
+            </template>
+        </b-table>
+    
 
 
   </div>
@@ -94,7 +95,7 @@ export default {
     },
     data(){
         return{
-            selected: null,
+            algorithm: "sedwik",
             total_autors:10000,
             total_tweets:39325000,
             total_events:28,
@@ -165,8 +166,9 @@ export default {
             this.$router.push({ name: 'event', params: 1 });
         },
         async getEventSummary(){
+            localStorage.setItem('algorithm',this.algorithm);
             try{
-                const events = await this.axios.get('http://127.0.0.1:5000/events/summary');
+                const events = await this.axios.get(`http://127.0.0.1:5000/events/summary/${this.algorithm}`);
                 this.json_return = events.data;
             } catch(error){
                 this.json_return=require("../proccess_data.json")
@@ -177,8 +179,8 @@ export default {
     created(){
         console.log("HomePage created");
         this.getEventSummary();
+        localStorage.setItem('algorithm', this.algorithm);
         this.created=true;
-
     },
 
 

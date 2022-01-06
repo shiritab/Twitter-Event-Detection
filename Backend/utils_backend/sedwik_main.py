@@ -1,4 +1,7 @@
+import json
 import os
+
+from flask import jsonify
 
 from Backend.sedwik.EventSegmentClusterer import get_events, get_seg_similarity
 from Backend.sedwik.TimeWindow import TimeWindow
@@ -8,7 +11,7 @@ def mainFunc():
     # Parameters
     original_tweet_dir = '../data/original_tweets/' # end with '/'
     clean_tweet_dir = '../data/cleaned_tweets/without_retweets/' # end with '/'
-    subwindow_dir = '../data/cleaned_tweets/without_retweets/2012-10-12/' # each file is a subwindow in this folder
+    subwindow_dir = '../data/cleaned_tweets/without_retweets/2012-10-10-2022/2012-10-10/'  # each file is a subwindow in this folder
     event_output_dir = '../results/last_res'
     wiki_titles_file = '../data/enwiki-titles-unstemmed.txt'
     seg_prob_file = '../data/seg_prob_2012_Oct_11-22.json'
@@ -37,12 +40,11 @@ def mainFunc():
     subwindow_files = [f.name for f in os.scandir(subwindow_dir) if f.is_file()]
 
     subwindows = []
-    for subwindow_name in subwindow_files[:6]: # read timewindow consisting 6 subwindows of 1 hour each
+    for subwindow_name in subwindow_files[:2]: # read timewindow consisting 6 subwindows of 1 hour each
         print('SubWindow:',subwindow_name)
         sw = ted.read_subwindow(subwindow_dir + subwindow_name)
         subwindows.append(sw)
     print('Done\n')
-
     tw = TimeWindow(subwindows)
     print(tw)
 
@@ -66,25 +68,30 @@ def mainFunc():
     for e, event_worthiness in events:
         summarization_list = []
         tweets_ids = []
+        dirty_tweets=[]
+
+
         tmp_dict = {}
         event_no += 1
         print('\nEVENT:', event_no, 'News Worthiness:', event_worthiness)
-        f = open(event_output_dir + str(event_no) + '.txt', 'w')
+        f = open(event_output_dir + str(event_no) + '.txt', 'w', encoding="utf-8")
         f.write(str(e)+' '+str(event_worthiness)+'\n\n')
         for seg_name in e:
             print(seg_name)
             f.write('SEGMENT:' + seg_name + '\n')
-            for tweet_id, text,dirty in set(tw.get_tweets_containing_segment(seg_name)):
-                dir= ''.join([w if ord(w) < 128 else ' ' for w in dirty])
-                f.write(f'{tweet_id} {text}{dir}\n')
+            for tweet_id, text ,dirty in set(tw.get_tweets_containing_segment(seg_name)):
+                f.write(f'{tweet_id} {text}, {dirty}\n')
                 summarization_list.append(text)
                 tweets_ids.append(tweet_id)
+                dirty_tweets.append(dirty)
             f.write('-----------------------------------------------------------\n')
+            tmp_dict["event"]=e
             tmp_dict["tweets"]=tweets_ids
-            tmp_dict["event"]=seg_name
-            tmp_dict["segmentation"]=e
+            tmp_dict["dirty_text"]=dirty_tweets
         to_ret_events.append(tmp_dict)
         f.close()
+    with open('2012-10-12_sedwik.json', 'w') as f:
+        json.dump(to_ret_events, f)
     return to_ret_events
 if __name__ == '__main__':
     mainFunc()

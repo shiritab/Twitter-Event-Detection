@@ -38,7 +38,7 @@ export default {
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
       // 1st two months prior
       const minDate = new Date(today);
-      minDate.setMonth(minDate.getMonth() - 2);
+      minDate.setYear(minDate.getYear() - 20);
       minDate.setDate(1);
 
       const maxDate = new Date(today)
@@ -107,14 +107,17 @@ export default {
     async getEventsByDate(){
       // pass
       try{
-        if(this.dateValue == "2021-10-05"){
-          this.events = this.eventsList;
-        }
-        // const response = await this.axios.get(
-        //   `http://127.0.0.1:5000/events/${this.dateValue}`
-        // );
-        // console.log(response)
-        // this.events =response.data.events;
+        // if(this.dateValue == "2021-10-05"){
+        //   this.events = this.eventsList;
+        // }
+        console.log("here")
+        const algorithm = localStorage.getItem('algorithm');
+        console.log(algorithm);
+        const response = await this.axios.get(
+          `http://127.0.0.1:5000/events/${algorithm}/${this.dateValue}`
+        );
+        console.log(response)
+        this.events =response.data;//.events;
       }catch(error){
         // console.log(error);
       }

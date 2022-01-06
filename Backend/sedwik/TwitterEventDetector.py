@@ -58,14 +58,12 @@ class TwitterEventDetector():
             tweet_count += 1
             tweet_id=json_tweet['tweet_id']
 
-
             timestamp=json_tweet['date']
             date = datetime.datetime.fromtimestamp(int(timestamp) / 1000)  # using the local timezone
             date=date.strftime("%Y-%m-%d")
             user_id = json_tweet['user']['id']
             retweet_count = json_tweet['retweet_count']
             followers_count = json_tweet['user']['followers_count']
-            dirty_text=json_tweet['text']
             segmentation = self.segmenter.tweet_segmentation(json_tweet)
             tweet_text = ' '.join(list(OrderedDict.fromkeys(segmentation))) # because of hashtag_wt, some segments might be multiple in tweet text after joining so remove them
             tweet_text = ''.join([c for c in tweet_text if ord(c)<256]) # dont know why but some non ascii chars like \u0441='c'still survived segmentation!!!
@@ -74,7 +72,7 @@ class TwitterEventDetector():
                     new_seg = Segment(seg)
                     new_seg.newsworthiness = self.get_segment_newsworthiness(seg)
                     segments[seg] = new_seg
-                segments[seg].add_tweet(tweet_id,user_id, tweet_text, retweet_count, followers_count,date,dirty_text)
+                segments[seg].add_tweet(tweet_id,user_id, tweet_text, retweet_count, followers_count,date,json_tweet['text'])
         f.close()
         
         sw = SubWindow(segments, tweet_count)
