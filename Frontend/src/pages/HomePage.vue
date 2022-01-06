@@ -102,7 +102,7 @@ export default {
             created:false,
             sedweek:true,
             // json format for events/summary
-            fieldsTweetsInfo:['event', 'num_of_tweets', 'segmentation'],
+            fieldsTweetsInfo:['event', 'num_of_tweets'],
             json_return:[],
             // json_return:[
             //     {

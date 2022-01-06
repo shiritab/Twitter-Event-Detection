@@ -1,6 +1,6 @@
 <template>
     <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:30%; margin-right:3%">
-      <h3 class="text-xl text-gray-600 mb-4" >treemap</h3>
+      <h3 class="text-xl text-gray-600 mb-4" >Event relative traffic</h3>
       <apexchart ref="realtimeChart" type="treemap" :height="280" :options="options" :series="series" @click="change"></apexchart>
     </div>
 </template>
@@ -21,17 +21,20 @@ export default {
         console.log("hello")
       },
       make_data(){
-    
+        console.log("make_data");
+        this.list_data = [];
         this.json_data.forEach((event)=>{
           var dict={x:event.event,y:event.tweets.length};
           this.list_data.push(dict);
+        
         })
+        console.log(this.list_data);
+        this.series[0].data=this.list_data;
       }
     },
     created (){
       console.log(this.json_data);
       this.make_data();
-      this.series[0].data=this.list_data;
 
       console.log(this.series);
 

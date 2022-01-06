@@ -17,11 +17,11 @@ export default {
         data:{type:Object}
     },
     methods: {
-    clickHandler(event, chartContext, config){
-        console.log("click")
-        console.log(event)
-        console.log(chartContext)
-        console.log(config)
+        clickHandler(event, chartContext, config){
+            console.log("click")
+            console.log(event)
+            console.log(chartContext)
+            console.log(config)
     },
     },
         data(){

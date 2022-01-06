@@ -1,24 +1,26 @@
 <template>
   <div id="charts">
-      <Area :json_data="json_data"></Area>
+      <!-- <Area :json_data="json_data"></Area> -->
       <RadialBar :json_data="json_data"></RadialBar>
       <Treemap :json_data="json_data"></Treemap>
-
+      <Column :json_data="json_data"></Column>
 
   </div>
 </template>
 
 <script>
-import Area from "../components/charts/area.vue"
+// import Area from "../components/charts/area.vue"
 import RadialBar from "../components/charts/radialBar.vue"
 import Treemap from "../components/charts/treemap.vue"
+import Column from "../components/charts/column.vue"
 
 
 export default {
     components:{
-        Area,
+        // Area,
         RadialBar,
-        Treemap
+        Treemap,
+        Column,
     },
     props:
     {
