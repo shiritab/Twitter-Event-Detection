@@ -1,9 +1,9 @@
 # Twitter-Event-Detection
 
-## Questions:
-  - Import problem: when importing the sedwik model problem with some imports from sedwik.main. 
-  - Summarization: Found some algorithms for LaxRank, yet results are not good. given a set of events - the most similar event to other events is returned.
-
+## Intro: 
+  -this project aims to provide solution for data scientist that works in the area of
+  twitter even detection. this site will alow them to compare between diffrents alghoritms and to watch at the
+  visualizations result of the classification between algorithms that runs over the same data sets.
 ## Answers: 
   - save a local db. for all received tweets for reuse. 
   - probably two parallel threads - first is a requests listener from front end, second for tweets requests from twitter.
