@@ -50,7 +50,7 @@ export default {
     <b-pagination style="display:inline-flex"
       v-model="currentPage"
       :total-rows="tweets.length"
-      :per-page=10
+      :per-page=12
       :align="center"
       aria-controls="tweets-show"
       @change="onPageChange"
@@ -74,7 +74,7 @@ export default{
   data()  {
 
 return{
-  tweets_to_show:this.tweets.slice(0,10),
+  tweets_to_show:this.tweets.slice(0,12),
   currentPage:1
 }
 
@@ -83,7 +83,7 @@ return{
     onPageChange(page){
       console.log(page)
       
-      this.tweets_to_show=this.tweets.slice(page*10-10,page*10)
+      this.tweets_to_show=this.tweets.slice(page*12-12,page*12)
 
 
     }

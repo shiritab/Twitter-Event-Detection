@@ -24,14 +24,14 @@ tags:
 - name: authors
   description: End points related to information about authors
 paths:
-  /events/summary:
+  /events/summary/{algorithem}:
     get:
       tags:
       - events
       summary: display a summary of events and related tweets
       parameters:
       - name: algorithem
-        in: query
+        in: path
         description: name of the algorithem used to detect events
         required: false
         style: form
