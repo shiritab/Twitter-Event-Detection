@@ -189,15 +189,14 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Merienda:wght@700&display=swap');
-#home-page{
+/* #home-page{
     font-family: 'Balsamiq Sans', cursive;
-    /* font-family: 'Merienda', cursive; */
     text-align: center;
     background-color: whitesmoke;
         align-items: center;
         
 
-}
+} */
 #charts{
     margin-top: 3%;
     margin-left: 2%;

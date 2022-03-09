@@ -13,7 +13,7 @@
               <b-nav-item :to='{ name: "home" }'>
                 <b-icon-graph-up></b-icon-graph-up> Trending
               </b-nav-item>
-              <b-nav-item href="#">
+              <b-nav-item :to="{ name: 'compare'}">
                 <b-icon-signpost-split></b-icon-signpost-split> Compare
               </b-nav-item>
               <b-nav-item :to="{ name: 'events'}">
@@ -70,4 +70,24 @@ export default {
 #nav-items a:hover{
   color: black;
 }
+
+#app{
+  font-family: 'Balsamiq Sans', cursive;
+    /* font-family: 'Merienda', cursive; */
+    text-align: center;
+    background-color: whitesmoke;
+    align-items: center;
+  min-height: 100vh;
+  // background-size: 100%;
+  background-attachment: fixed;
+  background-size: cover;
+  // height: 100vh;
+    // border: 3px;
+    // box-sizing: border-box;
+}
+
+body{
+margin :0px;
+}
+
 </style>
