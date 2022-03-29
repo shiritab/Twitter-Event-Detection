@@ -96,9 +96,9 @@ export default {
     data(){
         return{
             algorithm: "sedwik",
-            total_autors:10000,
-            total_tweets:39325000,
-            total_events:28,
+            total_autors:2764,
+            total_tweets:243090,
+            total_events:10,
             created:false,
             sedweek:true,
             // json format for events/summary

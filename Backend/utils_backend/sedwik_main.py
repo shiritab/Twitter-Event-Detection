@@ -11,7 +11,7 @@ def mainFunc():
     # Parameters
     original_tweet_dir = '../data/original_tweets/' # end with '/'
     clean_tweet_dir = '../data/cleaned_tweets/without_retweets/' # end with '/'
-    subwindow_dir = '../data/cleaned_tweets/without_retweets/2012-10-10-2022/2012-10-10/'  # each file is a subwindow in this folder
+    subwindow_dir = '../data/cleaned_tweets/without_retweets/'  # each file is a subwindow in this folder
     event_output_dir = '../results/last_res'
     wiki_titles_file = '../data/enwiki-titles-unstemmed.txt'
     seg_prob_file = '../data/seg_prob_2012_Oct_11-22.json'
@@ -20,7 +20,7 @@ def mainFunc():
     to_ret_events=[]
     # summary_model=summarization()
     remove_retweets = True
-    max_segment_length = 4
+    max_segment_length = 7
     hashtag_wt = 3
     entities_only = False # False --> use #tag and @name only for event detection
     default_seg_prob = 0.0000001 # for unknown segments
@@ -40,7 +40,7 @@ def mainFunc():
     subwindow_files = [f.name for f in os.scandir(subwindow_dir) if f.is_file()]
 
     subwindows = []
-    for subwindow_name in subwindow_files[:2]: # read timewindow consisting 6 subwindows of 1 hour each
+    for subwindow_name in subwindow_files[:4]: # read timewindow consisting 6 subwindows of 1 hour each
         print('SubWindow:',subwindow_name)
         sw = ted.read_subwindow(subwindow_dir + subwindow_name)
         subwindows.append(sw)
@@ -90,7 +90,7 @@ def mainFunc():
             tmp_dict["dirty_text"]=dirty_tweets
         to_ret_events.append(tmp_dict)
         f.close()
-    with open('2012-10-12_sedwik.json', 'w') as f:
+    with open('hours1-6_res.json', 'w') as f:
         json.dump(to_ret_events, f)
     return to_ret_events
 if __name__ == '__main__':
