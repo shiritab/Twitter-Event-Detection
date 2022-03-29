@@ -22,7 +22,8 @@ import {
     FormDatepickerPlugin,
     TablePlugin,
     LayoutPlugin,
-
+    FormCheckboxPlugin,
+    FormGroupPlugin,
     PaginationPlugin
     
 } from "bootstrap-vue";
@@ -36,6 +37,8 @@ import {
     FormDatepickerPlugin,
     TablePlugin,
     LayoutPlugin ,
+    FormCheckboxPlugin,
+    FormGroupPlugin,
     PaginationPlugin
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);

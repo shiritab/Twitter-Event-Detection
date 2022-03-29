@@ -1,5 +1,6 @@
-<template>
+<template id="Events-By-Date-Page">
   <div>
+    <!-- <h1> Trending </h1> -->
     <br>
     <b-form-datepicker ref="datepicker"
     v-model="dateValue"
@@ -139,5 +140,11 @@ export default {
 </script>
 
 <style>
-
+/* #Events-By-Date-Page{
+    font-family: 'Balsamiq Sans', cursive;
+    font-family: 'Merienda', cursive;
+    text-align: center;
+    background-color: whitesmoke;
+    align-items: center;
+} */
 </style>

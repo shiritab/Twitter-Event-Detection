@@ -1,5 +1,8 @@
 import  flask
 class TwitterCollector:
+    '''
+    Given a set of tweets' ids we collect the tweets' data from twitter api.
+    '''
     def __init__(self):
         pass
     def read_from_twitter(self,text_path=r"C:\Users\meiri\Documents\GitHub\Twitter-Event-Detection\Backend\data\main_files\list_of_tweets.txt",output_json="tweets_from_api.txt"):
