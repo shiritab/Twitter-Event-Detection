@@ -24,7 +24,10 @@ import {
     LayoutPlugin,
     FormCheckboxPlugin,
     FormGroupPlugin,
-    PaginationPlugin
+    PaginationPlugin,
+    FormPlugin,
+    FormInputPlugin,
+    
     
 } from "bootstrap-vue";
 [
@@ -39,7 +42,9 @@ import {
     LayoutPlugin ,
     FormCheckboxPlugin,
     FormGroupPlugin,
-    PaginationPlugin
+    PaginationPlugin,
+    FormPlugin,
+    FormInputPlugin,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 

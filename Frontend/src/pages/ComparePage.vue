@@ -1,5 +1,6 @@
 <template>
   <div id="Compare-Page">
+      <br>
     <h1> Compare </h1>
     <br>
     <div id="algo-checkbox">
@@ -16,23 +17,28 @@
         </div>
         </b-form-group>
     </div>
-    <div id="charts">
+    <div id="compare">
         <CompareColumn></CompareColumn>
+        <CompareBar></CompareBar>
     </div>
   </div>
 </template>
 
 <script>
 import CompareColumn from "./../components/charts/CompareColumn.vue"
+import CompareBar from "./../components/charts/CompareBar.vue"
+
 export default {
     name: 'ComparePage',
     components:{
         CompareColumn,
+        CompareBar
     },
     data(){
         return{
             selected: [],
-            options: ['Sedwik', 'Twembeddings','Bert Topic']
+            options: ['Sedwik', 'Twembeddings','Bert Topic'],
+
         }
     }
 }
@@ -47,5 +53,9 @@ export default {
 #compare-button{
     margin: 0 auto;
     display: table
+}
+#compare{
+    display: flex;
+    width: 100%;
 }
 </style>
