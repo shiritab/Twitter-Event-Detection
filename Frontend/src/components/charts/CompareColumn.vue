@@ -1,7 +1,7 @@
 <template>
-  <div id="chart">
+  <div id="chart" class="compareCol">
     <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:95%; margin-right:3%">
-      <h3 class="text-xl text-gray-600 mb-4" >Event's average emotion positivity</h3>
+      <h3 class="text-xl text-gray-600 mb-4" >Algorithms performance</h3>
       <apexchart type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
     </div>
   </div>
@@ -19,13 +19,13 @@ export default {
         return{
             series: [{
                 name: 'Sedwik',
-                data: [44, 55, 57]//, 56, 61, 58, 63, 60, 66]
+                data: [0.84,0.79,0.5]//, 56, 61, 58, 63, 60, 66]
             }, {
                 name: 'Twembeddings',
-                data: [76, 85, 101]//, 98, 87, 105, 91, 114, 94]
+                data: [0.6,0.89,0.48]//, 98, 87, 105, 91, 114, 94]
             }, {
                 name: 'Bert Topic',
-                data: [35, 41, 36]//, 26, 45, 48, 52, 53, 41]
+                data: [0.77,0.55,0.69]//, 26, 45, 48, 52, 53, 41]
             }],
             
             chartOptions: { 
@@ -51,11 +51,7 @@ export default {
             xaxis: {
               categories: ['Precision', 'Recall', 'F1-Score'], //, 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
             },
-            yaxis: {
-              title: {
-                text: '$ (thousands)'
-              }
-            },
+
             fill: {
               opacity: 1
             },
@@ -73,5 +69,8 @@ export default {
 </script>
 
 <style>
-
+.compareCol{
+    width: 50%;
+    margin-left: 4%;
+}
 </style>

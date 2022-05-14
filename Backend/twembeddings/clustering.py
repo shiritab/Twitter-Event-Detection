@@ -167,7 +167,7 @@ def sort_results_by_cluster(path):
         json.dump(return_JSON, f)
 
 
-def summerize(text,summarizer):
+def summarize(text, summarizer):
     # print(summarizer(text, max_length=9, min_length=3, do_sample=False))
     return text
 if __name__ == '__main__':
@@ -175,7 +175,7 @@ if __name__ == '__main__':
     # summerize("text",summarizer)
 
     main({'model': ['tfidf_all_tweets'],
-          'dataset': 'data/event2012json_2.tsv',
+          'dataset': f'C:\\Users\\user\\Desktop\\tagged tweets\\event2012_labeled_only_2.tsv',
           'lang': 'en',
           'annotation': 'no',
           'threshold': ['0.7'],
@@ -183,7 +183,7 @@ if __name__ == '__main__':
           'remove_mentions': None,
           'window': 24})
 
-    sort_results_by_cluster("data/event2012json_2_results.tsv")
+    sort_results_by_cluster(f'C:\\Users\\user\\Desktop\\tagged tweets\\event2012_labeled_only_2_results.tsv')
 
     # args = vars(parser.parse_args())
     # main(args)

@@ -3,7 +3,13 @@
       <h1> Trending </h1>
       <br>
       <!-- a select button for algorithm picker -->
-      <b-form-select style="width:20%" v-model="algorithm" :options="['sedwik', 'twembeddings', 'algorithm 3','algorithm 4']" v-on:change="getEventSummary();" ></b-form-select>
+
+
+        <b-button size="sm" class="mb-2" variant="info">
+      <b-icon icon="cloud-arrow-up" aria-hidden="true"></b-icon> Upload Data
+    </b-button>
+
+      <b-form-select style="width:20%" v-model="algorithm" :options="['sedwik', 'twembeddings', 'bert topic','algorithm 4']" v-on:change="getEventSummary();" ></b-form-select>
     <br>
     <br>
         
@@ -221,5 +227,9 @@ export default {
     background-color: white;
     opacity: 80%;
 
+}
+.mb-2{
+    float: left;
+    margin-left: 2%;
 }
 </style>
