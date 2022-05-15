@@ -18,8 +18,8 @@
         </b-form-group>
     </div>
     <div id="compare">
-        <CompareColumn></CompareColumn>
-        <CompareBar></CompareBar>
+        <CompareColumn :algorithms="selected"></CompareColumn>
+        <CompareBar :algorithms="selected"></CompareBar>
     </div>
   </div>
 </template>
@@ -36,7 +36,7 @@ export default {
     },
     data(){
         return{
-            selected: [],
+            selected: ['Sedwik', 'Twembeddings','Bert Topic'],
             options: ['Sedwik', 'Twembeddings','Bert Topic'],
 
         }

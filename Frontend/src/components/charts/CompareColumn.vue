@@ -2,7 +2,7 @@
   <div id="chart" class="compareCol">
     <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:95%; margin-right:3%">
       <h3 class="text-xl text-gray-600 mb-4" >Algorithms performance</h3>
-      <apexchart type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
+      <apexchart type="bar" height="350" :options="chartOptions" :series="get_score"></apexchart>
     </div>
   </div>
 </template>
@@ -15,17 +15,32 @@ export default {
     components:{
         apexchart: VueApexCharts,
     },
+    props:{
+      algorithms:{
+        type:Array
+      }
+    },
     data(){
         return{
-            series: [{
+          json_return:[{
                 name: 'Sedwik',
-                data: [0.84,0.79,0.5]//, 56, 61, 58, 63, 60, 66]
+                data: [0.84,0.79]//, 56, 61, 58, 63, 60, 66]
             }, {
                 name: 'Twembeddings',
-                data: [0.6,0.89,0.48]//, 98, 87, 105, 91, 114, 94]
+                data: [0.6,0.89]//, 98, 87, 105, 91, 114, 94]
             }, {
                 name: 'Bert Topic',
-                data: [0.77,0.55,0.69]//, 26, 45, 48, 52, 53, 41]
+                data: [0.77,0.55]//, 26, 45, 48, 52, 53, 41]
+            }],
+            series: [{
+                name: 'Sedwik',
+                data: [0.84,0.79]//, 56, 61, 58, 63, 60, 66]
+            }, {
+                name: 'Twembeddings',
+                data: [0.6,0.89]//, 98, 87, 105, 91, 114, 94]
+            }, {
+                name: 'Bert Topic',
+                data: [0.77,0.55]//, 26, 45, 48, 52, 53, 41]
             }],
             
             chartOptions: { 
@@ -49,7 +64,7 @@ export default {
               colors: ['transparent']
             },
             xaxis: {
-              categories: ['Precision', 'Recall', 'F1-Score'], //, 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+              categories: ["normalized_mutual_info_score","adjusted_rand_score"], //, 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
             },
 
             fill: {
@@ -64,7 +79,33 @@ export default {
             }
             }
         }
-    }
+    },
+
+    computed:{
+      get_score(){
+        console.log(this.algorithms);
+        var new_list=[]
+        this.json_return.map(dict=>{
+            if (this.algorithms.includes(dict.name)){
+              new_list.push(dict);
+            }
+        });
+        console.log(this.json_return)
+        console.log(new_list);
+        return new_list
+      }
+    },
+  //  async mounted(){
+  //     try{
+  //               const compare_score = await this.axios.get(`http://127.0.0.1:5000/algorithm/compare`);
+  //               this.json_return = compare_score.data;
+  //               this.series=this.json_return;
+  //           } catch(error){
+                
+  //               console.log(`error ${error}\noccured at getEventsSummary on HomePage.vue`);
+  //           }
+  //   }
+    
 }
 </script>
 

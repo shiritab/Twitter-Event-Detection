@@ -93,3 +93,10 @@ class Bert:
             })
         print(events[0])
         return events
+def JSON_for_bert(path):
+    # turn information to DataFrame which i will dump into a .pkl file - this file will be uploaded to a bert notebook
+    df = pd.read_json(path, lines=True)
+    df = df.drop(['created_at', 'retweet_count', 'favorite_count', 'user', 'entities'], axis=1)
+    print("here")
+    pickle.dump(df, open("D:/TED/2012/event2012json_5.pkl", 'wb'))
+
