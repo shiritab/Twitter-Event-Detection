@@ -7,9 +7,9 @@ import sys
 
 from Backend.utils_backend.sedwik import BurstySegmentExtractor
 from Backend.utils_backend.sedwik import Segment
-from Backend.utils_backend.sedwik import SubWindow
-from Backend.utils_backend.sedwik import SEDTWikSegmenter
-from Backend.utils_backend.sedwik import TweetCleaner
+from Backend.utils_backend.sedwik.TimeWindow import SubWindow
+from Backend.utils_backend.sedwik.TweetSegmenter import SEDTWikSegmenter
+from Backend.utils_backend.sedwik.TweetCleaner import TweetCleaner
 
 
 class TwitterEventDetector():

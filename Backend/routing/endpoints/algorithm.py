@@ -5,6 +5,7 @@ from sklearn.metrics.cluster import adjusted_rand_score
 import json
 from operator import itemgetter
 from ...algorithms.sedtwik.SedTwik import SedTwik
+from ...algorithms.twembeddings.Twembeddings import Twembeddings
 from ...algorithms.eventDetectionAlgorithms import eventDetectionAlgorithms
 
 # Do not delete this line
@@ -12,7 +13,8 @@ algorithm = Blueprint("algorithm", __name__)
 
 ####
 algorithms_object = eventDetectionAlgorithms()
-algorithms_object.add_algorithm("SedTwik", SedTwik())
+# algorithms_object.add_algorithm("SedTwik", SedTwik())
+algorithms_object.add_algorithm("Twembeddings", Twembeddings())
 tagged_tweets = f'C:\\Users\\user\\Desktop\\tagged tweets\\event2012_labeled_only.tsv'
 
 @algorithm.route("/<algorithm>")
@@ -21,15 +23,25 @@ def run_algorithm(algorithm):
 
 @algorithm.route("/compare")
 def compare_algorithms():
-    # TODO: shall refix this get request.
-    tweets_dict = {}
-    prediction = convert_results_to_vector()
-    lables, prediction = convert_tags_to_vector()
-    print(normalized_mutual_info_score(lables, prediction))
-    print(adjusted_rand_score(lables, prediction))
+    list_output = []
+    algorithms = algorithms_object.get_algorithms().keys()
+    file_path = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backend\results\2012-10-12_{}.json"
+    for algorithm in algorithms:
+        dict_output = {}
+        dict_output["name"] = algorithm
+        tweets_dict = convert_results_to_vector(file_path.format(algorithm.lower()))
+        lables, prediction = convert_tags_to_vector(tweets_dict)
+        dict_output["data"] = [normalized_mutual_info_score(lables, prediction), adjusted_rand_score(lables, prediction)]
 
-def convert_tags_to_vector():
-    tsv_file = open("relevant_tweets.tsv") # contains only 2 cols - cluster id, tweet id
+        print(normalized_mutual_info_score(lables, prediction))
+        print(adjusted_rand_score(lables, prediction))
+        list_output.append(dict_output)
+
+    return jsonify(list_output)
+
+
+def convert_tags_to_vector(tweets_dict):
+    tsv_file = open(r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backend\data\relevant_tweets.tsv") # contains only 2 cols - cluster id, tweet id
     read_tsv = csv.reader(tsv_file, delimiter="\t")
     ground_truth = []
     list_pred = []
@@ -48,7 +60,7 @@ def convert_tags_to_vector():
 def convert_results_to_vector(path):
     # TODO: adapt to changing algorithm
     f = open(path)
-
+    tweets_dict = {}
     # returns JSON object as
     # a dictionary
     data = json.load(f)
@@ -65,7 +77,7 @@ def convert_results_to_vector(path):
     list_pred = sorted(list_pred, key=itemgetter(1))
     lable_pred = [x[0] for x in list_pred]
     print(len(lable_pred))
-    return lable_pred
+    return tweets_dict
 
     # Closing file
     f.close()

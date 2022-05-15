@@ -1,2 +1,4 @@
 SedTwik: !!python/object:Backend.algorithms.sedtwik.SedTwik.SedTwik
   eventResutls: null
+Twembeddings: !!python/object:Backend.algorithms.twembeddings.Twembeddings.Twembeddings
+  eventResutls: null
