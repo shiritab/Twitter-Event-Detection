@@ -36,8 +36,8 @@ export default {
     },
     data(){
         return{
-            selected: ['Sedwik', 'Twembeddings','Bert Topic'],
-            options: ['Sedwik', 'Twembeddings','Bert Topic'],
+            selected: ['SedTwik', 'Twembeddings','Bert Topic'],
+            options: ['SedTwik', 'Twembeddings','Bert Topic'],
 
         }
     }

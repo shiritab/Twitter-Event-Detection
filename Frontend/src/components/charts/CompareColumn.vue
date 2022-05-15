@@ -83,7 +83,6 @@ export default {
 
     computed:{
       get_score(){
-        console.log(this.algorithms);
         var new_list=[]
         this.json_return.map(dict=>{
             if (this.algorithms.includes(dict.name)){
@@ -95,16 +94,20 @@ export default {
         return new_list
       }
     },
-  //  async mounted(){
-  //     try{
-  //               const compare_score = await this.axios.get(`http://127.0.0.1:5000/algorithm/compare`);
-  //               this.json_return = compare_score.data;
-  //               this.series=this.json_return;
-  //           } catch(error){
-                
-  //               console.log(`error ${error}\noccured at getEventsSummary on HomePage.vue`);
-  //           }
-  //   }
+   async mounted(){
+      try{
+          const compare_score = await this.axios.get(`http://127.0.0.1:5000/algorithm/compare`);
+          this.json_return = compare_score.data;
+          this.series=this.json_return;
+          // console.log("compare score:");
+          // console.log(compare_score);
+          // console.log("json return:");
+          // console.log(this.json_return)
+
+      } catch(error){  
+          console.log(`error ${error}\noccured at compare algorithms`);
+      }
+    }
     
 }
 </script>
