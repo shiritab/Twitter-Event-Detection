@@ -3,9 +3,9 @@ import os
 
 from flask import jsonify
 
-from Backend.sedwik.EventSegmentClusterer import get_events, get_seg_similarity
-from Backend.sedwik.TimeWindow import TimeWindow
-from Backend.sedwik.TwitterEventDetector import TwitterEventDetector
+from Backend.utils_backend.sedwik import get_events, get_seg_similarity
+from Backend.utils_backend.sedwik import TimeWindow
+from Backend.utils_backend.sedwik import TwitterEventDetector
 from Backend.summarization.lexrank_model import summarization
 def mainFunc():
     # Parameters

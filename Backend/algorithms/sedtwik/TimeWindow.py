@@ -1,6 +1,6 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from Backend.sedwik.Segment import Segment
+from Backend.utils_backend.sedwik import Segment
 
         
 def tf_idf_sim(text1, text2):

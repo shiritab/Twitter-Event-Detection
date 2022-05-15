@@ -1,31 +1,32 @@
-from flask import Blueprint
+from flask import Blueprint, Flask, jsonify, request
 import csv
 from sklearn.metrics.cluster import normalized_mutual_info_score
 from sklearn.metrics.cluster import adjusted_rand_score
 import json
 from operator import itemgetter
-tagged_tweets = f'C:\\Users\\user\\Desktop\\tagged tweets\\event2012_labeled_only.tsv'
+from ...algorithms.sedtwik.SedTwik import SedTwik
+from ...algorithms.eventDetectionAlgorithms import eventDetectionAlgorithms
 
 # Do not delete this line
 algorithm = Blueprint("algorithm", __name__)
-####
-# algorithms = {'sedtwik': object, 'twembeddings': object, 'bert topic': object}
 
+####
+algorithms_object = eventDetectionAlgorithms()
+algorithms_object.add_algorithm("SedTwik", SedTwik())
+tagged_tweets = f'C:\\Users\\user\\Desktop\\tagged tweets\\event2012_labeled_only.tsv'
 
 @algorithm.route("/<algorithm>")
 def run_algorithm(algorithm):
-    # run algorithm by given string
-    pass
+    return jsonify(algorithms_object.get_algorithms()[algorithm].run_algorithm())
 
-# TODO: shall refix this get request.
 @algorithm.route("/compare")
 def compare_algorithms():
+    # TODO: shall refix this get request.
     tweets_dict = {}
     prediction = convert_results_to_vector()
     lables, prediction = convert_tags_to_vector()
     print(normalized_mutual_info_score(lables, prediction))
     print(adjusted_rand_score(lables, prediction))
-
 
 def convert_tags_to_vector():
     tsv_file = open("relevant_tweets.tsv") # contains only 2 cols - cluster id, tweet id
@@ -44,8 +45,8 @@ def convert_tags_to_vector():
     print(len(lable))
     return lable, prediction
 
-# TODO: adapt to changing algorithm
 def convert_results_to_vector(path):
+    # TODO: adapt to changing algorithm
     f = open(path)
 
     # returns JSON object as

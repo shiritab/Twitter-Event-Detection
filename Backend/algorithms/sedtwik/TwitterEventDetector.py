@@ -5,11 +5,12 @@ from math import exp
 import os
 import sys
 
-from Backend.sedwik.BurstySegmentExtractor import BurstySegmentExtractor
-from Backend.sedwik.Segment import Segment
-from Backend.sedwik.TimeWindow import SubWindow
-from Backend.sedwik.TweetSegmenter import SEDTWikSegmenter
-from Backend.sedwik import TweetCleaner
+from Backend.utils_backend.sedwik import BurstySegmentExtractor
+from Backend.utils_backend.sedwik import Segment
+from Backend.utils_backend.sedwik import SubWindow
+from Backend.utils_backend.sedwik import SEDTWikSegmenter
+from Backend.utils_backend.sedwik import TweetCleaner
+
 
 class TwitterEventDetector():
     def __init__(self, wiki_titles_file, seg_prob_file, wiki_Qs_file, remove_retweets=False, max_segment_length=4, hashtag_wt=3,

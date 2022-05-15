@@ -105,7 +105,7 @@ class SEDTWikSegmenter:
         return segmentation
     
 if __name__ == '__main__':
-    segmenter = SEDTWikSegmenter(wiki_titles_file='../data/enwiki-titles-unstemmed.txt')
+    segmenter = SEDTWikSegmenter(wiki_titles_file='../../data/enwiki-titles-unstemmed.txt')
 
     while True:
          print('Enter Tweet to segment it ("x" to exit)...')
