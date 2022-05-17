@@ -1,4 +1,4 @@
-from flask import Blueprint, Flask, jsonify, request
+from flask import Blueprint, Flask, jsonify, request, Response
 import csv
 from sklearn.metrics.cluster import normalized_mutual_info_score
 from sklearn.metrics.cluster import adjusted_rand_score
@@ -13,6 +13,7 @@ algorithm = Blueprint("algorithm", __name__)
 
 ####
 algorithms_object = eventDetectionAlgorithms()
+FILE_PATH = ""
 TAGGED_TWEETS_PATH = f'C:\\Users\\user\\Desktop\\tagged tweets\\event2012_labeled_only.tsv'
 RELEVANT_TWEETS_PATH = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backend\data\relevant_tweets.tsv"
 ALGORITHM_FILE = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backend\results\2012-10-12_{}.json"
@@ -21,9 +22,10 @@ ALGORITHM_FILE = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backen
 def run_algorithm(algorithm):
     return jsonify(algorithms_object.get_algorithms()[algorithm].run_algorithm())
 
-@algorithm.route("/<file_path>")
-def upload_file_path(file_path):
-    pass                     
+@algorithm.route("/data-path")
+def upload_file_path():
+    FILE_PATH = request.get_json()["path"]
+    return Response(status=201)
 
 
 @algorithm.route("/compare")
