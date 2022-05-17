@@ -20,17 +20,20 @@
                 <b-icon-list-ul></b-icon-list-ul> Events
               </b-nav-item>
               <!-- <b-nav-item :to="{ name: 'event', params:{id:123}}"> Event </b-nav-item> -->
-              
               <b-nav-item :to="{ name: 'login'}">
                 <b-icon-person-circle></b-icon-person-circle> Login
               </b-nav-item>
+              <b-nav-item :to="{ name: 'about'}">
+                <b-icon-info-circle></b-icon-info-circle> About
+              </b-nav-item>
             </b-navbar-nav>
-              <!-- <template #footer="{ hide }">
+              <!-- <template #footer="{ hide }"> -->
+              <template #footer>
                 <div class="d-flex bg-light text-dark align-items-center px-3 py-2">
                   <strong class="mr-auto">© Shorlak members</strong>
-                  <b-button size="sm" @click="hide">Close</b-button>
+                  <!-- <b-button size="sm" @click="hide">Close</b-button> -->
                 </div>
-              </template> -->
+              </template>
           </b-sidebar>
         </b-col>
         <b-col cols="10">

@@ -21,6 +21,11 @@ ALGORITHM_FILE = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backen
 def run_algorithm(algorithm):
     return jsonify(algorithms_object.get_algorithms()[algorithm].run_algorithm())
 
+@algorithm.route("/<file_path>")
+def upload_file_path(file_path):
+    pass                     
+
+
 @algorithm.route("/compare")
 def compare_algorithms():
     list_output = []
