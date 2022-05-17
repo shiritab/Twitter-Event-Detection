@@ -2,7 +2,7 @@ import json
 from Backend.summarization import hugging_faces
 from flask import Blueprint, jsonify
 from Backend.utils_backend.emotion_tweet import EmotionTweet
-
+from .algorithm import algorithms_object
 # Do not delete this line
 events = Blueprint("events", __name__)
 ####
@@ -10,29 +10,29 @@ events = Blueprint("events", __name__)
 
 @events.route("/summary/<algorithm>")
 def get_algorithm_summary(algorithm):
-    path = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backend\results\\2012-10-12_{}.json".format(algorithm)
-    with open(path, 'r') as file:
-        data = json.load(file)
-        if data[0]['summarized'] == "true":
-            return jsonify(data)
-        hg = hugging_faces.HuggingFaces()
-        for i in range(len(data)):
-            # summarize for event name
-            dictionary = data[i]
-            if algorithm == "sedwik":
-                summary = hg.summarize(dictionary["event"])
-            elif algorithm == "twembeddings":
-                summary = hg.summarize(dictionary["dirty_text"])
-            # calc tweet emotion
-            if "tweets_emotion" not in dictionary:
-                dictionary["tweets_emotion"] = EmotionTweet().find_emotion(dictionary["dirty_text"])
-            dictionary['event'] = summary
-            data[i] = dictionary
+    # path = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backend\results\\2012-10-12_{}.json".format(algorithm)
+    # with open(path, 'r') as file:
+    #     data = json.load(file)
+    #     if data[0]['summarized'] == "true":
+    #         return jsonify(data)
+    #     hg = hugging_faces.HuggingFaces()
+    #     for i in range(len(data)):
+    #         # summarize for event name
+    #         dictionary = data[i]
+    #         if algorithm == "sedwik":
+    #             summary = hg.summarize(dictionary["event"])
+    #         elif algorithm == "twembeddings":
+    #             summary = hg.summarize(dictionary["dirty_text"])
+    #         # calc tweet emotion
+    #         if "tweets_emotion" not in dictionary:
+    #             dictionary["tweets_emotion"] = EmotionTweet().find_emotion(dictionary["dirty_text"])
+    #         dictionary['event'] = summary
+    #         data[i] = dictionary
+    #
+    # with open(path, 'w') as file:
+    #     json.dump(data, file)
 
-    with open(path, 'w') as file:
-        json.dump(data, file)
-
-    return jsonify(data)
+    return jsonify(algorithms_object.get_algorithms(algorithm).summarize())
 
 
 @events.route("/events/<algorithm>/<date>")

@@ -20,12 +20,19 @@ ALGORITHM_FILE = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backen
 
 @algorithm.route("/<algorithm>")
 def run_algorithm(algorithm):
-    return jsonify(algorithms_object.get_algorithms()[algorithm].run_algorithm())
+    return jsonify(algorithms_object.get_algorithms()[algorithm].run_algorithm(FILE_PATH))
 
 @algorithm.route("/data-path")
 def upload_file_path():
-    FILE_PATH = request.get_json()["path"]
-    return Response(status=201)
+    global FILE_PATH
+    try:
+        FILE_PATH = request.form['path']
+        return Response(status=201)
+    except Exception as e:
+        print(e.with_traceback())
+        return Response(status=500)
+
+
 
 
 @algorithm.route("/compare")
