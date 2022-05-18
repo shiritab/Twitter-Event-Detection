@@ -27,6 +27,7 @@ import {
     PaginationPlugin,
     FormPlugin,
     FormInputPlugin,
+    FormFilePlugin,
     
     
 } from "bootstrap-vue";
@@ -45,6 +46,8 @@ import {
     PaginationPlugin,
     FormPlugin,
     FormInputPlugin,
+    FormFilePlugin,
+
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 

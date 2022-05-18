@@ -23,7 +23,7 @@ export default {
     data(){
         return{
           json_return:[{
-                name: 'Sedwik',
+                name: 'SedTwik',
                 data: [0.84,0.79]//, 56, 61, 58, 63, 60, 66]
             }, {
                 name: 'Twembeddings',
@@ -33,7 +33,7 @@ export default {
                 data: [0.77,0.55]//, 26, 45, 48, 52, 53, 41]
             }],
             series: [{
-                name: 'Sedwik',
+                name: 'SedTwik',
                 data: [0.84,0.79]//, 56, 61, 58, 63, 60, 66]
             }, {
                 name: 'Twembeddings',
@@ -99,10 +99,6 @@ export default {
           const compare_score = await this.axios.get(`http://127.0.0.1:5000/algorithm/compare`);
           this.json_return = compare_score.data;
           this.series=this.json_return;
-          // console.log("compare score:");
-          // console.log(compare_score);
-          // console.log("json return:");
-          // console.log(this.json_return)
 
       } catch(error){  
           console.log(`error ${error}\noccured at compare algorithms`);
