@@ -85,5 +85,4 @@ api.add_resource(eventsByDate,"/events/<algorithm>/<Date>")
 api.add_resource(sedtwik,"/")
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
+   app.run(debug=True,port=443,host='0.0.0.0',ssl_context="adhoc")

@@ -1,6 +1,6 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from Backend.utils_backend.sedwik import Segment
+from Backend.algorithms.sedtwik import Segment
 
         
 def tf_idf_sim(text1, text2):
@@ -79,7 +79,7 @@ class TimeWindow:
                 # tweets += segment.tweets
                 # , [segment.dirty_text]
                 tweets += list(zip(segment.tweet_ids, segment.tweets,segment.dirty_tweets))
-        print(tweets)
+        # print(tweets)
         return tweets
         
     def advance_window(self, next_subwindow):

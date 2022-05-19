@@ -1,0 +1,1 @@
+from Backend.algorithms.eventDetectionAlgorithm import DetectionAlgorithm

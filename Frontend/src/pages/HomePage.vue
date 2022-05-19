@@ -32,12 +32,14 @@
 </div>
 
 
-<div class="col-sm">
-      <b-form-select style="width:20%" v-model="algorithm" :options="['sedwik', 'twembeddings', 'bert topic','algorithm 4']" v-on:change="getEventSummary();" ></b-form-select>
-</div>
-</div>
+      <b-form-select style="width:20%" v-model="algorithm" :options="['SedTwik', 'Twembeddings', 'Bert Topic']"></b-form-select>
+    <br>
+    <br>
 
-        
+    <b-button size="sm" class="mb-2" variant="info" @click="getEventSummary()">
+        <b-icon icon="play" aria-hidden="true"></b-icon> Run
+    </b-button>
+</div>
     <div class="grid grid-cols-1 gap-4 px-4 mt-8 sm:grid-cols-4 sm:px-8">
         <div id=icon class="flex items-center bg-white border rounded-sm overflow-hidden shadow ">
             <div class="p-4 bg-blue-400">
@@ -128,10 +130,10 @@ export default {
     },
     data(){
         return{
+            algorithm: "SedTwik",
             selectedFile:"",
             src:"",
             file:"",
-            algorithm: "sedwik",
             total_autors:2764,
             total_tweets:243090,
             total_events:10,
@@ -140,49 +142,6 @@ export default {
             // json format for events/summary
             fieldsTweetsInfo:['event', 'num_of_tweets'],
             json_return:[],
-            // json_return:[
-            //     {
-            //         event: "bla",
-            //         tweets:[
-            //             {
-            //             id:"256292946331181056"
-            //             },
-            //             {
-            //             id:"256334302034399232"
-            //             },
-            //             {
-            //             id:"256335853738160128"
-            //             },
-            //             {
-            //             id:"256346272506712064"
-            //             },
-            //             {
-            //             id:"256346650132508673"
-            //             },
-            //         ],
-            //         segmentation:"[take], [photo], [take a photo]"
-            //     },
-            //     {event: "bla1",
-            //     tweets:[
-            //         {
-            //         id:"256292946331181056"
-            //         },
-            //         {
-            //         id:"256334302034399232"
-            //         },
-            //         {
-            //         id:"256335853738160128"
-            //         },
-            //         {
-            //         id:"256346272506712064"
-            //         },
-            //         {
-            //         id:"256346650132508673"
-            //         },
-            //     ],
-            //     segmentation: "[mo yan], [chinese writer], [nobel prize literature]"}
-            // ],
-            //
 
             tweeetsInfo:[ {'event summary':'Take a photo','num of tweets':'4','Segmentation':"[take], [photo], [take a photo]"},
             {'event summary':'Chinese author Mo Yan wins the Nobel Prize in Literature','num of tweets':'2987','Segmentation':"[mo yan], [chinese writer], [nobel prize literature]"},
@@ -204,7 +163,11 @@ export default {
         async getEventSummary(){
             localStorage.setItem('algorithm',this.algorithm);
             try{
-                const events = await this.axios.get(`http://127.0.0.1:5000/events/summary/${this.algorithm}`);
+                // run algorithm
+                await this.axios.get(`http://localhost:5000/algorithm/${this.algorithm}`);
+
+                // get events
+                const events = await this.axios.get(`http://localhost:5000/events/summary/${this.algorithm}`);
                 this.json_return = events.data;
             } catch(error){
                 this.json_return=require("../proccess_data.json")

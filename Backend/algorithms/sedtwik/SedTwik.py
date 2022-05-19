@@ -1,11 +1,25 @@
+import json
+import sys
+
 from . import *
+from ...summarization import hugging_faces
+from ...utils_backend.emotion_tweet import EmotionTweet
+
 
 class SedTwik(DetectionAlgorithm):
+
+    results_path = "../results/sedwik/"
 
     def __init__(self):
         super().__init__()
 
-    def run_algorithm(self, *data):
+    def run_algorithm(self, data):
+        file_results = self.results_path+"tagged_tweets_res1.json"
+        if os.path.isfile(file_results):
+            with open (file_results, "r") as results_file:
+                self.eventResutls = json.load(results_file)
+                return
+
         # Parameters
         # original_tweet_dir = '../data/original_tweets/' # end with '/'
         clean_tweet_dir = '../data/cleaned_tweets/without_retweets/'  # end with '/'
@@ -14,7 +28,7 @@ class SedTwik(DetectionAlgorithm):
         subwindow_dir = '../data/tagged_tweets/'  # each file is a subwindow in this folder
 
         event_output_dir_text = '../results/sedwik_output_text/'
-        event_output_dir_json = '../results/sedwik_output_json/'
+        event_output_dir_json = '../results/sedwik/'
 
         wiki_titles_file = '../data/enwiki-titles-unstemmed.txt'
         seg_prob_file = '../data/seg_prob_2012_Oct_11-22.json'
@@ -115,9 +129,37 @@ class SedTwik(DetectionAlgorithm):
                 f.close()
             # with open(event_output_dir_json + "/" + subwindow_files[first_index][:-5].replace("/", "_") + "__" +subwindow_files[first_index + 5].replace("/", "_"), 'w') as f:
 
-            with open(event_output_dir_json + "/" + "tagged_tweets_res1.json", 'w') as f:
+            with open(event_output_dir_json + "/" + "events_results.json", 'w') as f:
                 json.dump(to_ret_events, f)
             first_index += 6
 
         # return just the last excute of 6 json files. the others will be saved.
+        self.eventResutls = to_ret_events
         return to_ret_events
+
+    def summarize(self):
+        if os.path.isfile(self.results_path + "summarized.json"):
+            with open (self.results_path + "summarized.json", "r") as summarized_file:
+                return json.load(summarized_file)
+
+        print("started summarize sedtwik")
+        data=self.eventResutls
+        # if data[0]['summarized'] == "true":
+        #     return data
+        hg = hugging_faces.HuggingFaces()
+        for i in range(len(data)):
+            # summarize for event name
+            dictionary = data[i]
+            summary = hg.summarize(dictionary["dirty_text"])
+            # calc tweet emotion
+            if "tweets_emotion" not in dictionary:
+                dictionary["tweets_emotion"] = EmotionTweet().find_emotion(dictionary["dirty_text"])
+            dictionary['event'] = summary
+            data[i] = dictionary
+            sys.stdout.write('\r' + "summarizing processing: {}/{}".format(i, len(data)))
+            sys.stdout.flush()
+        with open(self.results_path + "summarized.json", 'w') as summarized_file:
+            json.dump(data, summarized_file)
+
+        print("done summarize sedtwik")
+        return data
