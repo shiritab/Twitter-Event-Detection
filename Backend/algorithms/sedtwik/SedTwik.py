@@ -9,23 +9,26 @@ from ...utils_backend.emotion_tweet import EmotionTweet
 class SedTwik(DetectionAlgorithm):
 
     results_path = "../results/sedwik/"
+    data = ""
 
     def __init__(self):
         super().__init__()
 
     def run_algorithm(self, data):
-        file_results = self.results_path+"tagged_tweets_res1.json"
+        self.data = data
+        file_results = self.results_path + "results_{}".format(data)
         if os.path.isfile(file_results):
             with open (file_results, "r") as results_file:
                 self.eventResutls = json.load(results_file)
                 return
 
         # Parameters
-        # original_tweet_dir = '../data/original_tweets/' # end with '/'
         clean_tweet_dir = '../data/cleaned_tweets/without_retweets/'  # end with '/'
-        # subwindow_dir = '../data/cleaned_tweets/without_retweets/'  # each file is a subwindow in this folder
-        # subwindow_dir = '../data/cleaned_tweets/without_retweets/'  # each file is a subwindow in this folder
-        subwindow_dir = '../data/tagged_tweets/'  # each file is a subwindow in this folder
+        if data == "event2012.json":
+            subwindow_dir = '../data/tagged_tweets/'  # each file is a subwindow in this folder
+        else:
+            # TODO i don't think that's going to work
+            subwindow_dir = '../data/uploaded/'
 
         event_output_dir_text = '../results/sedwik_output_text/'
         event_output_dir_json = '../results/sedwik/'
@@ -129,18 +132,18 @@ class SedTwik(DetectionAlgorithm):
                 f.close()
             # with open(event_output_dir_json + "/" + subwindow_files[first_index][:-5].replace("/", "_") + "__" +subwindow_files[first_index + 5].replace("/", "_"), 'w') as f:
 
-            with open(event_output_dir_json + "/" + "events_results.json", 'w') as f:
+            with open(event_output_dir_json + "/" + "results_event2012.json", 'w') as f:
                 json.dump(to_ret_events, f)
             first_index += 6
 
         # return just the last excute of 6 json files. the others will be saved.
-        self.eventResutls = to_ret_events
+        self.eventResults = to_ret_events
         return to_ret_events
 
     def summarize(self):
         # TODO
-        if os.path.isfile(self.results_path + "summarized.json"):
-            with open (self.results_path + "summarized.json", "r") as summarized_file:
+        if os.path.isfile(self.results_path + "summarized_{}".format(self.data)):
+            with open (self.results_path + "summarized_{}".format(self.data), "r") as summarized_file:
                 return json.load(summarized_file)
 
         print("started summarize sedtwik")
@@ -159,7 +162,7 @@ class SedTwik(DetectionAlgorithm):
             data[i] = dictionary
             sys.stdout.write('\r' + "summarizing processing: {}/{}".format(i, len(data)))
             sys.stdout.flush()
-        with open(self.results_path + "summarized.json", 'w') as summarized_file:
+        with open(self.results_path + "summarized_{}".format(self.data), 'w') as summarized_file:
             json.dump(data, summarized_file)
 
         print("done summarize sedtwik")

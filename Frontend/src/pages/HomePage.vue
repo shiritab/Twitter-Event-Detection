@@ -151,8 +151,9 @@ export default {
         async getEventSummary(){
             localStorage.setItem('algorithm',this.algorithm);
             try{
+                console.log(`selected: ${this.selectedFile}`);
                 // run algorithm
-                await this.axios.get(`http://localhost:5000/algorithm/${this.algorithm}`);
+                await this.axios.get(`http://localhost:5000/algorithm/${this.algorithm}?dataset=${this.dataSet}`);
 
                 // get events
                 const events = await this.axios.get(`http://localhost:5000/events/summary/${this.algorithm}`);

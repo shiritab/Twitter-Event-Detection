@@ -22,26 +22,33 @@ torch.cuda.is_available()
 PICKLE_FILE = "../data/tagged_tweets.pkl"
 
 
-def load_data():
-    with open(PICKLE_FILE, "rb") as f:
+def load_data(data):
+    if data == "event2012.json":
+        path_file = PICKLE_FILE
+    else:
+        path_file = "../data/uploaded/" + data
+
+    with open(path_file, "rb") as f:
         df = pickle.load(f)
     return df
 
 
 class Bert(DetectionAlgorithm):
     results_path = "../results/bert_topic/"
+    data = ""
 
-    def run_algorithm(self, *data):
-        if os.path.isfile(self.results_path + "events_results.json"):
-            with open(self.results_path + "events_results.json", "r") as results_file:
+    def run_algorithm(self, data):
+        self.data = data
+        if os.path.isfile(self.results_path + "results_{}".format(self.data)):
+            with open(self.results_path + "results_{}".format(self.data), "r") as results_file:
                 self.eventResutls = json.load(results_file)
                 return
 
         return self.create_output()
 
     def summarize(self):
-        if os.path.isfile(self.results_path + "summarized.json"):
-            with open (self.results_path + "summarized.json", "r") as summarized_file:
+        if os.path.isfile(self.results_path + "summarized_{}".format(self.data)):
+            with open (self.results_path + "summarized_{}".format(self.data), "r") as summarized_file:
                 return json.load(summarized_file)
 
         print("started summarize bert-topic")
@@ -60,7 +67,8 @@ class Bert(DetectionAlgorithm):
             data[i] = dictionary
             sys.stdout.write('\r' + "summarizing processing: {}/{}".format(i,len(data)))
             sys.stdout.flush()
-        with open(self.results_path + "summarized.json", 'w') as summarized_file:
+
+        with open(self.results_path + "summarized_{}".format(self.data), 'w') as summarized_file:
             json.dump(data, summarized_file)
 
         print("done summarize bert-topic")
@@ -103,7 +111,7 @@ class Bert(DetectionAlgorithm):
         return coherence
 
     def create_topic(self):
-        df = load_data()
+        df = load_data(self.data)
         content = list(df["text"])
         random.seed(1)
         docs = random.sample(content, 20000)
