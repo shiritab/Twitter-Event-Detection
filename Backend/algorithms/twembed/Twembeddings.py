@@ -36,10 +36,7 @@ class Twembeddings(DetectionAlgorithm):
         with open(self.results_path + "events_results.json", "w") as file_results:
             json.dump(self.eventResutls, file_results)
 
-
     # TODO: Save results to self.eventResults
-
-
 
     def summarize(self):
         if os.path.isfile(self.results_path + "summarized.json"):

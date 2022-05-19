@@ -6,14 +6,20 @@ import json
 from operator import itemgetter
 from ...algorithms.sedtwik.SedTwik import SedTwik
 from ...algorithms.twembed.Twembeddings import Twembeddings
+from ...algorithms.bert_topic.bert import Bert
 from ...algorithms.eventDetectionAlgorithms import eventDetectionAlgorithms
+from werkzeug.utils import secure_filename
+import tempfile
 
 # Do not delete this line
 algorithm = Blueprint("algorithm", __name__)
 
 ####
 algorithms_object = eventDetectionAlgorithms()
-algorithms_object.add_algorithm("Twembeddings", Twembeddings())
+algorithms_object.add_algorithm("Bert",Bert())
+algorithms_object.add_algorithm("SedTwik",SedTwik())
+algorithms_object.add_algorithm("Twembeddings",Twembeddings())
+
 TAGGED_TWEETS_PATH = f'C:\\Users\\user\\Desktop\\tagged tweets\\event2012_labeled_only.tsv'
 FILE_PATH = TAGGED_TWEETS_PATH
 RELEVANT_TWEETS_PATH = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backend\data\relevant_tweets.tsv"
@@ -23,15 +29,35 @@ ALGORITHM_FILE = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backen
 def run_algorithm(algorithm):
     return jsonify(algorithms_object.get_algorithms()[algorithm].run_algorithm(FILE_PATH))
 
-@algorithm.route("/data-path")
-def upload_file_path():
-    global FILE_PATH
-    try:
-        FILE_PATH = request.form['path']
-        return Response(status=201)
-    except Exception as e:
-        # print(e.with_traceback())
-        return Response(status=500)
+@algorithm.route("/upload-data")
+def upload_file():
+    file = request.files['file']
+    if file:
+        filename = secure_filename(file.filename)
+        print(file.stream)
+        temp = tempfile.TemporaryFile()
+        stream = file.stream
+        stream.seek(0)
+        data = stream.read()
+        print(data)
+
+        my_json = data.decode('utf8').replace("'", '"')
+        print(my_json)
+        print('- ' * 20)
+
+        # Load the JSON to a Python list & dump it back out as formatted JSON
+        data = json.loads(my_json)
+        s = json.dumps(data, indent=4, sort_keys=True)
+        with open('testttttttttt.json', 'w') as outfile:
+            json.dump(my_json, outfile)
+        with open('testttttttttt.json') as json_file:
+            data = json.load(json_file)
+            print(data)  # with open(file) as f:
+        #
+        # file.save(os.path.join('/',filename),500)
+        a = "uploaded"
+
+    return jsonify([{"hey": "hadassa"}])
 
 
 

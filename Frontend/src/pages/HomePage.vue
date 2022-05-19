@@ -1,45 +1,33 @@
 <template>
   <div id="home-page">
-      <h1> Trending </h1>
-      <br>
-      <!-- a select button for algorithm picker -->
+    <h1> Trending </h1>
+    <br>
+    <div class="run-data">
+        <div class="row">
+            <div class="col-sm">
+                <a>DataSet:</a>
+                <br>
+                <input type="file" id="uploadmyfile"  ref="file" @change="requestUploadFile" style="display: none">
+                <b-button class="upload-button" size="sm"  variant="info" @click="$refs.file.click()"><b-icon icon="cloud-arrow-up" aria-hidden="true"></b-icon>Upload Data</b-button>
+                {{this.src}}
+            </div>
+            <div class="col-sm">
+                <a>Algorithm:</a>
+                <br>
+                <b-form-select style="width:20%" v-model="algorithm" :options="['SedTwik', 'Twembeddings', 'Bert']"></b-form-select>
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col align-self-center">
+                <b-button style="size:20%" size="sm" class="mb-2" variant="info" @click="getEventSummary()">
+                    <b-icon icon="play" aria-hidden="true"></b-icon> Run
+                </b-button>
+            </div>
 
-    <!-- <input type="file" id="uploadmyfile"  ref="file" @change="requestUploadFile" style="display: none">
-    <b-button size="sm" class="mb-2" variant="info" @click="$refs.file.click()"><b-icon icon="cloud-arrow-up" aria-hidden="true"></b-icon>Upload Data</b-button>
-        {{this.src}} -->
-
-<!-- 
-<div>
-        <input type="file" @change="uploadFile" ref="file" >
-        <button @click="submitFile">Upload!</button>
-      </div> -->
-<div class="row">
-
-<div class="col-sm">
-      <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-<input type="file" id="uploadmyfile"  ref="file" @change="requestUploadFile" style="display: none">
-    <b-button class="upload-button" size="sm"  variant="info" @click="$refs.file.click()"><b-icon icon="cloud-arrow-up" aria-hidden="true"></b-icon>Upload Data</b-button>
-  <div class="btn-group" role="group">
-    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Dropdown
-    </button>
-    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-      <a class="dropdown-item" href="#">Dropdown link</a>
-      <a class="dropdown-item" href="#">Dropdown link</a>
+        </div>
     </div>
-  </div>
-</div>
-</div>
 
-
-      <b-form-select style="width:20%" v-model="algorithm" :options="['SedTwik', 'Twembeddings', 'Bert Topic']"></b-form-select>
     <br>
-    <br>
-
-    <b-button size="sm" class="mb-2" variant="info" @click="getEventSummary()">
-        <b-icon icon="play" aria-hidden="true"></b-icon> Run
-    </b-button>
-</div>
     <div class="grid grid-cols-1 gap-4 px-4 mt-8 sm:grid-cols-4 sm:px-8">
         <div id=icon class="flex items-center bg-white border rounded-sm overflow-hidden shadow ">
             <div class="p-4 bg-blue-400">
@@ -180,10 +168,11 @@ export default {
             const formData = new FormData();
         formData.append('file', this.file);
         const headers = { 'Content-Type': 'application/json' };
-        axios.post('http://localhost:5000/upload', formData, { headers }).then((res) => {
+        axios.post('http://localhost:5000/algorithm/upload-data', formData, { headers }).then((res) => {
         //   res.data.files; // binary representation of the file
           res.status; // HTTP status
         });
+        console.log(this.file)
         },
 
 
@@ -249,5 +238,12 @@ export default {
 .upload-file{
     background-color: aqua;
 }
+.run-data{
+    background-color: aliceblue;
+    opacity: 80%;
+}
+/* #run{
+    display: inline-block;
+} */
 
 </style>

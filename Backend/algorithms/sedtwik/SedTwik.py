@@ -138,6 +138,7 @@ class SedTwik(DetectionAlgorithm):
         return to_ret_events
 
     def summarize(self):
+        # TODO
         if os.path.isfile(self.results_path + "summarized.json"):
             with open (self.results_path + "summarized.json", "r") as summarized_file:
                 return json.load(summarized_file)

@@ -1,3 +1,7 @@
+Bert: !!python/object:Backend.algorithms.bert_topic.bert.Bert
+  eventResutls: null
+Bert Topic: !!python/object:Backend.algorithms.bert_topic.bert.Bert
+  eventResutls: null
 SedTwik: !!python/object:Backend.algorithms.sedtwik.SedTwik.SedTwik
   eventResutls: null
 Twembeddings: !!python/object:Backend.algorithms.twembed.Twembeddings.Twembeddings

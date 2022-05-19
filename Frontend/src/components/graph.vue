@@ -39,7 +39,7 @@ export default {
     },
 
     created(){
-        console.log("graph mounted")
+        console.log("graph created")
         console.log(this.json_data);
 
 

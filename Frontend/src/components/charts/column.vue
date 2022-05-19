@@ -29,7 +29,6 @@ export default {
             })
             // console.log(this.list_data);
             this.series=this.list_data;
-            this.series=[1,2,3,4,5,6];
         },
         average(array){
             return array.reduce((a,b) => a + b, 0) / array.length
@@ -38,7 +37,7 @@ export default {
     data() {
         return{ 
             list_data: [],
-            series:[1,2,3,4,5,6],
+            series: [],
             options: {
                 plotOptions: {
                     bar: {
@@ -71,7 +70,15 @@ export default {
                 },
                 xaxis: {
                     type: 'date',
-                    categories: ['event 1', 'event 2', 'event 3', 'event 4', 'event 5', 'event 6'],
+                    categories: [
+                        '2012-10-12'
+                        // '2011-01-01', '2011-02-01', '2011-03-01', '2011-04-01', '2011-05-01', '2011-06-01',
+                        // '2011-07-01', '2011-08-01', '2011-09-01', '2011-10-01', '2011-11-01', '2011-12-01',
+                        // '2012-01-01', '2012-02-01', '2012-03-01', '2012-04-01', '2012-05-01', '2012-06-01',
+                        // '2012-07-01', '2012-08-01', '2012-09-01', '2012-10-01', '2012-11-01', '2012-12-01',
+                        // '2013-01-01', '2013-02-01', '2013-03-01', '2013-04-01', '2013-05-01', '2013-06-01',
+                        // '2013-07-01', '2013-08-01', '2013-09-01'
+                    ],
                     labels: {
                         rotate: -90
                     }
@@ -81,13 +88,13 @@ export default {
     },
     watch: { 
       	json_data: function(newVal, oldVal) { // watch it
-          console.log('Prop changed on column: ', newVal, ' | was: ', oldVal)
-          this.json_data=newVal
-          this.make_data();
-          
-      this.$refs.realtimeChart.updateSeries([{
-        data: this.series,
-      }], false, true);
+            console.log('Prop changed on column: ', newVal, ' | was: ', oldVal)
+            this.json_data=newVal
+            this.make_data();
+            
+            this.$refs.realtimeChart.updateSeries([{
+                data: this.series,
+            }], false, true);
     
 
 
