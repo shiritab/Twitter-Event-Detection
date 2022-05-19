@@ -5,7 +5,7 @@ from sklearn.metrics.cluster import adjusted_rand_score
 import json
 from operator import itemgetter
 from ...algorithms.sedtwik.SedTwik import SedTwik
-from ...algorithms.twembeddings.Twembeddings import Twembeddings
+from ...algorithms.twembed.Twembeddings import Twembeddings
 from ...algorithms.eventDetectionAlgorithms import eventDetectionAlgorithms
 
 # Do not delete this line
@@ -13,8 +13,9 @@ algorithm = Blueprint("algorithm", __name__)
 
 ####
 algorithms_object = eventDetectionAlgorithms()
-FILE_PATH = ""
+algorithms_object.add_algorithm("Twembeddings", Twembeddings())
 TAGGED_TWEETS_PATH = f'C:\\Users\\user\\Desktop\\tagged tweets\\event2012_labeled_only.tsv'
+FILE_PATH = TAGGED_TWEETS_PATH
 RELEVANT_TWEETS_PATH = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backend\data\relevant_tweets.tsv"
 ALGORITHM_FILE = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backend\results\2012-10-12_{}.json"
 
@@ -29,7 +30,7 @@ def upload_file_path():
         FILE_PATH = request.form['path']
         return Response(status=201)
     except Exception as e:
-        print(e.with_traceback())
+        # print(e.with_traceback())
         return Response(status=500)
 
 

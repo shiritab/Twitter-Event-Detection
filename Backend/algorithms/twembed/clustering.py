@@ -1,17 +1,15 @@
 import json
-from Backend.algorithms.twembeddings.twembeddings.build_features_matrix import build_matrix
-from Backend.algorithms.twembeddings.twembeddings.clustering_algo import ClusteringAlgo, ClusteringAlgoSparse
-import numpy as np
-from Backend.algorithms.twembeddings.twembeddings.eval import general_statistics, cluster_event_match, mcminn_eval
 import pandas as pd
 import logging
 import yaml
 import argparse
 import csv
-
 from transformers import pipeline
 import tensorflow
 # from sklearn.cluster import DBSCAN
+from Backend.algorithms.twembed.twembeddings.build_features_matrix import build_matrix
+from Backend.algorithms.twembed.twembeddings.clustering_algo import ClusteringAlgoSparse, ClusteringAlgo
+from Backend.algorithms.twembed.twembeddings.eval import general_statistics, cluster_event_match, mcminn_eval
 
 logging.basicConfig(format='%(asctime)s - %(levelname)s : %(message)s', level=logging.INFO)
 text_embeddings = ['tfidf_dataset', 'tfidf_all_tweets', 'w2v_gnews_en', "elmo", "bert", "sbert_nli_sts", "use"]
@@ -64,7 +62,8 @@ parser.add_argument('--window',
 
 def main(args):
     print(args)
-    with open("C:/Users/user/Documents/GitHub/Twitter-Event-Detection/Backend/algorithms/twembeddings/options.yaml", "r") as f:
+    with open("../algorithms/twembed/options.yaml", "r") as f:
+    # with open("/Backend/utils_backend/twembeddings/options.yaml", "r") as f:
         options = yaml.safe_load(f)
     for model in args["model"]:
         # load standard parameters
@@ -83,7 +82,7 @@ def main(args):
                     params[arg] = args[arg]
 
         params["model"] = model
-        test_params(**params)
+        return test_params(**params)
 
 
 def test_params(**params):
@@ -137,6 +136,27 @@ def test_params(**params):
             stats = results.append(stats, ignore_index=True)
             stats.to_csv("results_clustering.csv", index=False)
             logging.info("Saved results to results_clustering.csv")
+    return build_dictionary(data)
+
+def build_dictionary(data):
+    sortedData = data.sort_values(["pred"],axis = 0)
+    labels = set(data["pred"].values)
+    groups = data.groupby(["pred"])
+    events = sorted([g for i,g in groups],key =  lambda x : x.size, reverse=True)
+    events = events[:100] if len(events) >2 else events
+    summarizer = None
+    return_JSON = []
+    for event in events:
+        # fullText = ""
+        eventDict = {"event":None, "tweets": [], "dirty_text": []}
+        for i,tweet in event.iterrows():
+            # print(tweet)
+            eventDict["tweets"].append(str(tweet["id"]))
+            eventDict["dirty_text"].append(tweet["text"])
+        # eventDict["event"]= event["pred"][0]
+        return_JSON.append(eventDict)
+    return return_JSON
+
 
 def sort_results_by_cluster(path):
     data = pd.read_csv(path,delimiter="\t")
@@ -169,20 +189,22 @@ def sort_results_by_cluster(path):
 def summarize(text, summarizer):
     # print(summarizer(text, max_length=9, min_length=3, do_sample=False))
     return text
-if __name__ == '__main__':
-    # summarizer = pipeline("summarization")
-    # summerize("text",summarizer)
 
-    main({'model': ['tfidf_all_tweets'],
-          'dataset': f'C:\\Users\\user\\Desktop\\tagged tweets\\event2012_labeled_only.tsv',
-          'lang': 'en',
-          'annotation': 'no',
-          'threshold': ['0.7'],
-          'batch_size': None,
-          'remove_mentions': None,
-          'window': 24})
 
-    sort_results_by_cluster(f'C:\\Users\\user\\Desktop\\tagged tweets\\event2012_labeled_only_2_results.tsv')
+# if __name__ == '__main__':
+#     # summarizer = pipeline("summarization")
+#     # summerize("text",summarizer)
+#
+#     main({'model': ['tfidf_all_tweets'],
+#           'dataset': f'C:\\Users\\user\\Desktop\\tagged tweets\\event2012_labeled_only.tsv',
+#           'lang': 'en',
+#           'annotation': 'no',
+#           'threshold': ['0.7'],
+#           'batch_size': None,
+#           'remove_mentions': None,
+#           'window': 24})
+#
+#     sort_results_by_cluster(f'C:\\Users\\user\\Desktop\\tagged tweets\\event2012_labeled_only_2_results.tsv')
 
     # args = vars(parser.parse_args())
     # main(args)

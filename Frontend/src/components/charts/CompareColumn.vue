@@ -96,7 +96,7 @@ export default {
     },
    async mounted(){
       try{
-          const compare_score = await this.axios.get(`http://127.0.0.1:5000/algorithm/compare`);
+          const compare_score = await this.axios.get(`http://10.0.0.128:443/algorithm/compare`);
           this.json_return = compare_score.data;
           this.series=this.json_return;
           // console.log("compare score:");

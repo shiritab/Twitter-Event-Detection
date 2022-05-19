@@ -32,7 +32,7 @@ def get_algorithm_summary(algorithm):
     # with open(path, 'w') as file:
     #     json.dump(data, file)
 
-    return jsonify(algorithms_object.get_algorithms(algorithm).summarize())
+    return jsonify(algorithms_object.get_algorithms()[algorithm].summarize())
 
 
 @events.route("/events/<algorithm>/<date>")
