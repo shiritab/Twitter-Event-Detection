@@ -2,7 +2,7 @@
   <div id="chart" class="compareBar">
     <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:95%; margin-right:3%">
       <h3 class="text-xl text-gray-600 mb-4" >Num of events</h3>
-      <apexchart type="bar" height="300" :options="chartOptions" :series="series"></apexchart>
+      <apexchart type="bar" height="300" :options="get_category" :series="get_score"></apexchart>
     </div>
   </div>
 </template>
@@ -22,6 +22,7 @@ export default {
     },
     data(){
         return{
+          data_dict:{"SedTwik":6,'Twembeddings':2350,'Bert Topic':1189},
         series: [{
             data: [6,2350,1189]
           }],
@@ -60,7 +61,7 @@ export default {
               colors: ['#fff']
             },
             xaxis: {
-              categories: ['Sedwix','Twembeddings','Bert topic'],
+              categories: ['SedTwik','Twembeddings','Bert topic'],
             },
             yaxis: {
               labels: {
@@ -86,16 +87,29 @@ export default {
     },
     computed:{
     get_score(){
-        console.log(this.algorithms);
-        var new_list=[]
-        this.json_return.map(dict=>{
-            if (this.algorithms.includes(dict.name)){
-              new_list.push(dict);
+
+        var data_list=[];
+        var categories_list=[];
+        for(var key in this.data_dict) {
+            if (this.algorithms.includes(key)){
+              data_list.push(this.data_dict[key]);
+              categories_list.push(key);
             }
-        });
-        console.log(this.json_return)
-        console.log(new_list);
-        return new_list
+        }
+
+        return [{data: data_list}]
+      },
+      get_category(){
+        var option=this.chartOptions;
+        var categories_list=[];
+        for(var key in this.data_dict) {
+            if (this.algorithms.includes(key)){
+              categories_list.push(key);
+            }
+        }
+        option.xaxis={categories: categories_list};
+        console.log(option);
+        return option;
       }
     },
       //  async mounted(){

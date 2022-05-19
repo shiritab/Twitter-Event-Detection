@@ -4,10 +4,16 @@
       <br>
       <!-- a select button for algorithm picker -->
 
+    <!-- <input type="file" id="uploadmyfile"  ref="file" @change="requestUploadFile" style="display: none">
+    <b-button size="sm" class="mb-2" variant="info" @click="$refs.file.click()"><b-icon icon="cloud-arrow-up" aria-hidden="true"></b-icon>Upload Data</b-button>
+        {{this.src}}
+ -->
 
-        <b-button size="sm" class="mb-2" variant="info">
-      <b-icon icon="cloud-arrow-up" aria-hidden="true"></b-icon> Upload Data
-    </b-button>
+<div>
+        <input type="file" @change="uploadFile" ref="file">
+        <button @click="submitFile">Upload!</button>
+      </div>
+
 
       <b-form-select style="width:20%" v-model="algorithm" :options="['SedTwik', 'Twembeddings', 'Bert Topic']"></b-form-select>
     <br>
@@ -90,6 +96,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 import Graph from "../components/graph.vue"
 export default {
     name: "HomePage",
@@ -106,6 +114,9 @@ export default {
     data(){
         return{
             algorithm: "SedTwik",
+            selectedFile:"",
+            src:"",
+            file:"",
             total_autors:2764,
             total_tweets:243090,
             total_events:10,
@@ -127,6 +138,19 @@ export default {
         }
     },
     methods: {
+        uploadFile() {
+        this.Images = this.$refs.file.files[0];
+      },
+      submitFile() {
+        const formData = new FormData();
+        formData.append('file', this.Images);
+        const headers = { 'Content-Type': 'multipart/form-data' };
+        axios.post('http://localhost:8000/api/v1/attack', formData, { headers }).then((res) => {
+          res.data.files; // binary representation of the file
+          res.status; // HTTP status
+        });
+      },
+
         myRowClickHandler(record, index) {
             console.log(record); // This will be the item data for the row
             this.$router.push({ name: 'event', params: 1 });
@@ -144,7 +168,21 @@ export default {
                 this.json_return=require("../proccess_data.json")
                 console.log(`error ${error}\noccured at getEventsSummary on HomePage.vue`);
             }
-        }
+        },
+        requestUploadFile(args){
+            console.log(args.target.files[0])
+                    var source=this.$el.querySelector('#uploadmyfile')
+                    console.log(source.files[0])
+                    this.src = source.files[0].name
+                },
+
+
+                
+    
+
+
+ 
+
     },
     created(){
         console.log("HomePage created");
@@ -197,4 +235,9 @@ export default {
     float: left;
     margin-left: 2%;
 }
+
+.upload-file{
+    background-color: aqua;
+}
+
 </style>
