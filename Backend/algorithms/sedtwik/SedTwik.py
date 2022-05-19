@@ -132,7 +132,7 @@ class SedTwik(DetectionAlgorithm):
                 f.close()
             # with open(event_output_dir_json + "/" + subwindow_files[first_index][:-5].replace("/", "_") + "__" +subwindow_files[first_index + 5].replace("/", "_"), 'w') as f:
 
-            with open(event_output_dir_json + "/" + "results_event2012.json", 'w') as f:
+            with open(event_output_dir_json + "/" + "results_{}".format(data), 'w') as f:
                 json.dump(to_ret_events, f)
             first_index += 6
 

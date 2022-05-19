@@ -27,6 +27,10 @@ class eventDetectionAlgorithms:
         with open(CONFIG, 'w') as config_file:
             yaml.dump(self.__algorithms, config_file)
 
+    def delete_from_yaml(self, algorithm_name):
+        self.__algorithms.pop(algorithm_name)
+        self.update_config_yaml()
+
     def get_config_yaml(self):
         with open(CONFIG, 'r') as config_file:
             return yaml.load(config_file, Loader=yaml.Loader)

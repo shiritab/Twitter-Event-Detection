@@ -22,7 +22,7 @@ export default {
     },
     data(){
         return{
-          data_dict:{"SedTwik":6,'Twembeddings':2350,'Bert Topic':1189},
+          data_dict:{"SedTwik":6,'Twembeddings':2350,'Bert':1189},
         series: [{
             data: [6,2350,1189]
           }],
@@ -61,7 +61,7 @@ export default {
               colors: ['#fff']
             },
             xaxis: {
-              categories: ['SedTwik','Twembeddings','Bert topic'],
+              categories: ['SedTwik','Twembeddings','Bert'],
             },
             yaxis: {
               labels: {

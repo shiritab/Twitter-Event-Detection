@@ -29,7 +29,7 @@ export default {
                 name: 'Twembeddings',
                 data: [0.6,0.89]//, 98, 87, 105, 91, 114, 94]
             }, {
-                name: 'Bert Topic',
+                name: 'Bert',
                 data: [0.77,0.55]//, 26, 45, 48, 52, 53, 41]
             }],
             series: [{
@@ -39,7 +39,7 @@ export default {
                 name: 'Twembeddings',
                 data: [0.6,0.89]//, 98, 87, 105, 91, 114, 94]
             }, {
-                name: 'Bert Topic',
+                name: 'Bert',
                 data: [0.77,0.55]//, 26, 45, 48, 52, 53, 41]
             }],
             
@@ -89,16 +89,17 @@ export default {
               new_list.push(dict);
             }
         });
-        console.log(this.json_return)
-        console.log(new_list);
+        // console.log(this.json_return)
+        // console.log(new_list);
         return new_list
       }
     },
    async mounted(){
       try{
-          const compare_score = await this.axios.get(`http://10.0.0.128:443/algorithm/compare`);
+          const compare_score = await this.axios.get(`http://localhost:5000/algorithm/compare`);
           this.json_return = compare_score.data;
           this.series=this.json_return;
+          console.log(this.series);
 
       } catch(error){  
           console.log(`error ${error}\noccured at compare algorithms`);

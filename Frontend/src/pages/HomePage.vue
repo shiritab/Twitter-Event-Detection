@@ -4,7 +4,7 @@
     <div class="run-data">
         <div class="row">
             <div class="col-4">
-                <a>DataSet:</a>
+                <a>Data Set:</a>
                 <br>
                     <b-form-select style="width:100%; margin-left:2%" v-model="dataSet" :options="dataSetOption"></b-form-select>
 
@@ -12,7 +12,7 @@
             <div class="col-4">
                 <a>Algorithm:</a>
                 <br>
-                <b-form-select style="width:100%" v-model="algorithm" :options="['SedTwik', 'Twembeddings', 'Bert Topic']"></b-form-select>
+                <b-form-select style="width:100%" v-model="algorithm" :options="['SedTwik', 'Twembeddings', 'Bert']"></b-form-select>
             </div>
 <div class="col-4">
 
