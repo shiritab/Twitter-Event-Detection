@@ -1,15 +1,20 @@
 import json
+import os
+import pickle
+import tempfile
 
 from flask import Flask, jsonify, request
 from flask_restful import Api,Resource,reqparse
-from Backend.utils_backend import  input_adapter,sedwik_main,twitter_collector_basic as tw_cl
+# from Backend.utils_backend import  input_adapter,sedwik_main,twitter_collector_basic as tw_cl
 from functools import wraps
 from flask_cors import CORS
-from Backend.summarization import hugging_faces
-from Backend.utils_backend.emotion_tweet import EmotionTweet
+# from Backend.summarization import hugging_faces
+# from Backend.utils_backend.emotion_tweet import EmotionTweet
+from werkzeug.utils import secure_filename
+
 app = Flask(__name__)
 api=Api(app)
-Input_Adapter = input_adapter.Adapter()
+# Input_Adapter = input_adapter.Adapter()
 CORS(app, supports_credentials=True)
 
 
@@ -34,6 +39,39 @@ class Router(Resource):
         return {"data":"this is endpoint_example"}
     def post(self):
         return {"data":"this is post endpoint_example"}
+
+class upload(Resource):
+    def post(self):
+        print (request.form)
+        print(request.files)
+        print(request.args)
+        file=request.files['file']
+        if file:
+            filename=secure_filename(file.filename)
+            print(file.stream)
+            temp=tempfile.TemporaryFile()
+            stream=file.stream
+            stream.seek(0)
+            data=stream.read()
+            print(data)
+
+            my_json = data.decode('utf8').replace("'", '"')
+            print(my_json)
+            print('- ' * 20)
+
+            # Load the JSON to a Python list & dump it back out as formatted JSON
+            data = json.loads(my_json)
+            s = json.dumps(data, indent=4, sort_keys=True)
+            with open('testttttttttt.json', 'w') as outfile:
+                json.dump(my_json, outfile)
+            with open('testttttttttt.json') as json_file:
+                data = json.load(json_file)
+                print(data)            # with open(file) as f:
+            #
+            # file.save(os.path.join('/',filename),500)
+            a="uploaded"
+
+        return jsonify([{"hey":"hadassa"}])
 
 class events(Resource):
     def get(self, algorithm):
@@ -83,6 +121,8 @@ api.add_resource(events,"/events/summary/<algorithm>")
 api.add_resource(eventsByDate,"/events/<algorithm>/<Date>")
 
 api.add_resource(sedtwik,"/")
+api.add_resource(upload,"/files/upload")
 
 if __name__ == '__main__':
-   app.run(debug=True,port=443,host='0.0.0.0',ssl_context="adhoc")
+    app.run(debug=True)
+

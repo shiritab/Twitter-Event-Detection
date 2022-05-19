@@ -24,6 +24,9 @@ class Bert:
     def __init__(self):
         self.df=load_data()
 
+    def run_algorithm(self, *data):
+        self.create_output()
+
     def get_topic_model(self,documents, n_neighbors, min_topic_size,calculate_probabilities = False):
         umap_model = UMAP(n_neighbors=n_neighbors, n_components=10, min_dist=0.0, metric='cosine')
 
@@ -91,8 +94,8 @@ class Bert:
                 'tweets': [id for id in topic['tweet_id']],
                 'dirty_text':[text for text in topic['text']]
             })
-        print(events[0])
         return events
+
 def JSON_for_bert(path):
     # turn information to DataFrame which i will dump into a .pkl file - this file will be uploaded to a bert notebook
     df = pd.read_json(path, lines=True)
