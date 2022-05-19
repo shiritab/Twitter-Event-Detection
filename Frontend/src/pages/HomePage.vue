@@ -1,33 +1,31 @@
 <template>
   <div id="home-page">
     <h1> Trending </h1>
-    <br>
     <div class="run-data">
         <div class="row">
-            <div class="col-sm">
+            <div class="col-4">
                 <a>DataSet:</a>
                 <br>
-                <input type="file" id="uploadmyfile"  ref="file" @change="requestUploadFile" style="display: none">
-                <b-button class="upload-button" size="sm"  variant="info" @click="$refs.file.click()"><b-icon icon="cloud-arrow-up" aria-hidden="true"></b-icon>Upload Data</b-button>
-                {{this.src}}
+                    <b-form-select style="width:100%; margin-left:2%" v-model="dataSet" :options="dataSetOption"></b-form-select>
+
             </div>
-            <div class="col-sm">
+            <div class="col-4">
                 <a>Algorithm:</a>
                 <br>
-                <b-form-select style="width:20%" v-model="algorithm" :options="['SedTwik', 'Twembeddings', 'Bert']"></b-form-select>
+                <b-form-select style="width:100%" v-model="algorithm" :options="['SedTwik', 'Twembeddings', 'Bert Topic']"></b-form-select>
             </div>
-        </div>
-        <div class="row" >
-            <div class="col align-self-center">
-                <b-button style="size:20%" size="sm" class="mb-2" variant="info" @click="getEventSummary()">
-                    <b-icon icon="play" aria-hidden="true"></b-icon> Run
-                </b-button>
-            </div>
+<div class="col-4">
 
+    <input type="file" id="uploadmyfile"  ref="file" @change="requestUploadFile" style="display: none">
+                <b-button style="margin-top:-1%" class="upload-button" size="sm"  variant="info" @click="$refs.file.click()"><b-icon icon="cloud-arrow-up" aria-hidden="true"></b-icon> Upload Data </b-button>
+
+            <b-button  style="margin-top:1%; width:71%" size="sm"  variant="info" @click="getEventSummary()">
+                    <b-icon icon="play" aria-hidden="true"></b-icon> Run
+                </b-button></div>
         </div>
+
     </div>
 
-    <br>
     <div class="grid grid-cols-1 gap-4 px-4 mt-8 sm:grid-cols-4 sm:px-8">
         <div id=icon class="flex items-center bg-white border rounded-sm overflow-hidden shadow ">
             <div class="p-4 bg-blue-400">
@@ -118,7 +116,9 @@ export default {
     },
     data(){
         return{
+            dataSetOption:["event2012.json"],
             algorithm: "SedTwik",
+            dataSet:"event2012.json",
             selectedFile:"",
             src:"",
             file:"",
@@ -165,10 +165,11 @@ export default {
         requestUploadFile(args){
             this.file = this.$refs.file.files[0];
             this.src=this.file.name
+            this.dataSetOption.push(this.src)
             const formData = new FormData();
         formData.append('file', this.file);
         const headers = { 'Content-Type': 'application/json' };
-        axios.post('http://localhost:5000/algorithm/upload-data', formData, { headers }).then((res) => {
+        axios.post('http://localhost:5000/files/upload', formData, { headers }).then((res) => {
         //   res.data.files; // binary representation of the file
           res.status; // HTTP status
         });
@@ -239,8 +240,15 @@ export default {
     background-color: aqua;
 }
 .run-data{
-    background-color: aliceblue;
-    opacity: 80%;
+background-color: rgb(218, 217, 217);
+  padding: 10px;
+  width: 45%;
+  margin-bottom: 10px;
+  margin-left: 25%;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  opacity: 80%;
 }
 /* #run{
     display: inline-block;
