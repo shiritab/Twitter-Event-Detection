@@ -1,4 +1,6 @@
 import json
+import sys
+
 from . import *
 from ...summarization import hugging_faces
 from ...utils_backend.emotion_tweet import EmotionTweet
@@ -136,6 +138,10 @@ class SedTwik(DetectionAlgorithm):
         return to_ret_events
 
     def summarize(self):
+        if os.path.isfile(self.results_path + "summarized.json"):
+            with open (self.results_path + "summarized.json", "r") as summarized_file:
+                return json.load(summarized_file)
+
         print("started summarize sedtwik")
         data=self.eventResutls
         # if data[0]['summarized'] == "true":
@@ -150,9 +156,10 @@ class SedTwik(DetectionAlgorithm):
                 dictionary["tweets_emotion"] = EmotionTweet().find_emotion(dictionary["dirty_text"])
             dictionary['event'] = summary
             data[i] = dictionary
-            sys.stdout.write("summarizing processing: {}/{}".format(i,len(data)))
-        # with open(f"results_{}", 'w') as file:
-        #     json.dump(data, file)
+            sys.stdout.write('\r' + "summarizing processing: {}/{}".format(i, len(data)))
+            sys.stdout.flush()
+        with open(self.results_path + "summarized.json", 'w') as summarized_file:
+            json.dump(data, summarized_file)
 
         print("done summarize sedtwik")
         return data
