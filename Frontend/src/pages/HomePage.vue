@@ -6,18 +6,37 @@
 
     <!-- <input type="file" id="uploadmyfile"  ref="file" @change="requestUploadFile" style="display: none">
     <b-button size="sm" class="mb-2" variant="info" @click="$refs.file.click()"><b-icon icon="cloud-arrow-up" aria-hidden="true"></b-icon>Upload Data</b-button>
-        {{this.src}}
- -->
+        {{this.src}} -->
 
+<!-- 
 <div>
-        <input type="file" @change="uploadFile" ref="file">
+        <input type="file" @change="uploadFile" ref="file" >
         <button @click="submitFile">Upload!</button>
-      </div>
+      </div> -->
+<div class="row">
+
+<div class="col-sm">
+      <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+<input type="file" id="uploadmyfile"  ref="file" @change="requestUploadFile" style="display: none">
+    <b-button class="upload-button" size="sm"  variant="info" @click="$refs.file.click()"><b-icon icon="cloud-arrow-up" aria-hidden="true"></b-icon>Upload Data</b-button>
+  <div class="btn-group" role="group">
+    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Dropdown
+    </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+      <a class="dropdown-item" href="#">Dropdown link</a>
+      <a class="dropdown-item" href="#">Dropdown link</a>
+    </div>
+  </div>
+</div>
+</div>
 
 
+<div class="col-sm">
       <b-form-select style="width:20%" v-model="algorithm" :options="['sedwik', 'twembeddings', 'bert topic','algorithm 4']" v-on:change="getEventSummary();" ></b-form-select>
-    <br>
-    <br>
+</div>
+</div>
+
         
     <div class="grid grid-cols-1 gap-4 px-4 mt-8 sm:grid-cols-4 sm:px-8">
         <div id=icon class="flex items-center bg-white border rounded-sm overflow-hidden shadow ">
@@ -177,18 +196,6 @@ export default {
         }
     },
     methods: {
-        uploadFile() {
-        this.Images = this.$refs.file.files[0];
-      },
-      submitFile() {
-        const formData = new FormData();
-        formData.append('file', this.Images);
-        const headers = { 'Content-Type': 'multipart/form-data' };
-        axios.post('http://localhost:8000/api/v1/attack', formData, { headers }).then((res) => {
-          res.data.files; // binary representation of the file
-          res.status; // HTTP status
-        });
-      },
 
         myRowClickHandler(record, index) {
             console.log(record); // This will be the item data for the row
@@ -205,11 +212,16 @@ export default {
             }
         },
         requestUploadFile(args){
-            console.log(args.target.files[0])
-                    var source=this.$el.querySelector('#uploadmyfile')
-                    console.log(source.files[0])
-                    this.src = source.files[0].name
-                },
+            this.file = this.$refs.file.files[0];
+            this.src=this.file.name
+            const formData = new FormData();
+        formData.append('file', this.file);
+        const headers = { 'Content-Type': 'application/json' };
+        axios.post('http://localhost:5000/upload', formData, { headers }).then((res) => {
+        //   res.data.files; // binary representation of the file
+          res.status; // HTTP status
+        });
+        },
 
 
                 
