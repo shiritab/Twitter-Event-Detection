@@ -83,5 +83,6 @@ In order to add a new algorithm to our backend, do the following stpes:
 
    ***Notice:*** algorithm's name must be the ***exact*** same name as added. (It's the same name as seen on the UI)
 
+7. Create algorithm's results directory under Backend/results/<algorithm_name> (ex. Backend/results/bert_topic)
 
 ## That's it! now you can use it on our web page. Good luck ☺

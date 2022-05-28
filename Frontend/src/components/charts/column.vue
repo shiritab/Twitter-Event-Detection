@@ -100,6 +100,11 @@ export default {
 
         }
     },
+    computed: {
+        changeOptions: function() {
+            return null;
+        }
+    }
 
 }
 </script>

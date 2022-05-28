@@ -54,74 +54,75 @@ export default {
         eventsList: [
           {
             event: "bla",
-            tweets:[
-                {
-                id:"256292946331181056"
-                },
-                {
-                id:"256334302034399232"
-                },
-                {
-                id:"256335853738160128"
-                },
-                {
-                id:"256346272506712064"
-                },
-                {
-                id:"256346650132508673"
-                },
+            tweets_id:[
+              "256292946331181056",
+              "256334302034399232",
+              "256335853738160128",
+              "256346272506712064",
+              "256346650132508673",
             ],
+            dates:[
+              "2022-05-27",
+              "2022-05-27",
+              "2022-05-26",
+              "2022-05-05",
+              "2022-05-27"
+            ],
+            dates_set: [
+              "2022-05-27",
+              "2022-05-26",
+              "2022-05-05",
+            ]
           },
             {event: "bla1",
-              tweets:[
-                  {
-                  id:"256292946331181056"
-                  },
-                  {
-                  id:"256334302034399232"
-                  },
-                  {
-                  id:"256335853738160128"
-                  },
-                  {
-                  id:"256346272506712064"
-                  },
-                  {
-                  id:"256346650132508673"
-                  },
-              ],}
-            // {
-            //     id: 123,
-            //     event_name: "Take a photo",
-            //     date: "2021-10-05",
-            // },
-            // {
-            //     id: 2,
-            //     event_name: "Elections day",
-            //     date: "2021-06-01",
-            // },
+              tweets_id:[
+                  "256292946331181056",
+                  "256334302034399232",
+                  "256335853738160128",
+                  "256346272506712064",
+                  "256346650132508673"
+              ],
+               dates:[
+              "2022-05-27",
+              "2022-05-27",
+              "2022-05-26",
+              "2022-05-05",
+              "2022-05-27"
+              ],
+              dates_set: [
+                "2022-05-27",
+                "2022-05-26",
+                "2022-05-05",
+              ]
+            }
         ]
         //
       }
     },
     methods:{
     async getEventsByDate(){
-      // pass
+      
       try{
-        // if(this.dateValue == "2021-10-05"){
-        //   this.events = this.eventsList;
-        // }
-        console.log("here")
+
+        console.log("getEventsByDate method in EventsPage")
         const algorithm = localStorage.getItem('algorithm');
-        console.log(algorithm);
+        console.log(" - Chosen algorithm: "+algorithm);
         const response = await this.axios.get(
           `http://127.0.0.1:5000/events/${algorithm}/${this.dateValue}`
         );
         console.log(response)
-        this.events =response.data;//.events;
-      }catch(error){
-        // console.log(error);
-      }
+        this.events = response.data;//.events;
+
+      } catch(error){
+
+        let eventsFiltered = []
+        this.eventsList.map( (eventObject) => {
+          if (eventObject.dates_set.includes(this.dateValue)) {
+            eventsFiltered.push(eventObject);
+          }
+        })
+        this.events= eventsFiltered;
+        
     }},
     computed:{
         eventsByValue: function(){
