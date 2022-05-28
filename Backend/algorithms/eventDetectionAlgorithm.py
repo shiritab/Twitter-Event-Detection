@@ -57,7 +57,13 @@ class DetectionAlgorithm:
 
 
     def get_results_by_date(self,date):
-        pass
+        # TODO: check if works
+        events = []
+        if self.eventResults:
+            for event_obj in self.eventResults:
+                if date in event_obj.dates_set:
+                    events.append(event_obj)
+        return events
 
     def summarize(self):
         if os.path.isfile(self.results_path + "summarized_{}".format(self.data)):
