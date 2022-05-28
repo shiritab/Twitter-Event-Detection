@@ -20,6 +20,7 @@ class SedTwik(DetectionAlgorithm):
             return results
 
         # Parameters
+        # file=f"C:\Users\meiri\Documents\GitHub\Twitter-Event-Detection\Backend\data\cleaned_tweets\without_retweets\2012-10-13\01_hour_10_13.json"
         clean_tweet_dir = '../data/cleaned_tweets/without_retweets/'  # end with '/'
         if data == "event2012.json":
             subwindow_dir = '../data/tagged_tweets/'  # each file is a subwindow in this folder
@@ -105,6 +106,7 @@ class SedTwik(DetectionAlgorithm):
                 summarization_list = []
                 tweets_ids = []
                 dirty_tweets = []
+                dates=[]
 
                 tmp_dict = {}
                 print('\nEVENT:', event_no, 'News Worthiness:', event_worthiness)
@@ -116,20 +118,24 @@ class SedTwik(DetectionAlgorithm):
                 for seg_name in e:
                     print(seg_name)
                     f.write('SEGMENT:' + seg_name + '\n')
-                    for tweet_id, text, dirty in set(tw.get_tweets_containing_segment(seg_name)):
+                    for tweet_id, text, dirty,date in set(tw.get_tweets_containing_segment(seg_name)):
                         f.write(f'{tweet_id} {text}, {dirty}\n')
                         summarization_list.append(text)
                         tweets_ids.append(tweet_id)
                         dirty_tweets.append(dirty)
+                        dates.append(date)
                     f.write('-----------------------------------------------------------\n')
                     tmp_dict["event"] = e
                     tmp_dict["tweets"] = tweets_ids
                     tmp_dict["dirty_text"] = dirty_tweets
+                    tmp_dict["dates"]=dates
+                    tmp_dict["dates_set"]=list(set(dates))
                 to_ret_events.append(tmp_dict)
                 f.close()
             # with open(event_output_dir_json + "/" + subwindow_files[first_index][:-5].replace("/", "_") + "__" +subwindow_files[first_index + 5].replace("/", "_"), 'w') as f:
 
             with open(event_output_dir_json + "/" + "results_{}".format(data), 'w') as f:
+                print(to_ret_events)
                 json.dump(to_ret_events, f)
             first_index += 6
 
