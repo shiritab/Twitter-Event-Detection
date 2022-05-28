@@ -15,12 +15,9 @@ class SedTwik(DetectionAlgorithm):
         self.data = ""
 
     def run_algorithm(self, data):
-        self.data = data
-        file_results = self.results_path + "results_{}".format(data)
-        if os.path.isfile(file_results):
-            with open (file_results, "r") as results_file:
-                self.eventResutls = json.load(results_file)
-                return
+        results = self.get_results(data)
+        if results:
+            return results
 
         # Parameters
         clean_tweet_dir = '../data/cleaned_tweets/without_retweets/'  # end with '/'
@@ -139,6 +136,3 @@ class SedTwik(DetectionAlgorithm):
         # return just the last excute of 6 json files. the others will be saved.
         self.eventResults = to_ret_events
         return to_ret_events
-
-    def summarize(self):
-        super().summarize()

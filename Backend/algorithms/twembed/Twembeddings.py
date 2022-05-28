@@ -18,12 +18,9 @@ class Twembeddings(DetectionAlgorithm):
         self.data = ""
 
     def run_algorithm(self, data):
-        self.data = data
-        file_results = self.results_path + "results_{}".format(data)
-        if os.path.isfile(file_results):
-            with open(file_results, "r") as results_file:
-                self.eventResutls = json.load(results_file)
-                return
+        results = self.get_results(data)
+        if results:
+            return results
 
         if data == "event2012.json":
             data = TAGGED_TWEETS_PATH
@@ -38,9 +35,5 @@ class Twembeddings(DetectionAlgorithm):
               'remove_mentions': None,
               'window': 24})
 
-        with open(self.results_path + "results_{}".format(data) , "w") as file_results:
-            json.dump(self.eventResutls, file_results)
+        self.save_results(data)
 
-
-    def summarize(self):
-        super().summarize()

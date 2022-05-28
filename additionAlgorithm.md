@@ -5,7 +5,7 @@ In order to add a new algorithm to our backend, do the following stpes:
 1. Create a new package under Backend/algorithms/<algorithm_name>
    1. Open a new <algorithm_name>.py file (ex. bert_topic.py)
 
-2. Import the followings
+2. Import the followings within the python file
 
     ```
     import json
@@ -17,45 +17,52 @@ In order to add a new algorithm to our backend, do the following stpes:
 
     ```
     Class <algorithm_class_name>(DetectionAlgorithm):
-        algorithm_name = "<algorithm_name>"
-        results_path = "../results/<algorithm_name>/"
-        data = ""
+
+        def __init__(self):
+            self.results_path = "../results/<algorithm_name>/"
+            self.eventResults = ""
+            self.data = ""
 
         # body of class
     ```
     ex. results_path = "../results/bert_topic/"
 4. Implement run_algorithm(self, data) method
 
+    This method runs the algorithm implementation with the given dataset which was picked in the UI, and returns nothing.
+
+    The datasets stored in this system of the following structure:
+    ```
+    .json file containing a list of tweet objects like the structure below: 
+
+    {
+        "tweet_id": "123",
+        "date": 1349939974000, 
+        "text": "sample text", "retweet_count": 1, "favorite_count": 0, 
+        "created_at": "Thu Oct 11 07:19:34 +0000 2012", 
+        "user": {
+            "id": "1", 
+            "name": "bigbookworm", "author_full_name": "Christian Kohnle", 
+            "statuses_count": 8854, "followers_count": 1739, "friends_count": 2101, "favourites_count": 0
+            }, 
+        "entities": {
+            "hashtags": [], "user_mentions": []
+            }
+    }
+    ```
+        
+
     ```
     def run_algorithm(self, data):
-        self.data = data
-        if os.path.isfile(self.results_path + "results_{}".format(self.data)):
-            with open(self.results_path + "results_{}".format(self.data), "r") as results_file:
-                self.eventResutls = json.load(results_file)
-                return
-
         # algorithm implementation
     ```
-   This method runs the algorithm implementation with the given dataset which was picked in the UI, and returns nothing.
    
     ***Notice***: 
-    1. Before the algorithm implementation you must copy the first 7 lines, they take the existing results for the same dataset if any at all. 
-    2. Afterwards you should save the returned results to
-    ```self.eventResutls``` 
-    3. Save results to a file with following
-        ```
-        with open(self.results_path + "results_{}".format(data) , "w") as file_results:
-                json.dump(self.eventResutls, file_results)
-
-        ```
-5. Implement summarize(self) method as follows,
-
-    ```
-    def summarize(self):
-        super().summarize()
-    ```
-
-6. Now, after you've done the last 4 steps you can add the algorithm to our UI. run the following 2 lines, ***Notice*** once you've done it there's no reason executing it again.
+    1. Please save results to ```self.eventResutls``` 
+    2. In order to save runtime for the next time you can:
+        1. Save results to a file with ```self.save_results(data)```
+        2. Get saved results with ```self.get_results(data)``` 
+        
+5. Now, after you've done the last 4 steps you can add the algorithm to our UI. run the following 2 lines, ***Notice*** once you've done it there's no reason executing it again.
 
     ```
     from Backend.routing.endpoints.algorithm import algorithms_object
@@ -64,7 +71,7 @@ In order to add a new algorithm to our backend, do the following stpes:
 
     # example, algorithms_object.add_algorithm("Bert",Bert())
     ```
-7. ***In case you wish to delete it from the UI for some reasons***, please execute the following lines.
+6. ***In case you wish to delete it from the UI for some reasons***, please execute the following lines.
    
    ```
    from Backend.routing.endpoints.algorithm import algorithms_object
@@ -77,4 +84,4 @@ In order to add a new algorithm to our backend, do the following stpes:
    ***Notice:*** algorithm's name must be the ***exact*** same name as added. (It's the same name as seen on the UI)
 
 
-## That's it! now you can use on our web page. Good luck ☺
+## That's it! now you can use it on our web page. Good luck ☺

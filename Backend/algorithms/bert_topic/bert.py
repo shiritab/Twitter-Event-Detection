@@ -41,16 +41,14 @@ class Bert(DetectionAlgorithm):
         self.data = ""
 
     def run_algorithm(self, data):
-        self.data = data
-        if os.path.isfile(self.results_path + "results_{}".format(self.data)):
-            with open(self.results_path + "results_{}".format(self.data), "r") as results_file:
-                self.eventResutls = json.load(results_file)
-                return
+        results = self.get_results(data)
+        if results:
+            return results
 
-        return self.create_output()
+        results = self.create_output()
+        self.save_results(data)
 
-    def summarize(self):
-        super().summarize()
+        return results
 
     def get_topic_model(self, documents, n_neighbors, min_topic_size, calculate_probabilities=False):
         umap_model = UMAP(n_neighbors=n_neighbors, n_components=10, min_dist=0.0, metric='cosine')

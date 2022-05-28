@@ -1,3 +1,7 @@
+import json
+import os
+import sys
+
 from ..summarization import hugging_faces
 from ..utils_backend.emotion_tweet import EmotionTweet
 
@@ -25,14 +29,32 @@ class DetectionAlgorithm:
     def upload_data(self, data):
         pass
 
-    def get_results(self, *args):
+    def get_results(self, data):
         '''
-        each algorithm ahs a different eay of getting and returning its results.
-        this method is where its is implemanted
+        Checks if a results file already exists in the algorithm's results dir.
+        If so then returns the results object - otherwise returns None
         :return:
         JSON file with relevant results
         '''
-        pass
+
+        self.data = data
+        if os.path.isfile(self.results_path + "results_{}".format(self.data)):
+            with open(self.results_path + "results_{}".format(self.data), "r") as results_file:
+                self.eventResutls = json.load(results_file)
+                return self.eventResutls
+
+        return None
+
+    def save_results(self, data):
+        '''
+        This methods saves the data object into a file under algorithm's results dir.
+        :param data: dict
+        :return: void
+        '''
+
+        with open(self.results_path + "results_{}".format(data), "w") as file_results:
+            json.dump(self.eventResutls, file_results)
+
 
     def get_results_by_date(self,date):
         pass

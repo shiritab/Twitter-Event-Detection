@@ -1,6 +1,12 @@
 Bert: !!python/object:Backend.algorithms.bert_topic.bert.Bert
-  eventResutls: null
+  data: ''
+  eventResutls: ''
+  results_path: ../results/bert_topic/
 SedTwik: !!python/object:Backend.algorithms.sedtwik.SedTwik.SedTwik
-  eventResutls: null
+  data: ''
+  eventResutls: ''
+  results_path: ../results/sedwik/
 Twembeddings: !!python/object:Backend.algorithms.twembed.Twembeddings.Twembeddings
-  eventResutls: null
+  data: ''
+  eventResutls: ''
+  results_path: ../results/twembeddings/
