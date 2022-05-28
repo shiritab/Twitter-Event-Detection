@@ -3,19 +3,19 @@ import os
 import sys
 from . import *
 from .clustering import main
-from ...summarization import hugging_faces
-from ...utils_backend.emotion_tweet import EmotionTweet
+# from ...summarization import hugging_faces
+# from ...utils_backend.emotion_tweet import EmotionTweet
 import pandas as pd
 
 TAGGED_TWEETS_PATH = f'C:\\Users\\user\\Desktop\\tagged tweets\\event2012_labeled_only.tsv'
 
 class Twembeddings(DetectionAlgorithm):
 
-    results_path = "../results/twembeddings/"
-    data = ""
 
     def __init__(self):
-        super().__init__()
+        self.results_path = "../results/twembeddings/"
+        self.eventResutls = ""
+        self.data = ""
 
     def run_algorithm(self, data):
         self.data = data
@@ -43,26 +43,4 @@ class Twembeddings(DetectionAlgorithm):
 
 
     def summarize(self):
-        if os.path.isfile(self.results_path + "summarized_{}".format(self.data)):
-            with open (self.results_path + "summarized_{}".format(self.data), "r") as summarized_file:
-                return json.load(summarized_file)
-
-        print("started summarize twembeddings")
-        data=self.eventResutls
-        hg = hugging_faces.HuggingFaces()
-        for i in range(len(data)):
-            # summarize for event name
-            dictionary = data[i]
-            summary = hg.summarize(dictionary["dirty_text"])
-            # calc tweet emotion
-            if "tweets_emotion" not in dictionary:
-                dictionary["tweets_emotion"] = EmotionTweet().find_emotion(dictionary["dirty_text"])
-            dictionary['event'] = summary
-            data[i] = dictionary
-            sys.stdout.write('\r' + "summarizing processing: {}/{}".format(i,len(data)))
-            sys.stdout.flush()
-        with open(self.results_path + "summarized_{}".format(self.data), 'w') as summarized_file:
-            json.dump(data, summarized_file)
-
-        print("done summarize twembeddings")
-        return data
+        super().summarize()
