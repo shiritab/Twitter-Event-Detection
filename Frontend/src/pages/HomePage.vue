@@ -156,7 +156,7 @@ export default {
                 await this.axios.get(`http://localhost:5000/algorithm/${this.algorithm}?dataset=${this.dataSet}`);
 
                 // get events
-                const events = await this.axios.get(`http://localhost:5000/events/summary/${this.algorithm}`);
+                // const events = await this.axios.get(`http://localhost:5000/events/summary/${this.algorithm}`);
                 this.json_return = events.data;
             } catch(error){
                 this.json_return=require("../proccess_data.json")

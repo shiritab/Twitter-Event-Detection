@@ -122,7 +122,7 @@ export default {
           }
         })
         this.events= eventsFiltered;
-        
+      }
     }},
     computed:{
         eventsByValue: function(){

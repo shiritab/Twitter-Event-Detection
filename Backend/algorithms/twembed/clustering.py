@@ -140,7 +140,9 @@ def test_params(**params):
 
 def build_dictionary(data):
     sortedData = data.sort_values(["pred"],axis = 0)
+
     labels = set(data["pred"].values)
+
     groups = data.groupby(["pred"])
     events = sorted([g for i,g in groups],key =  lambda x : x.size, reverse=True)
     events = events[:100] if len(events) >2 else events
@@ -148,13 +150,16 @@ def build_dictionary(data):
     return_JSON = []
     for event in events:
         # fullText = ""
-        eventDict = {"event":None, "tweets": [], "dirty_text": []}
+        eventDict = {"event":None, "tweets": [], "dirty_text": [], "dates":[]}
         for i,tweet in event.iterrows():
             # print(tweet)
             eventDict["tweets"].append(str(tweet["id"]))
             eventDict["dirty_text"].append(tweet["text"])
-        # eventDict["event"]= event["pred"][0]
+            eventDict["dates"].append(tweet["date"][:4]+"-"+tweet["date"][4:6]+"-"+tweet["date"][6:])
+        dates = set(eventDict["dates"])
+        eventDict["dates_set"] = list(dates)
         return_JSON.append(eventDict)
+
     return return_JSON
 
 

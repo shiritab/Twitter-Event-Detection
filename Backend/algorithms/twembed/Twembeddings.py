@@ -23,11 +23,11 @@ class Twembeddings(DetectionAlgorithm):
             return results
 
         if data == "event2012.json":
-            data = TAGGED_TWEETS_PATH
+            dataset = TAGGED_TWEETS_PATH
         else:
-            data = "../data/uploaded/" + data
+            dataset = "../data/uploaded/" + data
         self.eventResutls = main({'model': ['tfidf_all_tweets'],
-              'dataset':data,
+              'dataset':dataset,
               'lang': 'en',
               'annotation': 'no',
               'threshold': ['0.7'],

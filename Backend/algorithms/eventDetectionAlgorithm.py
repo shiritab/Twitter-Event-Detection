@@ -38,8 +38,8 @@ class DetectionAlgorithm:
         '''
 
         self.data = data
-        if os.path.isfile(self.results_path + "results_{}".format(self.data)):
-            with open(self.results_path + "results_{}".format(self.data), "r") as results_file:
+        if os.path.isfile(self.results_path + "results_with_dates_{}".format(self.data)):
+            with open(self.results_path + "results_with_dates_{}".format(self.data), "r") as results_file:
                 self.eventResutls = json.load(results_file)
                 return self.eventResutls
 
@@ -52,9 +52,8 @@ class DetectionAlgorithm:
         :return: void
         '''
 
-        with open(self.results_path + "results_{}".format(data), "w") as file_results:
+        with open(self.results_path + "results_with_dates_{}".format(data), "w") as file_results:
             json.dump(self.eventResutls, file_results)
-
 
     def get_results_by_date(self,date):
         # TODO: check if works
