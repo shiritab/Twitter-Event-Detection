@@ -1,8 +1,10 @@
 <template>
-  <div id="charts">
+  <div id="allCharts">
+      <div id="charts1">
       <!-- <Area :json_data="json_data"></Area> -->
       <Treemap :json_data="json_data"></Treemap>
       <Area :json_data="json_data"></Area>
+      </div>
       <Column :json_data="json_data"></Column>
 
   </div>
@@ -13,7 +15,7 @@
 import RadialBar from "../components/charts/radialBar.vue"
 import Treemap from "../components/charts/treemap.vue"
 import Column from "../components/charts/column.vue"
-import Area from './charts/area.vue'
+import Area from '../components/charts/area.vue'
 
 
 export default {
@@ -22,7 +24,7 @@ export default {
         // RadialBar,
         Treemap,
         Column,
-        Area,
+        Area
     },
     props:
     {
@@ -57,9 +59,13 @@ export default {
 </script>
 
 <style>
-#charts{
-    margin-top: 3%;
-    margin-left: 2%;
+#allCharts{
+   margin-left: 2%; 
+}
+#charts1{
+    margin-top: 2%;
+    
+    margin-bottom: 2%;
     display:flex;
 }
 </style>

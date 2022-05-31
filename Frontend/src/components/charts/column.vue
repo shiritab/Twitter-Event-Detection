@@ -1,5 +1,5 @@
 <template>
-  <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:50%; margin-right:3%">
+  <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:100%; margin-right:3%">
       <h3 class="text-xl text-gray-600 mb-4" >Event's average emotion positivity</h3>
       <apexchart ref="realTimeChart" type="bar" height="350" :options="options" :series="series"></apexchart>
     </div>
@@ -52,7 +52,7 @@ export default {
                                 color: '#FEB019'
                             }]
                         },
-                        columnWidth: '80%',
+                        columnWidth: '100%',
                     }
                 },
                 dataLabels: {
@@ -71,7 +71,7 @@ export default {
                 xaxis: {
                     type: 'date',
                     categories: [
-                        '2012-10-12'
+                        "Events"
                         // '2011-01-01', '2011-02-01', '2011-03-01', '2011-04-01', '2011-05-01', '2011-06-01',
                         // '2011-07-01', '2011-08-01', '2011-09-01', '2011-10-01', '2011-11-01', '2011-12-01',
                         // '2012-01-01', '2012-02-01', '2012-03-01', '2012-04-01', '2012-05-01', '2012-06-01',
@@ -92,9 +92,7 @@ export default {
             this.json_data=newVal
             this.make_data();
             
-            this.$refs.realtimeChart.updateSeries([{
-                data: this.series,
-            }], false, true);
+
     
 
 

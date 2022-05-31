@@ -26,7 +26,7 @@
 
     </div>
 
-    <div class="grid grid-cols-1 gap-4 px-4 mt-8 sm:grid-cols-4 sm:px-8">
+    <div class="grid grid-cols-1 gap-4 px-4 mt-8 sm:grid-cols-4 sm:px-8" id="info">
         <div id=icon class="flex items-center bg-white border rounded-sm overflow-hidden shadow ">
             <div class="p-4 bg-blue-400">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
@@ -257,5 +257,7 @@ background-color: rgb(218, 217, 217);
 /* #run{
     display: inline-block;
 } */
-
+#info{
+    display: inline-flex;
+}
 </style>
