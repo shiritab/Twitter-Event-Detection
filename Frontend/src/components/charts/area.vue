@@ -9,12 +9,12 @@
 import VueApexCharts from 'vue-apexcharts'
 
 export default {
-    components:{
+components:{
         apexchart: VueApexCharts,
         
     },
     props:{
-        data:{type:Object}
+        json_data:{type:Array}
     },
 data(){
         return{

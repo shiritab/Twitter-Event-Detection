@@ -153,11 +153,14 @@ export default {
             try{
                 console.log(`selected: ${this.selectedFile}`);
                 // run algorithm
-                await this.axios.get(`http://localhost:5000/algorithm/${this.algorithm}?dataset=${this.dataSet}`);
-
+                const events=await this.axios.get(`http://localhost:5000/algorithm/${this.algorithm}?dataset=${this.dataSet}`);
+                console.log(events)
                 // get events
-                // const events = await this.axios.get(`http://localhost:5000/events/summary/${this.algorithm}`);
-                this.json_return = events.data;
+                const event = await this.axios.get(`http://localhost:5000/events/summary/${this.algorithm}`);
+                console.log(event);
+                this.json_return = event.data;
+                localStorage.setItem('data_algorithm',JSON.stringify(this.json_return));
+
             } catch(error){
                 this.json_return=require("../proccess_data.json")
                 console.log(`error ${error}\noccured at getEventsSummary on HomePage.vue`);

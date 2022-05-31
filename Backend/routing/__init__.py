@@ -79,7 +79,7 @@ if __name__ == '__main__':
     context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
     app = create_app()
     # serving.run_simple( host='0.0.0.0',pory=443, application=app, ssl_context=context)
-    # app.run(debug=True,port=443,host='0.0.0.0',ssl_context='adhoc')
+    # app.run(debug=True,port=443,host='localhost')
 
     # app.run(debug=True,host='localhost',port=8080)
     # app.run(debug=True,host='0.0.0.0',port=443,ssl_context='adhoc')

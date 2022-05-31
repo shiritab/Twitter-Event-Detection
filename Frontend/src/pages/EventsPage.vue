@@ -2,6 +2,7 @@
   <div>
     <!-- <h1> Trending </h1> -->
     <br>
+    <p>Events by algorithm: {{this.algorithm}}</p>
     <b-form-datepicker ref="datepicker"
     v-model="dateValue"
     :min="min"
@@ -10,7 +11,7 @@
     style="width: 18.3rem; margin: auto"
     locale="en"></b-form-datepicker>
     <br>
-    <b-card-group deck>
+    <!-- <b-card-group style="display:block" class="events"> -->
         <!-- <b-card v-for="event in eventsByValue"
             :key="event.id"
             style="max-width: 20rem; margin: auto;"
@@ -19,6 +20,7 @@
                 <b-card-text>{{ event.name  }}</b-card-text>
             </router-link>
         </b-card> -->
+        <div class="row">
         <b-card v-for="event in events"
             :key="event.event"
             style="max-width: 20rem; margin: auto;"
@@ -27,7 +29,8 @@
                 <b-card-text>{{ event.event  }}</b-card-text>
             </router-link>
         </b-card>
-    </b-card-group>
+        </div>
+    <!-- </b-card-group> -->
   </div>
 </template>
 
@@ -45,6 +48,7 @@ export default {
       const maxDate = new Date(today)
 
       return {
+        algorithm:"",
         dateValue: '',
         min: minDate,
         max: maxDate,
@@ -105,14 +109,10 @@ export default {
       try{
 
         console.log("getEventsByDate method in EventsPage")
-        const algorithm = localStorage.getItem('algorithm');
-        console.log(" - Chosen algorithm: "+algorithm);
-        const response = await this.axios.get(
-          `http://127.0.0.1:5000/events/${algorithm}/${this.dateValue}`
-        );
-        console.log(response)
-        this.events = response.data;//.events;
+        console.log(" - Chosen algorithm: "+this.algorithm);
 
+        const events_data=JSON.parse(localStorage.getItem("data_algorithm"))
+        this.events=events_data
       } catch(error){
 
         let eventsFiltered = []
@@ -134,6 +134,7 @@ export default {
     },
     created(){
         console.log("created ")
+        this.algorithm = localStorage.getItem('algorithm');
         // this.getEvents();
     }
 
@@ -148,4 +149,7 @@ export default {
     background-color: whitesmoke;
     align-items: center;
 } */
+.events{
+  display: block;
+}
 </style>

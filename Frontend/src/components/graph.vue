@@ -1,8 +1,8 @@
 <template>
   <div id="charts">
       <!-- <Area :json_data="json_data"></Area> -->
-      <RadialBar :json_data="json_data"></RadialBar>
       <Treemap :json_data="json_data"></Treemap>
+      <Area :json_data="json_data"></Area>
       <Column :json_data="json_data"></Column>
 
   </div>
@@ -13,14 +13,16 @@
 import RadialBar from "../components/charts/radialBar.vue"
 import Treemap from "../components/charts/treemap.vue"
 import Column from "../components/charts/column.vue"
+import Area from './charts/area.vue'
 
 
 export default {
     components:{
-        // Area,
-        RadialBar,
+
+        // RadialBar,
         Treemap,
         Column,
+        Area,
     },
     props:
     {
