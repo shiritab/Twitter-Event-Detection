@@ -87,7 +87,7 @@
                 {{data.item.tweets.length}}
             </template>
             <template #cell(event)="data">
-                <router-link :to="{ name: 'event', params: {id:data.item.event, tweets:data.item.tweets}}">
+                <router-link :to="{ name: 'event', params: {name:data.item.event, tweets:data.item.tweets,dates:data.item.dates,emotion:data.item.tweets_emotion}}">
                     {{data.item.event}}
                 </router-link>
             </template>

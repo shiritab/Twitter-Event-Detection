@@ -2,17 +2,27 @@
   <div id="eventContainer">
       <h1>"{{ name }}"</h1>
       <br>
+      <div id="charts1">
+      <!-- <Area :json_data="json_data"></Area> -->
+      <EmotionEvent :emotion="emotion" :dates="dates"></EmotionEvent>
+      <AreaEvent :dates="dates"></AreaEvent>
+      </div>
+      
       <!-- <Tweet :tweets="tweetsList"></Tweet> -->
-      <TweetD  :tweets="tweets"></TweetD>
+      <TweetD  :tweets="tweets" ></TweetD>
   </div>
 </template>
 
 <script>
 import TweetD from "./TweetD.vue"
+import EmotionEvent from "./charts/emotion_event.vue"
+import AreaEvent from "./charts/area_event.vue"
 export default {
     name: "Event",
     components:{
         TweetD,
+        EmotionEvent,
+        AreaEvent
     },
     props:{
         id:{
@@ -25,7 +35,14 @@ export default {
         },
         tweets:{
             type: Array,
-        }
+        },
+        dates:{
+            type: Array,
+        },
+        emotion:{
+            type: Array,
+        },
+
     },
     data(){
         return{

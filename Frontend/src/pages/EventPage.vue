@@ -1,6 +1,6 @@
 <template>
   <div>
-      <Event :id="1" :name="$route.params.id" :tweets="tweets"></Event>
+      <Event :name="name" :tweets="tweets" :emotion="emotion" :dates="dates"></Event>
   </div>
 </template>
 
@@ -12,14 +12,23 @@ export default {
         Event,
     },
     props:{
+        name:{
+            type: String
+        },
         tweets:{
             type: Array,
             required: true,
-        }
+        },
+        dates:{
+            type: Array,
+        },
+        emotion:{
+            type: Array,
+        },
     },
     created(){
         console.log("created event page");
-        console.log(this.tweets);
+        console.log(this.emotion);
     }
 }
 </script>
