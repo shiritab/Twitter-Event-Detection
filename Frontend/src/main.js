@@ -28,7 +28,7 @@ import {
     FormPlugin,
     FormInputPlugin,
     FormFilePlugin,
-    
+    ToastPlugin,
     
 } from "bootstrap-vue";
 [
@@ -47,6 +47,7 @@ import {
     FormPlugin,
     FormInputPlugin,
     FormFilePlugin,
+    ToastPlugin ,
 
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
