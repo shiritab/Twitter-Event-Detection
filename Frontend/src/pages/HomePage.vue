@@ -12,7 +12,7 @@
             <div class="col-4">
                 <a>Algorithm:</a>
                 <br>
-                <b-form-select style="width:100%" v-model="algorithm" :options="['SedTwik', 'Twembeddings', 'Bert']"></b-form-select>
+                <b-form-select style="width:100%" v-model="algorithm" :options="this.algorithms"></b-form-select>
             </div>
 <div class="col-4">
 
@@ -117,7 +117,7 @@ export default {
     data(){
         return{
             dataSetOption:["event2012.json"],
-            algorithm: "SedTwik",
+            algorithm: "",
             dataSet:"event2012.json",
             selectedFile:"",
             src:"",
@@ -171,22 +171,14 @@ export default {
             this.src=this.file.name
             this.dataSetOption.push(this.src)
             const formData = new FormData();
-        formData.append('file', this.file);
-        const headers = { 'Content-Type': 'application/json' };
-        axios.post('http://localhost:5000/files/upload', formData, { headers }).then((res) => {
-        //   res.data.files; // binary representation of the file
-          res.status; // HTTP status
-        });
-        console.log(this.file)
+            formData.append('file', this.file);
+            const headers = { 'Content-Type': 'application/json' };
+            axios.post('http://localhost:5000/files/upload', formData, { headers }).then((res) => {
+            //   res.data.files; // binary representation of the file
+            res.status; // HTTP status
+            });
+            console.log(this.file)
         },
-
-
-                
-    
-
-
- 
-
     },
     created(){
         console.log("HomePage created");

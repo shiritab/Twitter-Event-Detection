@@ -50,6 +50,11 @@ def compare_algorithms():
 
     return jsonify(list_output)
 
+@algorithm.route("/all")
+def get_algorithms():
+    algorithms = list(algorithms_object.get_algorithms().keys())
+    return jsonify(algorithms)
+
 
 def convert_tags_to_vector(tweets_dict):
     tsv_file = open(RELEVANT_TWEETS_PATH) # contains only 2 cols - cluster id, tweet id

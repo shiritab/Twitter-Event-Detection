@@ -1,4 +1,4 @@
-# Algorithm Addition
+# 1. Algorithm Addition
 
 In order to add a new algorithm to our backend, do the following stpes:
 
@@ -55,7 +55,33 @@ In order to add a new algorithm to our backend, do the following stpes:
     def run_algorithm(self, data):
         # algorithm implementation
     ```
-   
+    The expected results json file structure,
+    ```
+    [
+        {
+            "event":"Event title example",
+            "tweets": [
+                1,
+                2,
+                3
+            ],
+            "dirty_text": [
+                "Tweet text 1", 
+                "Tweet text 2", 
+                "Tweet text 3"
+            ],
+            "dates": [
+                "2022-05-06", 
+                "2022-05-06", 
+                "2022-04-08"
+            ],
+            "dates_set": [
+                "2022-05-06", 
+                "2022-04-08"
+            ]
+        }
+    ]
+    ```
     ***Notice***: 
     1. Please save results to ```self.eventResutls``` 
     2. In order to save runtime for the next time you can:
@@ -85,4 +111,4 @@ In order to add a new algorithm to our backend, do the following stpes:
 
 7. Create algorithm's results directory under Backend/results/<algorithm_name> (ex. Backend/results/bert_topic)
 
-## That's it! now you can use it on our web page. Good luck ☺
+## 1.1. That's it! now you can use it on our web page. Good luck ☺
