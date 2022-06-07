@@ -1,7 +1,7 @@
 <template>
-    <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:50%; margin-right:2%">
+    <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:40%; margin-right:2%">
       <h3 class="text-xl text-gray-600 mb-4">Num of events by date</h3>
-      <apexchart type="area" :height="280" :options="options" :series="series"></apexchart>
+      <apexchart type="area" :height="200" :options="options" :series="series"></apexchart>
     </div>
 </template>
 
@@ -21,12 +21,15 @@ components:{
   
             categories: ['event 1', 'event 2', 'event 3', 'event 4', 'event 5', 'event 6'],
             options : {
+
+            colors:["#f13693"],
+                   
             chart: {
                 id: 'pageview-chart',
                 toolbar: {
                 show: false,
                 },
-                
+
             events: {
                 click(event, chartContext, config) {
                     console.log(this.categories);

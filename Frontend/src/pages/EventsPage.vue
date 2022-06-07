@@ -25,7 +25,7 @@
             :key="event.event"
             style="max-width: 20rem; margin: auto;"
             bg-variant="light" class="text-center">
-            <router-link :to="{ name: 'event', params:{id:event.event, tweets:event.tweets}}">
+            <router-link :to="{ name: 'event', params:{name:event.event, tweets:event.tweets,dates:event.dates,emotion:event.tweets_emotion}}">
                 <b-card-text>{{ event.event  }}</b-card-text>
             </router-link>
         </b-card>

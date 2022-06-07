@@ -99,7 +99,7 @@ return{
 .tweets_class{
   display: inline-block;
   position: relative;
-  padding: 10px;
+  padding: 2px;
 }
 .row col{
   max-height: 10px;
