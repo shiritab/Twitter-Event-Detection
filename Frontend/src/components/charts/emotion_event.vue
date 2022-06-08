@@ -1,7 +1,7 @@
 <template>
-  <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:5 0%; margin-right:3%">
+  <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:40%; margin-right:3%">
       <h3 class="text-xl text-gray-600 mb-4" >Event's average emotion positivity by date</h3>
-      <apexchart ref="realTimeChart" type="bar" height="350" :options="options" :series="series"></apexchart>
+      <apexchart ref="realTimeChart" type="bar" height="200" :options="options" :series="series"></apexchart>
     </div>
 </template>
 
@@ -41,11 +41,13 @@ export default {
             sort_date.forEach((date)=>{
                 console.log(date);
                 const average = this.average(date_dict[date]) * 100;
+                data_list.push(average)
                 var dict={name:date,data: [average]};
                 this.list_data.push(dict);
             })
-            
-            this.series=this.list_data;
+            this.options.xaxis.categories=sort_date
+            // this.series=this.list_data;
+            this.series=[{name:"emotion value",data:data_list}]
         },
         average(array){
             return array.reduce((a,b) => a + b, 0) / array.length
@@ -59,15 +61,34 @@ export default {
                 plotOptions: {
                     bar: {
                         colors: {
-                            ranges: [{
+                            ranges: [ {
                                 from: -100,
-                                to: -46,
+                                to: -30,
+                                color: '#f13636'
+                            },
+                            {
+                                from: -30,
+                                to: -10,
                                 color: '#F15B46'
                             }, {
-                                from: -45,
+                                from: -10,
                                 to: 0,
                                 color: '#FEB019'
-                            }]
+                            },
+                            
+                            {from: 0,
+                                to: 10,
+                                color: 'rgb(15, 165, 224)'
+                            },
+                            {from: 10,
+                                to: 30,
+                                color: 'rgb(17, 134, 180)'
+                            },
+                            {from: 30,
+                                to: 100,
+                                color: 'rgb(12, 107, 145)'
+                            }
+                            ]
                         },
                         columnWidth: '100%',
                     }
@@ -88,8 +109,8 @@ export default {
                 xaxis: {
                     type: 'date',
                     categories: [
-                        "Dates"
-                        // '2011-01-01', '2011-02-01', '2011-03-01', '2011-04-01', '2011-05-01', '2011-06-01',
+                        // "Dates"
+                        // '2011-01-01', '2011-02-01', '2011-03-01', '2011-04-01'
                         // '2011-07-01', '2011-08-01', '2011-09-01', '2011-10-01', '2011-11-01', '2011-12-01',
                         // '2012-01-01', '2012-02-01', '2012-03-01', '2012-04-01', '2012-05-01', '2012-06-01',
                         // '2012-07-01', '2012-08-01', '2012-09-01', '2012-10-01', '2012-11-01', '2012-12-01',
@@ -116,5 +137,5 @@ export default {
 </script>
 
 <style>
-
+.color{color: #f13693;}
 </style>

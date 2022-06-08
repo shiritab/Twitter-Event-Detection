@@ -10,7 +10,6 @@ const routes = [
     path: "/",
     name: "home",
     component: HomePage,
-    props: {algorithms: getAlgorithms()}
   },
   {
     path: "/Event/:id",
@@ -51,9 +50,5 @@ const routes = [
 ];
 
 
-// needed callbacks for props
-const getAlgorithms = async function() {
-  const algorithms = await axios.get("http://localhost:5000/algorithm/all");
-}
 
 export default routes;

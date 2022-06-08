@@ -19,7 +19,6 @@
               <b-nav-item :to="{ name: 'events'}">
                 <b-icon-list-ul></b-icon-list-ul> Events
               </b-nav-item>
-              <!-- <b-nav-item :to="{ name: 'event', params:{id:123}}"> Event </b-nav-item> -->
               <b-nav-item :to="{ name: 'login'}">
                 <b-icon-person-circle></b-icon-person-circle> Login
               </b-nav-item>

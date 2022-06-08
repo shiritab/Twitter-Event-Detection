@@ -1,14 +1,13 @@
 <template>
   <div id="eventContainer">
       <h1>"{{ name }}"</h1>
-      <br>
-      <div id="charts1">
+
+      <div id="charts">
       <!-- <Area :json_data="json_data"></Area> -->
       <EmotionEvent :emotion="emotion" :dates="dates"></EmotionEvent>
       <AreaEvent :dates="dates"></AreaEvent>
       </div>
       
-      <!-- <Tweet :tweets="tweetsList"></Tweet> -->
       <TweetD  :tweets="tweets" ></TweetD>
   </div>
 </template>
@@ -80,5 +79,8 @@ export default {
     }
     #eventContainer{
         text-align: center;
+    }
+    #charts{
+
     }
 </style>

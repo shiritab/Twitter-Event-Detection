@@ -78,10 +78,6 @@
     <br>
 <br>
         <h3>All Events</h3>
-        <!-- <div class="table">
-                <b-table   :items="tweeetsInfo" :fields="fieldsTweetsInfo" striped responsive="sm" selectable @row-clicked="myRowClickHandler">
-        </b-table>
-        </div> -->
         <b-table fixed striped hover :items="json_return" :fields="fieldsTweetsInfo">
             <template #cell(num_of_tweets)="data">
                 {{data.item.tweets.length}}
@@ -93,7 +89,14 @@
             </template>
         </b-table>
     
-
+    <b-toast id="non-selected-algorithm-toast" variant="info" solid>
+      <template #toast-title>
+        <div class="d-flex flex-grow-1 align-items-baseline">
+          <strong class="mr-auto">INFO</strong>
+        </div>
+      </template>
+      Please choose to run a valid algorithm.
+    </b-toast>
 
   </div>
 </template>
@@ -108,23 +111,20 @@ export default {
         Graph
         
     },
-    props: {
-        algorithms:{
-            type: Array,
-            required: true
-        }
-    },
     data(){
         return{
             dataSetOption:["event2012.json"],
-            algorithm: "",
+            algorithm: null,
+            algorithms: [
+                {value: null, text: "Select algorithm"}
+            ],
             dataSet:"event2012.json",
             selectedFile:"",
             src:"",
             file:"",
-            total_autors:2764,
-            total_tweets:243090,
-            total_events:10,
+            total_autors:0,
+            total_tweets:0,
+            total_events:0,
             created:false,
             sedweek:true,
             // json format for events/summary
@@ -149,16 +149,25 @@ export default {
             this.$router.push({ name: 'event', params: 1 });
         },
         async getEventSummary(){
+            if (this.algorithm == null) {
+                this.$bvToast.show('non-selected-algorithm-toast');
+                return;
+            }
+
             localStorage.setItem('algorithm',this.algorithm);
             try{
                 console.log(`selected: ${this.selectedFile}`);
                 // run algorithm
                 const events=await this.axios.get(`http://localhost:5000/algorithm/${this.algorithm}?dataset=${this.dataSet}`);
-                console.log(events)
                 // get events
                 const event = await this.axios.get(`http://localhost:5000/events/summary/${this.algorithm}`);
-                console.log(event);
+
                 this.json_return = event.data;
+                this.total_events = this.json_return.length;
+                this.total_tweets = this.json_return.reduce((total, event) => {
+                    return total + event.tweets.length;
+                }, 0)
+                this.total_autors = 2764;
                 localStorage.setItem('data_algorithm',JSON.stringify(this.json_return));
 
             } catch(error){
@@ -174,14 +183,22 @@ export default {
             formData.append('file', this.file);
             const headers = { 'Content-Type': 'application/json' };
             axios.post('http://localhost:5000/files/upload', formData, { headers }).then((res) => {
-            //   res.data.files; // binary representation of the file
-            res.status; // HTTP status
+                //   res.data.files; // binary representation of the file
+                res.status; // HTTP status
             });
             console.log(this.file)
         },
+        // needed callbacks for props
+        async getAlgorithms() {
+            const algorithms = await this.axios.get("http://localhost:5000/algorithm/all");
+            algorithms.data.map((algorithm) => {
+                this.algorithms.push(algorithm);
+            })
+        }
     },
     created(){
         console.log("HomePage created");
+        this.getAlgorithms();
         this.getEventSummary();
         localStorage.setItem('algorithm', this.algorithm);
         this.created=true;
