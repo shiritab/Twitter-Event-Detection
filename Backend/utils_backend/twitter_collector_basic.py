@@ -58,21 +58,25 @@ class TwitterCollector:
         # To help make pagination easier and Tweepy has the Cursor object.
         # ---------------------------------------------------------------
 
+
         # We use the file saved from last step as example
         data=[]
-        with open(text_path, 'r') as input_file:
-            for line in input_file.readlines():
-                print(line)
-                tweet = api.get_status(line)
+        with open("output_file_new", 'w') as output_file:
+            # for line in input_file.readlines():
+            #     print(line)
+            #     tweet = api.get_status(line)
+            for tweet in api.search(q="Python",lang="en", rpp=10):
+                print(f"{tweet.user.name}:{tweet.text}")
                 print(tweet._json)
                 data.append(tweet._json)
+                output_file.write(tweet)
 
 
-        with open("data.json", 'a') as filehandle:
-            filehandle.write("%s\n" % json.dumps(tweet._json))
-
-        with open(output_json, 'w') as outfile:
-           json.dump(data,outfile)
+        # with open("data.json", 'a') as filehandle:
+        #     filehandle.write("%s\n" % json.dumps(tweet._json))
+        # #
+        # with open(output_json, 'w') as outfile:
+        #    json.dump(data,outfile)
 
 
 

@@ -2,7 +2,7 @@
   <div id="eventContainer">
       <h1>"{{ name }}"</h1>
 
-      <div id="charts">
+      <div id="charts" style="">
       <!-- <Area :json_data="json_data"></Area> -->
       <EmotionEvent :emotion="emotion" :dates="dates"></EmotionEvent>
       <AreaEvent :dates="dates"></AreaEvent>

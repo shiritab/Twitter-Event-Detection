@@ -5,9 +5,6 @@ from .algorithm import algorithms_object
 events = Blueprint("events", __name__)
 ####
 
-# @events.route("/")
-# def print():
-#     return jsonify({"hi":"hi"})
 
 @events.route("/summary/<algorithm>")
 def get_algorithm_summary(algorithm):

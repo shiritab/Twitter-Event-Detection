@@ -5,16 +5,14 @@
     <br>
     <div id="algo-checkbox">
         <b-form-group v-slot="{ ariaDescribedby }">
-        <b-form-checkbox-group
-            id="checkbox-group-1"
-            v-model="selected"
-            :options="options"
-            :aria-describedby="ariaDescribedby"
-            name="flavour-1"
-        ></b-form-checkbox-group>
-        <div id="compare-button">
-            <b-button variant="outline-info">Compare</b-button>
-        </div>
+            <b-form-checkbox-group
+                id="checkbox-group-1"
+                v-model="selected"
+                :options="options"
+                :aria-describedby="ariaDescribedby"
+                name="flavour-1"
+            ></b-form-checkbox-group>
+
         </b-form-group>
     </div>
     <div id="compare">
@@ -38,7 +36,6 @@ export default {
         return{
             selected: ['SedTwik', 'Twembeddings','Bert'],
             options: ['SedTwik', 'Twembeddings','Bert'],
-
         }
     }
 }
