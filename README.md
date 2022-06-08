@@ -14,11 +14,12 @@ algorithms that run over the same datasets.
 __________
 
 ## Sidebar
-You can go by our different pages by clicking of each of the buttons of the sidebar on the left. **ADD PHOTO**
+You can go by our different pages by clicking of each of the buttons of the sidebar on the left. ![sidebar](/Frontend/assets/sidebar.png)
 __________
 
 ## Trending Page
-This page contains the following functionalities: **ADD TRENDING BUTTON**
+This page contains the following functionalities: 
+  ![trending btn](/Frontend/assets/TrendingPage/trendingButton.png)
 
 - Upload a dataset of your own:
   - Click on 'Upload Data' button 
@@ -37,19 +38,25 @@ This page contains the following functionalities: **ADD TRENDING BUTTON**
   - Now results will be presented on the graphs below.
 __________
 ## Compare Page
+![compare btn](/Frontend/assets/ComparePage/compareButton.png)
 This page shows the perfomance difference of the algorithms' you chose.
--**ADD GRAPHS PHOTO**
+- **ADD GRAPHS PHOTO**
   - The left graph shows the measurments - **what measurements?**
   - The right graph shows number of tweets/events each algorithm chosen contains.
 
 - Choose what algorithms you wish to compare by picking their checkbox.
-**ADD CHECKBOX PHOTO**
+  ![algorithms checkbox](/Frontend/assets/ComparePage/algorithmCheckbox.png)
+
+  ![algorithms checkbox](/Frontend/assets/ComparePage/checkAlgorithm.png)
 __________
 
 ## Events By Date Page
-Here you need to pick a date in the date picker **ADD PHOTO**
+![events btn](/Frontend/assets/EventsPage/eventsButton.png)
+Here you need to pick a date in the date picker 
+![datepicker](/Frontend/assets/EventsPage/datepicker.png)
 
 after you chose a date you will see all events occured on that date, clicking on each of them will forward you to the event's page.
+![event click](/Frontend/assets/EventsPage/clickEvent.png)
 
 ### Event's page
 - We present here 2 informative graphs, 
@@ -61,13 +68,17 @@ after you chose a date you will see all events occured on that date, clicking on
   ![dataset dd](/Frontend/assets/EventPage/eventPageTweets.png)
 __________
 ## Help Page
+![help btn](/Frontend/assets/helpButton.png)
 This page contains README.md file.
 __________
 ## About Page
+![about btn](/Frontend/assets/aboutButton.png)
 This page contains some information about us, whom created this site.
 __________
 ## Login Page
+![login btn](/Frontend/assets/LoginPage/loginButton.png)
 In order to have some unique functionalities - Upload data, **use twitter api?** - you have to be registered to our website. 
 
-If you haven't registered yet - Now is the time and you can do it by clicking on this link **ADD LINK PHOTO**.
+If you haven't registered yet - Now is the time and you can do it by clicking on this link 
+![register link](/Frontend/assets/LoginPage/registerLink.png)
 
