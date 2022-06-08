@@ -25,6 +25,9 @@
               <b-nav-item :to="{ name: 'about'}">
                 <b-icon-info-circle></b-icon-info-circle> About
               </b-nav-item>
+              <b-nav-item :to="{ name: 'help'}">
+                <b-icon-question-circle></b-icon-question-circle> Help
+              </b-nav-item>
             </b-navbar-nav>
               <!-- <template #footer="{ hide }"> -->
               <template #footer>

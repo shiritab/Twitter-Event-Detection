@@ -1,6 +1,8 @@
 import json
 import os
 import sys
+from time import strftime
+
 from bertopic import BERTopic
 import torch
 from ..eventDetectionAlgorithm import DetectionAlgorithm
@@ -99,7 +101,8 @@ class Bert(DetectionAlgorithm):
             model = self.get_topic_model(docs, n_neighbor, min_topic_size)
             topics, probas = model.transform(df["text"])
             df["topic"] = topics
-            tmp = df[["text", "topic", "tweet_id"]]
+            tmp = df[["text", "topic", "tweet_id","date"]]
+            tmp["date"] = tmp["date"].apply(lambda date: date.strftime('%Y-%m-%d'))
             tmp["ID"] = range(len(df))
             print(tmp.head())
             print([topic for topic in tmp.groupby('topic')])
@@ -116,6 +119,10 @@ class Bert(DetectionAlgorithm):
             events.append({
                 'event': None,
                 'tweets': [id for id in topic['tweet_id']],
-                'dirty_text': [text for text in topic['text']]
+                'dirty_text': [text for text in topic['text']],
+                'dates': [date for date in topic['date']],
             })
+            events[len(events)-1]['dates_set'] = list(set(events[len(events)-1]['dates']))
+
+        self.eventResutls = events
         return events

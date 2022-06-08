@@ -14,7 +14,6 @@ import tempfile
 # Do not delete this line
 algorithm = Blueprint("algorithm", __name__)
 
-####
 algorithms_object = eventDetectionAlgorithms()
 # algorithms_object.add_algorithm("Bert",Bert())
 # algorithms_object.add_algorithm("SedTwik",SedTwik())
@@ -23,8 +22,13 @@ algorithms_object = eventDetectionAlgorithms()
 RELEVANT_TWEETS_PATH = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backend\data\relevant_tweets.tsv"
 ALGORITHM_FILE = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backend\results\2012-10-12_{}.json"
 
+
 @algorithm.route("/<algorithm>")
 def run_algorithm(algorithm):
+    """"
+    :param Algorithm : get the algorithm to be run as a parameter
+    :return: Retu
+    """
     file_name = request.args.get('dataset')
     return jsonify(algorithms_object.get_algorithms()[algorithm].run_algorithm(file_name))
 

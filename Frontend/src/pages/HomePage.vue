@@ -127,27 +127,19 @@ export default {
             total_events:0,
             created:false,
             sedweek:true,
+
             // json format for events/summary
             fieldsTweetsInfo:['event', 'num_of_tweets'],
             json_return:[],
-
-            tweeetsInfo:[ {'event summary':'Take a photo','num of tweets':'4','Segmentation':"[take], [photo], [take a photo]"},
-            {'event summary':'Chinese author Mo Yan wins the Nobel Prize in Literature','num of tweets':'2987','Segmentation':"[mo yan], [chinese writer], [nobel prize literature]"},
-            {'event summary':'X Factor UK finalists James Arthur and Rylan Clark give a live show in London.','num of tweets':'1000','Segmentation':"[xfactor], [x factor], [james arthur], [rylan clark]"},
-            {'event summary':'National Coming Out Day celebrated on this day.','num of tweets':'359','Segmentation':"[national coming out day], [national coming day], [lgbt], [coming day], [ncod]"},
-            {'event summary':'Former US Senator Arlen Specter, died at the age of 82.','num of tweets':'4001','Segmentation':"[arlen specter], [passed away], [sen arlen specter]"},
-            {'event summary':'Pop singer Taylor Swift performs live at the X Factor UK.','num of tweets':'892','Segmentation':"[taylor swift], [xfactor], [the x factor] "},
-            {'event summary':'Every year, October is celebrated as Breast Cancer Awareness Month.','num of tweets':'1354','Segmentation':"[breast cancer awareness month], [breast cancer awareness], [cure cancer]"},
-            {'event summary':'2nd US presidential debate between Barack Obama and Mitt Romney','num of tweets':'89','Segmentation':"[debate], [barack obama], [presidential debate]  "}]
-
         }
     },
     methods: {
 
         myRowClickHandler(record, index) {
-            console.log(record); // This will be the item data for the row
+            console.log(record); 
             this.$router.push({ name: 'event', params: 1 });
         },
+
         async getEventSummary(){
             if (this.algorithm == null) {
                 this.$bvToast.show('non-selected-algorithm-toast');
@@ -158,7 +150,7 @@ export default {
             try{
                 console.log(`selected: ${this.selectedFile}`);
                 // run algorithm
-                const events=await this.axios.get(`http://localhost:5000/algorithm/${this.algorithm}?dataset=${this.dataSet}`);
+                const events = await this.axios.get(`http://localhost:5000/algorithm/${this.algorithm}?dataset=${this.dataSet}`);
                 // get events
                 const event = await this.axios.get(`http://localhost:5000/events/summary/${this.algorithm}`);
 
@@ -175,6 +167,7 @@ export default {
                 console.log(`error ${error}\noccured at getEventsSummary on HomePage.vue`);
             }
         },
+
         requestUploadFile(args){
             this.file = this.$refs.file.files[0];
             this.src=this.file.name
@@ -188,6 +181,7 @@ export default {
             });
             console.log(this.file)
         },
+        
         // needed callbacks for props
         async getAlgorithms() {
             const algorithms = await this.axios.get("http://localhost:5000/algorithm/all");
