@@ -21,6 +21,7 @@ components:{
   
             categories: ['event 1', 'event 2', 'event 3', 'event 4', 'event 5', 'event 6'],
             options : {
+                colors:["#8af136"],
             chart: {
                 id: 'pageview-chart',
                 toolbar: {

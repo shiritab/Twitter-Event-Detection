@@ -15,11 +15,14 @@ def create_app():
     from Backend.routing.endpoints.events import events
     from Backend.routing.endpoints.algorithm import algorithm
     from Backend.routing.endpoints.files import files
+    from Backend.routing.endpoints.login import login
+
 
     # register endpoints
     app.register_blueprint(events, url_prefix="/events/")
     app.register_blueprint(algorithm, url_prefix="/algorithm/")
     app.register_blueprint(files, url_prefix="/files/")
+    app.register_blueprint(login, url_prefix="/login/")
 
 
 

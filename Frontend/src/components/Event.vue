@@ -7,7 +7,7 @@
       <EmotionEvent :emotion="emotion" :dates="dates"></EmotionEvent>
       <AreaEvent :dates="dates"></AreaEvent>
       </div>
-      
+      <br>
       <TweetD  :tweets="tweets" ></TweetD>
   </div>
 </template>

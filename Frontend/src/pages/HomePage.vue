@@ -161,6 +161,9 @@ export default {
                 }, 0)
                 this.total_autors = 2764;
                 localStorage.setItem('data_algorithm',JSON.stringify(this.json_return));
+                localStorage.setItem("total_events", this.total_events);
+                localStorage.setItem("total_tweets", this.total_tweets);
+                localStorage.setItem("total_authors", this.total_autors);
 
             } catch(error){
                 this.json_return=require("../proccess_data.json")
@@ -188,13 +191,38 @@ export default {
             algorithms.data.map((algorithm) => {
                 this.algorithms.push(algorithm);
             })
+        },
+
+        getLastRun() {
+            const algorithm = localStorage.getItem("algorithm");
+            const data_algorithm = localStorage.getItem("data_algorithm");
+            if (algorithm && data_algorithm) {
+                this.algorithm = this.algorithm;
+                this.json_return = JSON.parse(data_algorithm);
+                this.total_events = localStorage.getItem("total_events");
+                this.total_tweets = localStorage.getItem("total_tweets");
+                this.total_autors = localStorage.getItem("total_authors"); 
+                return true;
+            }
+            return false;
+        }
+    },
+    mounted(){
+        if (!this.getLastRun()) {
+            this.getEventSummary();
+            localStorage.setItem('algorithm', this.algorithm);
         }
     },
     created(){
+        
         console.log("HomePage created");
         this.getAlgorithms();
-        this.getEventSummary();
-        localStorage.setItem('algorithm', this.algorithm);
+        if (!this.getLastRun()) {
+            this.getEventSummary();
+            localStorage.setItem('algorithm', this.algorithm);
+        }
+        
+
         this.created=true;
     },
 
