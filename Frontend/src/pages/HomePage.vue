@@ -296,7 +296,7 @@ background-color: rgb(218, 217, 217);
   align-items: center;
   text-align: center;
   border-radius: 10px;
-  opacity: 80%;
+  opacity: 8.0;
 }
 /* #run{
     display: inline-block;
