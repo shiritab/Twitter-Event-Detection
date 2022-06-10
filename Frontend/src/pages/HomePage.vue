@@ -17,9 +17,9 @@
 <div class="col-4">
 
     <input type="file" id="uploadmyfile"  ref="file" @change="requestUploadFile" style="display: none">
-                <b-button style="margin-top:-1%" class="upload-button" size="sm"  variant="info" @click="$refs.file.click()"><b-icon icon="cloud-arrow-up" aria-hidden="true"></b-icon> Upload Data </b-button>
+                <b-button style="margin-top:1%; width:150px" class="upload-button"   variant="info" @click="$refs.file.click()"><b-icon icon="cloud-arrow-up" aria-hidden="true"></b-icon> Upload Data </b-button>
 
-            <b-button  style="margin-top:1%; width:71%" size="sm"  variant="info" @click="getEventSummary()">
+            <b-button  style="margin-top:1%; width:150px"  class="upload-button" variant="info" @click="getEventSummary()">
                     <b-icon icon="play" aria-hidden="true"></b-icon> Run
                 </b-button></div>
         </div>
@@ -48,18 +48,19 @@
                     <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
                     <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
                 </svg>
+
             </div>
 
             <!-- Total authors -->
             <div class="px-4 text-gray-700">
-                <h3 class="text-sm tracking-wider">Total Authors</h3>
-                <p class="text-3xl">{{total_autors}}</p>
+                <h3 class="text-sm tracking-wider">Dates Range</h3>
+                <p class="text-3xl">{{dates_range}}</p>
             </div>
         </div>
 
         <div id=icon class="flex items-center bg-white border rounded-sm overflow-hidden shadow ">
             <div class="p-4 bg-blue-400">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-calendar2-week-fill" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-calendar-date-fill" viewBox="0 0 16 16">
                     <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zm9.954 3H2.545c-.3 0-.545.224-.545.5v1c0 .276.244.5.545.5h10.91c.3 0 .545-.224.545-.5v-1c0-.276-.244-.5-.546-.5zM8.5 7a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM3 10.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"/>
                 </svg>
             </div>
@@ -130,6 +131,7 @@ export default {
             // json format for events/summary
             fieldsTweetsInfo:['event', 'num_of_tweets'],
             json_return:[],
+            server_link: 'https://rps.ise.bgu.ac.il/njsw28'
         }
     },
     methods: {
@@ -149,25 +151,41 @@ export default {
             try{
                 console.log(`selected: ${this.selectedFile}`);
                 // run algorithm
-                const events = await this.axios.get(`http://localhost:5000/algorithm/${this.algorithm}?dataset=${this.dataSet}`);
+                const events = await this.axios.get(`${this.server_link}/algorithm/${this.algorithm}?dataset=${this.dataSet}`);
                 // get events
-                const event = await this.axios.get(`http://localhost:5000/events/summary/${this.algorithm}`);
+                const event = await this.axios.get(`${this.server_link}/events/summary/${this.algorithm}`);
 
                 this.json_return = event.data;
                 this.total_events = this.json_return.length;
                 this.total_tweets = this.json_return.reduce((total, event) => {
                     return total + event.tweets.length;
                 }, 0)
-                this.total_autors = 2764;
+                this.dates_range = this.getEventsDates();
                 localStorage.setItem('data_algorithm',JSON.stringify(this.json_return));
                 localStorage.setItem("total_events", this.total_events);
                 localStorage.setItem("total_tweets", this.total_tweets);
-                localStorage.setItem("total_authors", this.total_autors);
+                localStorage.setItem("dates_range", this.dates_range);
 
             } catch(error){
                 this.json_return=require("../proccess_data.json")
                 console.log(`error ${error}\noccured at getEventsSummary on HomePage.vue`);
             }
+        },
+        getEventsDates(){
+            var minDate="";
+            var maxDate="";
+
+            let all_dates_set = [];
+            this.json_return.map((event) => {
+                 all_dates_set = all_dates_set.concat(event.dates_set);
+            });
+
+            const all_dates_set_sorted = all_dates_set.sort();
+            minDate = all_dates_set_sorted[0];
+            maxDate = all_dates_set_sorted[all_dates_set_sorted.length -1];
+
+            return `${minDate.replace('-',"/").replace('-',"/")} - ${maxDate.replace('-',"/").replace('-',"/")}`;
+            
         },
 
         requestUploadFile(args){
@@ -177,7 +195,7 @@ export default {
             const formData = new FormData();
             formData.append('file', this.file);
             const headers = { 'Content-Type': 'application/json' };
-            axios.post('http://localhost:5000/files/upload', formData, { headers }).then((res) => {
+            axios.post(`${this.server_link}/files/upload`, formData, { headers }).then((res) => {
                 //   res.data.files; // binary representation of the file
                 res.status; // HTTP status
             });
@@ -186,7 +204,7 @@ export default {
         
         // needed callbacks for props
         async getAlgorithms() {
-            const algorithms = await this.axios.get("http://localhost:5000/algorithm/all");
+            const algorithms = await this.axios.get(`${this.server_link}/algorithm/all`);
             algorithms.data.map((algorithm) => {
                 this.algorithms.push(algorithm);
             })
@@ -201,7 +219,7 @@ export default {
                 this.json_return = JSON.parse(data_algorithm);
                 this.total_events = localStorage.getItem("total_events");
                 this.total_tweets = localStorage.getItem("total_tweets");
-                this.total_autors = localStorage.getItem("total_authors"); 
+                this.dates_range = localStorage.getItem("dates_range"); 
                 return true;
             }
             return false;

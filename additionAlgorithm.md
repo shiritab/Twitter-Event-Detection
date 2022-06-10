@@ -83,7 +83,7 @@ In order to add a new algorithm to our backend, do the following stpes:
     ]
     ```
     ***Notice***: 
-    1. Please save results to ```self.eventResutls``` 
+    1. Please save results to ```self.event_resutls``` 
     2. In order to save runtime for the next time you can:
         1. Save results to a file with ```self.save_results(data)```
         2. Get saved results with ```self.get_results(data)``` 

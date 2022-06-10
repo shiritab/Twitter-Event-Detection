@@ -22,6 +22,7 @@ export default {
     },
     data(){
         return{
+          server_link: "https://rps.ise.bgu.ac.il/njsw28",
           json_return:[{
                 name: 'SedTwik',
                 data: [0.84,0.79]//, 56, 61, 58, 63, 60, 66]
@@ -96,7 +97,7 @@ export default {
     },
    async mounted(){
       try{
-          const compare_score = await this.axios.get(`http://localhost:5000/algorithm/compare`);
+          const compare_score = await this.axios.get(`${this.server_link}/algorithm/compare`);
           this.json_return = compare_score.data;
           this.series=this.json_return;
           console.log(this.series);

@@ -4,9 +4,9 @@ import logging
 import yaml
 import argparse
 # from sklearn.cluster import DBSCAN
-from Backend.algorithms.twembed.build_features_matrix import build_matrix
-from Backend.algorithms.twembed.clustering_algo import ClusteringAlgoSparse, ClusteringAlgo
-from Backend.algorithms.twembed.eval import general_statistics, cluster_event_match, mcminn_eval
+from Backend.algorithms.twembeddings.build_features_matrix import build_matrix
+from Backend.algorithms.twembeddings.clustering_algo import ClusteringAlgoSparse, ClusteringAlgo
+from Backend.algorithms.twembeddings.eval import general_statistics, cluster_event_match, mcminn_eval
 
 logging.basicConfig(format='%(asctime)s - %(levelname)s : %(message)s', level=logging.INFO)
 text_embeddings = ['tfidf_dataset', 'tfidf_all_tweets', 'w2v_gnews_en', "elmo", "bert", "sbert_nli_sts", "use"]
@@ -59,7 +59,7 @@ parser.add_argument('--window',
 
 def main(args):
     print(args)
-    with open("../algorithms/twembed/options.yaml", "r") as f:
+    with open("../algorithms/twembeddings/options.yaml", "r") as f:
     # with open("/Backend/utils_backend/twembeddings/options.yaml", "r") as f:
         options = yaml.safe_load(f)
     for model in args["model"]:

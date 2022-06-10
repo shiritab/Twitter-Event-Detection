@@ -2,10 +2,9 @@ import json
 import os
 import sys
 from time import strftime
-
 from bertopic import BERTopic
 import torch
-from ..eventDetectionAlgorithm import DetectionAlgorithm
+from ..abstractEventDetectionAlgorithm import DetectionAlgorithm
 import pandas as pd
 import pickle
 import random

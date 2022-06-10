@@ -204,7 +204,8 @@ export default {
       },
       countries: [{ value: null, text: "", disabled: true }],
       errors: [],
-      validated: false
+      validated: false,
+      server_link: "https://rps.ise.bgu.ac.il/njsw28"
     };
   },
   validations: {
@@ -254,7 +255,7 @@ export default {
       try {
         console.log("in register func!");
         const response = await this.axios.post(
-          "http://localhost:3000/register",
+          `${server_link}/register`,
           {
 
             username: this.form.username,

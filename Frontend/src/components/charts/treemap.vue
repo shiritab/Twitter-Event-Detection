@@ -1,6 +1,6 @@
 <template>
     <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:50%; margin-right:3%">
-      <h3 class="text-xl text-gray-600 mb-4" >Event relative traffic</h3>
+      <h3 class="text-xl text-gray-600 mb-4" >Event Relative Traffic</h3>
       <apexchart ref="realtimeChart" type="treemap" :height="280"  :options="options" :series="series" ></apexchart>
     </div>
 </template>

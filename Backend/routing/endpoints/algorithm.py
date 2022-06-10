@@ -5,7 +5,7 @@ from sklearn.metrics.cluster import adjusted_rand_score
 import json
 from operator import itemgetter
 from ...algorithms.sedtwik.SedTwik import SedTwik
-from ...algorithms.twembed.Twembeddings import Twembeddings
+from ...algorithms.twembeddings.Twembeddings import Twembeddings
 from ...algorithms.bert_topic.bert import Bert
 from ...algorithms.eventDetectionAlgorithms import eventDetectionAlgorithms
 from werkzeug.utils import secure_filename

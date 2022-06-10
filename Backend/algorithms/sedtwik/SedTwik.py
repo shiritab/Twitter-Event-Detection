@@ -13,8 +13,8 @@ class SedTwik(DetectionAlgorithm):
 
     def __init__(self):
         self.results_path = "../results/sedwik/"
-        self.eventResutls = ""
-        self.data = ""
+        self.event_results = ""
+        self.data_name = ""
 
     def run_algorithm(self, data):
         results = self.get_results(data)
@@ -141,5 +141,5 @@ class SedTwik(DetectionAlgorithm):
             first_index += 6
 
         # return just the last excute of 6 json files. the others will be saved.
-        self.eventResults = to_ret_events
+        self.event_results = to_ret_events
         return to_ret_events

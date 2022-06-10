@@ -1,1 +1,1 @@
-from Backend.algorithms.eventDetectionAlgorithm import DetectionAlgorithm
+from Backend.algorithms.abstractEventDetectionAlgorithm import DetectionAlgorithm

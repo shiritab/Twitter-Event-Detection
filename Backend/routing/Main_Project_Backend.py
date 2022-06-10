@@ -88,5 +88,5 @@ if __name__ == '__main__':
     # app.run(debug=True,host='0.0.0.0',port=443,ssl_context='adhoc')
     # with open(f'C:/Users/user/Documents/GitHub/Twitter-Event-Detection/Backend/data/tagged_tweets/tagged_tweets_dir/tagged_tweets.json', 'r') as f:
     #     data = json.load(f)
-    app.run(debug=True)
-    # app.run(debug=True, port=443, host='0.0.0.0', ssl_context="adhoc")
+    # app.run(debug=True)
+    app.run(debug=True, port=443, host='0.0.0.0', ssl_context="adhoc")

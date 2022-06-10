@@ -14,8 +14,8 @@ class Twembeddings(DetectionAlgorithm):
 
     def __init__(self):
         self.results_path = "../results/twembeddings/"
-        self.eventResutls = ""
-        self.data = ""
+        self.event_results = ""
+        self.data_name = ""
 
     def run_algorithm(self, data):
         results = self.get_results(data)
@@ -26,7 +26,7 @@ class Twembeddings(DetectionAlgorithm):
             dataset = TAGGED_TWEETS_PATH
         else:
             dataset = "../data/uploaded/" + data
-        self.eventResutls = main({'model': ['tfidf_all_tweets'],
+        self.event_results = main({'model': ['tfidf_all_tweets'],
               'dataset':dataset,
               'lang': 'en',
               'annotation': 'no',
