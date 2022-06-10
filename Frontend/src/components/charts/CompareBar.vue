@@ -1,7 +1,7 @@
 <template>
   <div id="chart" class="compareBar">
     <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:95%; margin-right:3%">
-      <h3 class="text-xl text-gray-600 mb-4" >Num of events</h3>
+      <h3 class="text-xl text-gray-600 mb-4" >Number of Events</h3>
       <apexchart type="bar" height="300" :options="get_category" :series="get_score"></apexchart>
     </div>
   </div>
@@ -22,9 +22,9 @@ export default {
     },
     data(){
         return{
-          data_dict:{"SedTwik":6,'Twembeddings':2350,'Bert':1189},
+          data_dict:{"SedTwik":52,'Twembeddings':100,'Bert':95},
         series: [{
-            data: [6,2350,1189]
+            data: [52,100,100]
           }],
           chartOptions: {
             chart: {

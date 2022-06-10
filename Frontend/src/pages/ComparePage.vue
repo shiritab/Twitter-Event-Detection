@@ -1,7 +1,7 @@
 <template>
   <div id="Compare-Page">
       <br>
-    <h1> Compare </h1>
+    <h1>Alghorithms Comparison </h1>
     <br>
     <div id="algo-checkbox">
         <b-form-group v-slot="{ ariaDescribedby }">

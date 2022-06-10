@@ -1,7 +1,7 @@
 <template>
   <div id="chart" class="compareCol">
     <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:90%; margin-right:3%">
-      <h3 class="text-xl text-gray-600 mb-4" >Algorithms performance</h3>
+      <h3 class="text-xl text-gray-600 mb-4" >Algorithms Performance</h3>
       <apexchart type="bar" height="350" :options="chartOptions" :series="get_score"></apexchart>
     </div>
   </div>
@@ -65,7 +65,7 @@ export default {
               colors: ['transparent']
             },
             xaxis: {
-              categories: ["normalized_mutual_info_score","adjusted_rand_score"], //, 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+              categories: ["Normalized Mutual Info"," Adjusted Rand"], //, 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
             },
 
             fill: {
