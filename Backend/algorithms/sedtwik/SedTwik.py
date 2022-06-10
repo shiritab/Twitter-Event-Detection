@@ -5,6 +5,8 @@ from . import *
 from ...summarization import hugging_faces
 from ...utils_backend.emotion_tweet import EmotionTweet
 
+#TODO: documentation
+
 
 class SedTwik(DetectionAlgorithm):
 
@@ -25,7 +27,6 @@ class SedTwik(DetectionAlgorithm):
         if data == "event2012.json":
             subwindow_dir = '../data/tagged_tweets/'  # each file is a subwindow in this folder
         else:
-            # TODO i don't think that's going to work
             subwindow_dir = '../data/uploaded/'
 
         event_output_dir_text = '../results/sedwik_output_text/'

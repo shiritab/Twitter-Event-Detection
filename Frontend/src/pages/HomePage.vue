@@ -52,7 +52,7 @@
 
             <!-- Total authors -->
             <div class="px-4 text-gray-700">
-                <h3 class="text-sm tracking-wider">Total Autors</h3>
+                <h3 class="text-sm tracking-wider">Total Authors</h3>
                 <p class="text-3xl">{{total_autors}}</p>
             </div>
         </div>
@@ -72,8 +72,7 @@
         </div>
     </div>
 
-        
-        
+                
     <Graph :v-if="created" :json_data="json_return"></Graph>
     <br>
 <br>
@@ -196,6 +195,7 @@ export default {
         getLastRun() {
             const algorithm = localStorage.getItem("algorithm");
             const data_algorithm = localStorage.getItem("data_algorithm");
+            this.algorithm=algorithm;
             if (algorithm && data_algorithm) {
                 this.algorithm = this.algorithm;
                 this.json_return = JSON.parse(data_algorithm);
@@ -207,12 +207,7 @@ export default {
             return false;
         }
     },
-    mounted(){
-        if (!this.getLastRun()) {
-            this.getEventSummary();
-            localStorage.setItem('algorithm', this.algorithm);
-        }
-    },
+
     created(){
         
         console.log("HomePage created");
