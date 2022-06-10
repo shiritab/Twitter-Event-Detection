@@ -26,7 +26,10 @@
 
     </div>
 
+
     <div class="grid grid-cols-1 gap-4 px-4 mt-8 sm:grid-cols-4 sm:px-8" id="info">
+
+        <!-- Total tweets -->
         <div id=icon class="flex items-center bg-white border rounded-sm overflow-hidden shadow ">
             <div class="p-4 bg-blue-400">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
@@ -34,30 +37,13 @@
                 </svg>
             </div>
 
-            <!-- Total tweets -->
             <div class="px-4 text-gray-700">
                 <h3 class="text-sm tracking-wider">Total Tweets</h3>
                 <p class="text-3xl">{{total_tweets}}</p>
             </div>
         </div>
-        
-        <div id=icon class="flex items-center bg-white border rounded-sm overflow-hidden shadow ">
-            <div class="p-4 bg-blue-400">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                    <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
-                    <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-                </svg>
 
-            </div>
-
-            <!-- Total authors -->
-            <div class="px-4 text-gray-700">
-                <h3 class="text-sm tracking-wider">Dates Range</h3>
-                <p class="text-3xl">{{dates_range}}</p>
-            </div>
-        </div>
-
+         <!-- Dates range -->        
         <div id=icon class="flex items-center bg-white border rounded-sm overflow-hidden shadow ">
             <div class="p-4 bg-blue-400">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-calendar-date-fill" viewBox="0 0 16 16">
@@ -65,7 +51,20 @@
                 </svg>
             </div>
 
-            <!-- Total events -->
+            <div class="px-4 text-gray-700">
+                <h3 class="text-sm tracking-wider">Dates Range</h3>
+                <p class="text-3xl">{{dates_range}}</p>
+            </div>
+        </div>
+
+        <!-- Total events -->
+        <div id=icon class="flex items-center bg-white border rounded-sm overflow-hidden shadow ">
+            <div class="p-4 bg-blue-400">
+                <svg width="50" height="50" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M13,9.5H18V7.5H13V9.5M13,16.5H18V14.5H13V16.5M19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21M6,11H11V6H6V11M7,7H10V10H7V7M6,18H11V13H6V18M7,14H10V17H7V14Z" />
+                </svg>
+            </div>
+
             <div class="px-4 text-gray-700">
                 <h3 class="text-sm tracking-wider">Total Events</h3>
                 <p class="text-3xl">{{json_return.length}}</p>
@@ -298,9 +297,7 @@ background-color: rgb(218, 217, 217);
   border-radius: 10px;
   opacity: 8.0;
 }
-/* #run{
-    display: inline-block;
-} */
+
 #info{
     display: inline-flex;
 }
