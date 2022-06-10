@@ -3,13 +3,10 @@ import pandas as pd
 import logging
 import yaml
 import argparse
-import csv
-from transformers import pipeline
-import tensorflow
 # from sklearn.cluster import DBSCAN
-from Backend.algorithms.twembed.twembeddings.build_features_matrix import build_matrix
-from Backend.algorithms.twembed.twembeddings.clustering_algo import ClusteringAlgoSparse, ClusteringAlgo
-from Backend.algorithms.twembed.twembeddings.eval import general_statistics, cluster_event_match, mcminn_eval
+from Backend.algorithms.twembed.build_features_matrix import build_matrix
+from Backend.algorithms.twembed.clustering_algo import ClusteringAlgoSparse, ClusteringAlgo
+from Backend.algorithms.twembed.eval import general_statistics, cluster_event_match, mcminn_eval
 
 logging.basicConfig(format='%(asctime)s - %(levelname)s : %(message)s', level=logging.INFO)
 text_embeddings = ['tfidf_dataset', 'tfidf_all_tweets', 'w2v_gnews_en', "elmo", "bert", "sbert_nli_sts", "use"]

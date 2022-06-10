@@ -11,8 +11,8 @@ in order to be compatible with the systems front end.
 
 '''
 
-class DetectionAlgorithm:
 
+class DetectionAlgorithm:
 
     def __init__(self):
         self.event_results = None
@@ -55,22 +55,22 @@ class DetectionAlgorithm:
         with open(self.results_path + "results_{}".format(data), "w") as file_results:
             json.dump(self.event_results, file_results)
 
-    def get_results_by_date(self,date):
+    def get_results_by_date(self, date):
         # TODO: check if works
         events = []
-        if self.eventResults:
-            for event_obj in self.eventResults:
+        if self.event_results:
+            for event_obj in self.event_results:
                 if date in event_obj.dates_set:
                     events.append(event_obj)
         return events
 
     def summarize(self):
         if os.path.isfile(self.results_path + "summarized_{}".format(self.data_name)):
-            with open (self.results_path + "summarized_{}".format(self.data_name), "r") as summarized_file:
+            with open(self.results_path + "summarized_{}".format(self.data_name), "r") as summarized_file:
                 print(self.results_path + "summarized_{}".format(self.data_name))
                 return json.load(summarized_file)
 
-        data=self.event_results
+        data = self.event_results
         hg = hugging_faces.HuggingFaces()
         for i in range(len(data)):
             # summarize for event name
@@ -81,11 +81,10 @@ class DetectionAlgorithm:
                 dictionary["tweets_emotion"] = EmotionTweet().find_emotion(dictionary["dirty_text"])
             dictionary['event'] = summary
             data[i] = dictionary
-            sys.stdout.write('\r' + "summarizing processing: {}/{}".format(i,len(data)))
+            sys.stdout.write('\r' + "summarizing processing: {}/{}".format(i, len(data)))
             sys.stdout.flush()
         with open(self.results_path + "summarized_{}".format(self.data_name), 'w') as summarized_file:
             json.dump(data, summarized_file)
         print("this is data:")
         print(data)
         return data
-
