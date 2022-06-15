@@ -17,9 +17,9 @@
 <div class="col-4">
 
     <input type="file" id="uploadmyfile"  ref="file" @change="requestUploadFile" style="display: none">
-                <b-button style="margin-top:1%; width:150px" class="upload-button"   variant="info" @click="$refs.file.click()"><b-icon icon="cloud-arrow-up" aria-hidden="true"></b-icon> Upload Data </b-button>
+                <b-button style="margin-top:1%; width:100%" class="upload-button"   variant="info" @click="$refs.file.click()"><b-icon icon="cloud-arrow-up" aria-hidden="true"></b-icon> Upload Data </b-button>
 
-            <b-button  style="margin-top:1%; width:150px"  class="upload-button" variant="info" @click="getEventSummary()">
+            <b-button  style="margin-top:1%; width:100%"  class="upload-button" variant="info" @click="getEventSummary()">
                     <b-icon icon="play" aria-hidden="true"></b-icon> Run
                 </b-button></div>
         </div>
@@ -130,7 +130,6 @@ export default {
             // json format for events/summary
             fieldsTweetsInfo:['event', 'num_of_tweets'],
             json_return:[],
-            server_link: 'https://rps.ise.bgu.ac.il/njsw28'
         }
     },
     methods: {
@@ -150,9 +149,9 @@ export default {
             try{
                 console.log(`selected: ${this.selectedFile}`);
                 // run algorithm
-                const events = await this.axios.get(`${this.server_link}/algorithm/${this.algorithm}?dataset=${this.dataSet}`);
+                const events = await this.axios.get(`${this.$root.serverLink}/algorithm/${this.algorithm}?dataset=${this.dataSet}`);
                 // get events
-                const event = await this.axios.get(`${this.server_link}/events/summary/${this.algorithm}`);
+                const event = await this.axios.get(`${this.$root.serverLink}/events/summary/${this.algorithm}`);
 
                 this.json_return = event.data;
                 this.total_events = this.json_return.length;
@@ -194,7 +193,7 @@ export default {
             const formData = new FormData();
             formData.append('file', this.file);
             const headers = { 'Content-Type': 'application/json' };
-            axios.post(`${this.server_link}/files/upload`, formData, { headers }).then((res) => {
+            axios.post(`${this.$root.serverLink}/files/upload`, formData, { headers }).then((res) => {
                 //   res.data.files; // binary representation of the file
                 res.status; // HTTP status
             });
@@ -203,7 +202,7 @@ export default {
         
         // needed callbacks for props
         async getAlgorithms() {
-            const algorithms = await this.axios.get(`${this.server_link}/algorithm/all`);
+            const algorithms = await this.axios.get(`${this.$root.serverLink}/algorithm/all`);
             algorithms.data.map((algorithm) => {
                 this.algorithms.push(algorithm);
             })
@@ -289,7 +288,7 @@ export default {
 .run-data{
 background-color: rgb(218, 217, 217);
   padding: 10px;
-  width: 45%;
+  width: 50%;
   margin-bottom: 10px;
   margin-left: 25%;
   align-items: center;

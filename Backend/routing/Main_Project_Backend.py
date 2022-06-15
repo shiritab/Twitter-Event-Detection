@@ -15,14 +15,14 @@ def create_app():
     from Backend.routing.endpoints.events import events
     from Backend.routing.endpoints.algorithm import algorithm
     from Backend.routing.endpoints.files import files
-    from Backend.routing.endpoints.login import login
+    from Backend.routing.endpoints.auth import auth
 
 
     # register endpoints
     app.register_blueprint(events, url_prefix="/events/")
     app.register_blueprint(algorithm, url_prefix="/algorithm/")
     app.register_blueprint(files, url_prefix="/files/")
-    app.register_blueprint(login, url_prefix="/login/")
+    app.register_blueprint(auth, url_prefix="/auth/")
 
 
 
@@ -89,4 +89,8 @@ if __name__ == '__main__':
     # with open(f'C:/Users/user/Documents/GitHub/Twitter-Event-Detection/Backend/data/tagged_tweets/tagged_tweets_dir/tagged_tweets.json', 'r') as f:
     #     data = json.load(f)
     # app.run(debug=True)
+    # app.run(debug=True, port=443, host='localhost')
+
+    # for https connection
     app.run(debug=True, port=443, host='0.0.0.0', ssl_context="adhoc")
+

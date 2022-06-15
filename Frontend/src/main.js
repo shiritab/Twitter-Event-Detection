@@ -81,9 +81,17 @@ Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
 
 const shared_data = {
-  // username: localStorage.username,
-  manageGames: undefined,
   username: undefined,
+  login(username) {
+    localStorage.setItem("username", username);
+    this.username = username;
+    console.log("login", this.username);
+  },
+  logout() {
+    console.log("logout");
+    localStorage.removeItem("username");
+    this.username = undefined;
+  }
 };
 console.log(shared_data);
 // Vue.prototype.$root.store = shared_data;
@@ -92,7 +100,8 @@ new Vue({
   router,
   data() {
     return {
-      store: shared_data
+      store: shared_data,
+      serverLink: "https://rps.ise.bgu.ac.il/njsw28",
     };
   },
   methods: {

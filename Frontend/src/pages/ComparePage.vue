@@ -53,6 +53,6 @@ export default {
 }
 #compare{
     display: flex;
-    width: 100%;
+    width: 102%;
 }
 </style>

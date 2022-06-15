@@ -72,7 +72,7 @@ export default {
         password: "",
         user_id:"",
         submitError: undefined
-      }
+      },
     };
   },
   validations: {
@@ -96,7 +96,7 @@ export default {
         console.log("in login section");
         console.log(this.form.username);
         const response = await this.axios.post(
-          "http://localhost:5000/login",
+          `${this.$root.serverLink}/auth/login`,
           {
             username: this.form.username,
             password: this.form.password
@@ -111,7 +111,7 @@ export default {
         this.$root.store.user_id=response.data.user_id;
         console.log(this.$root.store.login);
         this.$root.store.login(this.form.username);
-        this.$router.push("/");
+        this.$router.push("/home");
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;

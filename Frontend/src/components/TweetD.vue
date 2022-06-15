@@ -1,7 +1,7 @@
 
 <template>
 <div>
-<div  class="container searchRes" >
+<div  class="container" >
           <div class="row ">
         <Tweet v-for="tweet in tweets_to_show"
         :key="tweet"
@@ -86,7 +86,7 @@ return{
 .searchRes{
   overflow-x: hidden;
   overflow-y:scroll;
-  max-height: 240px;
+  max-height: fit-content;
 
 }
 
