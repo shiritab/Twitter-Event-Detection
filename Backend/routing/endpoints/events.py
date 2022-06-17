@@ -8,4 +8,4 @@ events = Blueprint("events", __name__)
 
 @events.route("/summary/<algorithm>")
 def get_algorithm_summary(algorithm):
-    return jsonify(algorithms_object.get_algorithms()[algorithm].summarize()[:40])
+    return jsonify(algorithms_object.get_algorithms()[algorithm].summarize())

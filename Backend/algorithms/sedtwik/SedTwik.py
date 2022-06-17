@@ -12,7 +12,7 @@ class SedTwik(DetectionAlgorithm):
 
 
     def __init__(self):
-        self.results_path = "../results/sedwik/"
+        self.results_path = "../results/sedtwik/"
         self.event_results = ""
         self.data_name = ""
 
@@ -30,7 +30,7 @@ class SedTwik(DetectionAlgorithm):
             subwindow_dir = '../data/uploaded/'
 
         event_output_dir_text = '../results/sedwik_output_text/'
-        event_output_dir_json = '../results/sedwik/'
+        event_output_dir_json = '../results/sedtwik/'
 
         wiki_titles_file = '../data/enwiki-titles-unstemmed.txt'
         seg_prob_file = '../data/seg_prob_2012_Oct_11-22.json'

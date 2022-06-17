@@ -20,7 +20,7 @@ algorithms_object = eventDetectionAlgorithms()
 # algorithms_object.add_algorithm("Twembeddings",Twembeddings())
 
 RELEVANT_TWEETS_PATH = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backend\data\relevant_tweets.tsv"
-ALGORITHM_FILE = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backend\results\2012-10-12_{}.json"
+ALGORITHM_FILE = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backend\results\{}\results_event2012.json"
 
 
 @algorithm.route("/<algorithm>")
@@ -37,21 +37,19 @@ def compare_algorithms():
     list_output = []
     algorithms = algorithms_object.get_algorithms().keys()
     for algorithm in algorithms:
+        print(algorithm)
         dict_output = {}
-        if algorithm.lower()=="bert":
-            dict_output["name"]=algorithm
-            dict_output["data"]=[0.7366,0.592]
-        else:
+        # if algorithm.lower()=="bert":
+        #     dict_output["name"]=algorithm
+        #     dict_output["data"]=[0.7366,0.592]
+        # else:
 
-            dict_output["name"] = algorithm
-            tweets_dict = convert_results_to_vector(ALGORITHM_FILE.format(algorithm.lower()))
-            lables, prediction = convert_tags_to_vector(tweets_dict)
-            dict_output["data"] = [normalized_mutual_info_score(lables, prediction), adjusted_rand_score(lables, prediction)]
+        dict_output["name"] = algorithm
+        tweets_dict = convert_results_to_vector(ALGORITHM_FILE.format(algorithm.lower()))
+        lables, prediction = convert_tags_to_vector(tweets_dict)
+        dict_output["data"] = [round(normalized_mutual_info_score(lables, prediction),3), round(adjusted_rand_score(lables, prediction),3)]
 
-            print(normalized_mutual_info_score(lables, prediction))
-            print(adjusted_rand_score(lables, prediction))
         list_output.append(dict_output)
-
     return jsonify(list_output)
 
 @algorithm.route("/all")
@@ -73,8 +71,7 @@ def convert_tags_to_vector(tweets_dict):
     ground_truth = sorted(ground_truth, key=itemgetter(1))
     lable = [x[0] for x in ground_truth]
     prediction = [x[0] for x in list_pred]
-    print(len(prediction))
-    print(len(lable))
+
     return lable, prediction
 
 def convert_results_to_vector(path):
@@ -91,12 +88,11 @@ def convert_results_to_vector(path):
     list_pred = []
     for i in data:
         for tweet in i["tweets"]:
+            tweet=str(tweet)
             tweets_dict[tweet] = counter
             list_pred.append([counter, tweet])
         counter += 1
     list_pred = sorted(list_pred, key=itemgetter(1))
-    lable_pred = [x[0] for x in list_pred]
-    print(len(lable_pred))
     return tweets_dict
 
     # Closing file

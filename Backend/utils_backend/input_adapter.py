@@ -84,3 +84,5 @@ class Adapter:
     def excute_sedtwik(self):
         pass
 
+
+

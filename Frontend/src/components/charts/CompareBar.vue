@@ -22,7 +22,7 @@ export default {
     },
     data(){
         return{
-          data_dict:{"SedTwik":52,'Twembeddings':100,'Bert':95},
+          data_dict:{"SedTwik":52,'Twembeddings':100,'Bert':40},
         series: [{
             data: [52,100,100]
           }],

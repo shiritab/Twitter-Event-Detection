@@ -1,11 +1,11 @@
 Bert: !!python/object:Backend.algorithms.bert_topic.bert.Bert
   data_name: ''
   event_resutls: ''
-  results_path: ../results/bert_topic/
+  results_path: ../results/bert/
 SedTwik: !!python/object:Backend.algorithms.sedtwik.SedTwik.SedTwik
   data_name: ''
   event_resutls: ''
-  results_path: ../results/sedwik/
+  results_path: ../results/sedtwik/
 Twembeddings: !!python/object:Backend.algorithms.twembeddings.Twembeddings.Twembeddings
   data_name: ''
   event_resutls: ''

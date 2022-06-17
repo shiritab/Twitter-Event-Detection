@@ -6,7 +6,7 @@ import os
 import sys
 
 from Backend.algorithms.sedtwik.BurstySegmentExtractor import BurstySegmentExtractor
-# from Backend.utils_backend.sedwik import BurstySegmentExtractor
+# from Backend.utils_backend.sedtwik import BurstySegmentExtractor
 from Backend.algorithms.sedtwik.Segment import Segment
 from Backend.algorithms.sedtwik.TimeWindow import SubWindow
 from Backend.algorithms.sedtwik.TweetSegmenter import SEDTWikSegmenter

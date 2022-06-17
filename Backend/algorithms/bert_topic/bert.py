@@ -45,7 +45,7 @@ class Bert(DetectionAlgorithm):
         event_results: The algorithm's results
         data_name: The of the executed data
         """
-        self.results_path = "../results/bert_topic/"
+        self.results_path = "../results/bert/"
         self.event_results = ""
         self.data_name = ""
 
@@ -119,3 +119,7 @@ class Bert(DetectionAlgorithm):
 
         self.event_results = events
         return events
+
+    def summarize(self):
+        summerization=super().summarize()
+        return summerization[:40]

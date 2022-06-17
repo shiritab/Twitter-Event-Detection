@@ -38,7 +38,7 @@ paths:
         explode: false
         schema:
           type: string
-          example: sedwik
+          example: sedtwik
       responses:
         "200":
           description: success
@@ -130,7 +130,7 @@ paths:
           explode: false
           schema:
             type: string
-            example: sedwik
+            example: sedtwik
       - name: date
         in: path
         description: date of event
