@@ -11,38 +11,41 @@ from ...algorithms.eventDetectionAlgorithms import eventDetectionAlgorithms
 from werkzeug.utils import secure_filename
 import tempfile
 
-# Do not delete this line
+# Do not delete these lines
 algorithm = Blueprint("algorithm", __name__)
 
 algorithms_object = eventDetectionAlgorithms()
+# saving each algorithm example
 # algorithms_object.add_algorithm("Bert",Bert())
 # algorithms_object.add_algorithm("SedTwik",SedTwik())
 # algorithms_object.add_algorithm("Twembeddings",Twembeddings())
 
 RELEVANT_TWEETS_PATH = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backend\data\relevant_tweets.tsv"
 ALGORITHM_FILE = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backend\results\{}\results_event2012.json"
-
+#
 
 @algorithm.route("/<algorithm>")
 def run_algorithm(algorithm):
     """"
-    :param Algorithm : get the algorithm to be run as a parameter
-    :return: Retu
+    Given algorithm, gets algorithm' object and runs it.
+    :param algorithm : get the algorithm to be run as a parameter
+    :return algorithm's results
     """
     file_name = request.args.get('dataset')
     return jsonify(algorithms_object.get_algorithms()[algorithm].run_algorithm(file_name))
 
 @algorithm.route("/compare")
 def compare_algorithms():
+    '''
+    Iterates over each saved algorithm and gets perfomance.
+    uses two measurements - normalized_mutual_info_score, adjusted_rand_score.
+    :return measurements results - list
+    '''
     list_output = []
     algorithms = algorithms_object.get_algorithms().keys()
     for algorithm in algorithms:
         print(algorithm)
         dict_output = {}
-        # if algorithm.lower()=="bert":
-        #     dict_output["name"]=algorithm
-        #     dict_output["data"]=[0.7366,0.592]
-        # else:
 
         dict_output["name"] = algorithm
         tweets_dict = convert_results_to_vector(ALGORITHM_FILE.format(algorithm.lower()))
@@ -54,11 +57,20 @@ def compare_algorithms():
 
 @algorithm.route("/all")
 def get_algorithms():
+    '''
+    Returns all saved algorithms' names
+    '''
     algorithms = list(algorithms_object.get_algorithms().keys())
     return jsonify(algorithms)
 
 
 def convert_tags_to_vector(tweets_dict):
+    '''
+    Given tweets' clusters,
+    extratcs each tweet's cluster - prediction vs actual
+    :param tweets_dict - dict
+    :return - list, list - actual, prediction
+    '''
     tsv_file = open(RELEVANT_TWEETS_PATH) # contains only 2 cols - cluster id, tweet id
     read_tsv = csv.reader(tsv_file, delimiter="\t")
     ground_truth = []
@@ -75,15 +87,11 @@ def convert_tags_to_vector(tweets_dict):
     return lable, prediction
 
 def convert_results_to_vector(path):
-    # TODO: adapt to changing algorithm
     f = open(path)
     tweets_dict = {}
-    # returns JSON object as
-    # a dictionary
     data = json.load(f)
 
     # Iterating through the json
-    # list
     counter = 1
     list_pred = []
     for i in data:
