@@ -126,10 +126,10 @@ export default {
             total_events:0,
             created:false,
             sedweek:true,
+            algorithm_results:[],
 
             // json format for events/summary
             fieldsTweetsInfo:['event', 'num_of_tweets'],
-            json_return:[],
         }
     },
     methods: {
@@ -140,6 +140,8 @@ export default {
         },
 
         async getEventSummary(){
+            /* Get request for running chosen algorithm and receive it's summarized results */
+            
             if (this.algorithm == null) {
                 this.$bvToast.show('non-selected-algorithm-toast');
                 return;
@@ -148,33 +150,36 @@ export default {
             localStorage.setItem('algorithm',this.algorithm);
             try{
                 console.log(`selected: ${this.selectedFile}`);
+                
                 // run algorithm
                 const events = await this.axios.get(`${this.$root.serverLink}/algorithm/${this.algorithm}?dataset=${this.dataSet}`);
+                
                 // get events
                 const event = await this.axios.get(`${this.$root.serverLink}/events/summary/${this.algorithm}`);
 
-                this.json_return = event.data;
-                this.total_events = this.json_return.length;
-                this.total_tweets = this.json_return.reduce((total, event) => {
+                this.algorithm_results = event.data;
+                this.total_events = this.algorithm_results.length;
+                this.total_tweets = this.algorithm_results.reduce((total, event) => {
                     return total + event.tweets.length;
                 }, 0)
                 this.dates_range = this.getEventsDates();
-                localStorage.setItem('data_algorithm',JSON.stringify(this.json_return));
+                localStorage.setItem('data_algorithm',JSON.stringify(this.algorithm_results));
                 localStorage.setItem("total_events", this.total_events);
                 localStorage.setItem("total_tweets", this.total_tweets);
                 localStorage.setItem("dates_range", this.dates_range);
 
             } catch(error){
-                this.json_return=require("../proccess_data.json")
+                this.algorithm_results=require("../proccess_data.json")
                 console.log(`error ${error}\noccured at getEventsSummary on HomePage.vue`);
             }
         },
         getEventsDates(){
+            /* Computes and returns dates range (min date, max date) in algorithm's results */
             var minDate="";
             var maxDate="";
 
             let all_dates_set = [];
-            this.json_return.map((event) => {
+            this.algorithm_results.map((event) => {
                  all_dates_set = all_dates_set.concat(event.dates_set);
             });
 
@@ -187,12 +192,14 @@ export default {
         },
 
         requestUploadFile(args){
+            /* Post request to save uploaded file to server side */
             this.file = this.$refs.file.files[0];
             this.src=this.file.name
             this.dataSetOption.push(this.src)
             const formData = new FormData();
             formData.append('file', this.file);
             const headers = { 'Content-Type': 'application/json' };
+            
             axios.post(`${this.$root.serverLink}/files/upload`, formData, { headers }).then((res) => {
                 //   res.data.files; // binary representation of the file
                 res.status; // HTTP status
@@ -200,21 +207,25 @@ export default {
             console.log(this.file)
         },
         
-        // needed callbacks for props
         async getAlgorithms() {
+            /* Get request for all saved algorithms */
             const algorithms = await this.axios.get(`${this.$root.serverLink}/algorithm/all`);
+           
             algorithms.data.map((algorithm) => {
                 this.algorithms.push(algorithm);
             })
         },
 
         getLastRun() {
+            /* If local storage contains past execution result, sets past results to variables and returns true,
+             otherwise false */
             const algorithm = localStorage.getItem("algorithm");
             const data_algorithm = localStorage.getItem("data_algorithm");
             this.algorithm=algorithm;
+            
             if (algorithm && data_algorithm) {
                 this.algorithm = this.algorithm;
-                this.json_return = JSON.parse(data_algorithm);
+                this.algorithm_results = JSON.parse(data_algorithm);
                 this.total_events = localStorage.getItem("total_events");
                 this.total_tweets = localStorage.getItem("total_tweets");
                 this.dates_range = localStorage.getItem("dates_range"); 
@@ -233,7 +244,6 @@ export default {
             localStorage.setItem('algorithm', this.algorithm);
         }
         
-
         this.created=true;
     },
 
@@ -274,7 +284,7 @@ export default {
 }
 .b-table{
     background-color: white;
-    opacity: 80%;
+    opacity: 8.0;
 
 }
 .mb-2{
