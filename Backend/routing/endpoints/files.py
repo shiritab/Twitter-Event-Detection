@@ -3,12 +3,18 @@ import tempfile
 from flask import Blueprint, request, jsonify, Response
 from werkzeug.utils import secure_filename
 
+# Do not delete these lines
 files = Blueprint("files", __name__)
 
 UPLOADED_DATA = f"../../data/uploaded/"
+#
 
 @files.route("/upload")
 def upload_file():
+    '''
+    Given file object via body's post request,
+    saves it under UPLOADED_DATA local path.
+    '''
     file = request.files['file']
     if file:
         filename = secure_filename(file.filename)
@@ -24,5 +30,7 @@ def upload_file():
 
 @files.route("/all")
 def get_all_files():
-    # TODO iterate through all files under data/uploaded/
+    '''
+    Iterates through all files under UPLOADED_DATA
+    '''
     pass
