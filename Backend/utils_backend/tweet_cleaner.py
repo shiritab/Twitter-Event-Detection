@@ -15,6 +15,8 @@ import nltk
 import re
 
 
+
+# Todo: add documentaion-niv
 class TweetCleaner:
     def __init__(self, remove_stop_words=False, remove_retweets=False, stopwords_file='NLTK_DEFAULT'):
         """

@@ -22,7 +22,7 @@ from ...utils_backend.emotion_tweet import EmotionTweet
 torch.cuda.is_available()
 PICKLE_FILE = "../data/tagged_tweets.pkl"
 
-
+# Todo: add documentation to functions
 def load_data(data):
     """
     :param data: Import data file from data2012 or from user files
@@ -58,14 +58,13 @@ class Bert(DetectionAlgorithm):
         # already exist in the system
         if results:
             return results
-
         results = self.create_output()
         self.save_results(data_name)
         return results
 
     def get_topic_model(self, documents, n_neighbors, min_topic_size, calculate_probabilities=False):
         """
-        :param documents:
+        :param documents: tweets as document
         :param n_neighbors:
         :param min_topic_size:
         :param calculate_probabilities:
@@ -73,7 +72,7 @@ class Bert(DetectionAlgorithm):
         """
         umap_model = UMAP(n_neighbors=n_neighbors, n_components=10, min_dist=0.0, metric='cosine')
 
-        vectorizer_model = CountVectorizer(ngram_range=(1, 2), stop_words="english")  # , min_df=10)
+        vectorizer_model = CountVectorizer(ngram_range=(1, 2), stop_words="english")
         topic_model = BERTopic(umap_model=umap_model, vectorizer_model=vectorizer_model,
                                calculate_probabilities=calculate_probabilities, verbose=True,
                                min_topic_size=min_topic_size)
@@ -103,7 +102,7 @@ class Bert(DetectionAlgorithm):
 
     def create_output(self):
         """
-        :return: Json file the containt tweet's data- event, date,dirty text ,tweet_id
+        :return: Json file the contain tweet's data- event, date,dirty text ,tweet_id
         """
         tmp = self.create_topic()
         events = []

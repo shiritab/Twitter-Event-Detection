@@ -90,7 +90,6 @@ def convert_results_to_vector(path):
     f = open(path)
     tweets_dict = {}
     data = json.load(f)
-
     # Iterating through the json
     counter = 1
     list_pred = []
@@ -102,6 +101,5 @@ def convert_results_to_vector(path):
         counter += 1
     list_pred = sorted(list_pred, key=itemgetter(1))
     return tweets_dict
-
     # Closing file
     f.close()

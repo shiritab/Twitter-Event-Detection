@@ -1,6 +1,8 @@
 import json
 import pandas as pd
 
+
+## Get the tagged tweets in tsv files and convert it to json with entire needed data
 tagged_tweets = f'C:\\Users\\user\\Desktop\\tagged tweets\\event2012_labeled_only.tsv'
 tagged_tweets_df = pd.read_csv(tagged_tweets, sep='\t')
 year = 2012

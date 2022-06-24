@@ -5,7 +5,7 @@ CONFIG = './config.yaml'
 
 class eventDetectionAlgorithms:
     '''
-        TODO: documentation + check why yaml is updated yet empty
+        TODO: documentation (Shiri)
     '''
 
     __algorithms = {}
