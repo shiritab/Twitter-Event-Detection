@@ -22,8 +22,8 @@ class eventDetectionAlgorithms:
         '''
         Given algorithm name and an algorithm object, 
         creates new algorithm in algorithms dict and updates config.yaml file.
-        @param: algorithm_name - string
-        @param: algorithm - DetectionAlgorithm
+        :param algorithm_name - string
+        :param algorithm - DetectionAlgorithm
         '''
         self.__algorithms[algorithm_name] = algorithm
         self.update_config_yaml()
