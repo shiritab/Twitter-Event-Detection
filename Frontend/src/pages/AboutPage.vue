@@ -3,6 +3,7 @@
       <br>
       <h1> About Us </h1>
       <br>
+
     <div class="aboutUs">
       <!-- Niv -->
       <b-card
@@ -38,6 +39,7 @@
         <b-button href="https://www.linkedin.com/in/guy-globus/" variant="info">About Me</b-button>
       </b-card>
     </div>
+    
     <div class="aboutUs">
       <!-- Hadasa -->
       <b-card

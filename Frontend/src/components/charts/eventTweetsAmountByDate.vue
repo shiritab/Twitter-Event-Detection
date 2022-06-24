@@ -1,7 +1,7 @@
 <template>
-    <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:50%; margin-right:2%">
-      <h3 class="text-xl text-gray-600 mb-4">Events Amount By Date</h3>
-      <apexchart type="area" :height="280" :options="options" :series="series"></apexchart>
+    <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:48%; margin-right:2%, height:180px">
+      <h3 class="text-xl text-gray-600 mb-4" style="font-size:22px">Tweets Amount By Date</h3>
+      <apexchart type="area" :height="180" :options="options" :series="series"></apexchart>
     </div>
 </template>
 
@@ -9,25 +9,28 @@
 import VueApexCharts from 'vue-apexcharts'
 
 export default {
-components:{
+    name: "EventTweetsAmountByDate",
+    components:{
         apexchart: VueApexCharts,
         
     },
     props:{
-        json_data:{type :Array}
+        dates:{type :Array}
     },
     data(){
         return{
   
             categories: ['event 1', 'event 2', 'event 3', 'event 4', 'event 5', 'event 6'],
             options : {
-                colors:["#8af136"],
+
+            colors:["#f13693"],
+                   
             chart: {
                 id: 'pageview-chart',
                 toolbar: {
                 show: false,
                 },
-                
+
             events: {
                 click(event, chartContext, config) {
                     console.log(this.categories);
@@ -56,8 +59,7 @@ components:{
         console.log("make_data");
         var date_dict={};
         var date_list=[];
-        this.json_data.forEach((event)=>{
-            event.dates_set.forEach((date)=>{
+            this.dates.forEach((date)=>{
                 if (date in date_dict){
                     date_dict[date]+=1;
                 }
@@ -66,7 +68,6 @@ components:{
                     date_dict[date]=1;
                 }
             })
-        })
         // sort(date_dict);
         console.log("this is area dict");
         console.log(date_dict);
@@ -85,9 +86,9 @@ components:{
       }
     },
       watch: { 
-      	json_data: function(newVal, oldVal) { // watch it
+      	dates: function(newVal, oldVal) { // watch it
             console.log('Prop changed on column: ', newVal, ' | was: ', oldVal)
-            this.json_data=newVal
+            this.dates=newVal
             this.make_data();
  
         }

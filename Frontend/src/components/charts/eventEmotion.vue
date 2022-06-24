@@ -9,7 +9,7 @@
 import VueApexCharts from 'vue-apexcharts'
 
 export default {
-    name: "Column",
+    name: "EmotionEvent",
     components:{
         apexchart: VueApexCharts,
         
@@ -20,11 +20,11 @@ export default {
     },
     methods:{
         make_data(){
-            console.log("create emotion chart")
+            /** Computes average sentiment for event's results */
+            console.log("create event emotion");
+
             var date_dict={}
             var date_list=[]
-            console.log(this.emotion);
-            console.log(this.dates);
             for (let i = 0; i < this.dates.length; i++) {
                 if (this.dates[i] in date_dict){
                     date_dict[this.dates[i]].push(this.emotion[i]);
@@ -34,10 +34,10 @@ export default {
                     date_dict[this.dates[i]]=[this.emotion[i]];
                 }
             }
-            console.log(date_dict);
-           var sort_date=date_list.sort()
+            
+            var sort_date=date_list.sort()
             var data_list=[];
-            console.log(sort_date);
+
             sort_date.forEach((date)=>{
                 console.log(date);
                 const average = this.average(date_dict[date]) * 100;
@@ -45,10 +45,11 @@ export default {
                 var dict={name:date,data: [average]};
                 this.list_data.push(dict);
             })
+
             this.options.xaxis.categories=sort_date
-            // this.series=this.list_data;
             this.series=[{name:"emotion value",data:data_list}]
         },
+
         average(array){
             return array.reduce((a,b) => a + b, 0) / array.length
         }
@@ -125,7 +126,7 @@ export default {
         }
     },
     created(){
-        this.make_data()
+        this.make_data();
     },
     computed: {
         changeOptions: function() {

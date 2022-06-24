@@ -19,51 +19,21 @@ export default {
 
     data(){
         return{
-                test:"checkkkkkkk",
           list_data:[],
           series: [
               {
                 data: []
               }
-            ],
-          // options: {
-          //   plotOptions: {
-              
-          //     treemap: {
-          //       distributed: true,
-               
-          //     },
-
-          //   },
-          //   chart:{
-          //     type:"treemap",
-          //     events: {
-
-          //       click: function(event, chartContext, config) {
-                  
-          //           var index=0;
-                    
-          //           console.log(config.dataPointIndex);
-          //           change()
-          //   },
-
-          //   }}
-          
-            
-          // },
-          
-}},
+            ],    
+      }
+    },
     methods:{
 
       change: function(index){
         console.log("change")
       },
-      handle(){
-        console.log("heyyy");
-        return "hellppppp"
-      },
+
       make_data(){
-        console.log("make_data");
         this.list_data = [];
         this.json_data.forEach((event)=>{
           var dict={x:event.event,y:event.tweets.length};
@@ -77,9 +47,7 @@ export default {
     created (){
       console.log(this.json_data);
       this.make_data();
-      // localStorage.setItem("router",JSON.stringify(this.$router))
       console.log(this.series);
-
     },
     watch: { 
       	json_data: function(newVal, oldVal) { // watch it
@@ -87,55 +55,40 @@ export default {
           this.json_data=newVal
           this.make_data();
           
-      this.$refs.realtimeChart.updateSeries([{
-        data: this.series[0].data,
-      }], false, true);
-    
-
-
+          this.$refs.realtimeChart.updateSeries([{
+            data: this.series[0].data,
+          }], false, true);
         }
     },
     computed:{
-
-                options: function(){
-                  return{
-            plotOptions: {
-              
-              treemap: {
-                distributed: true,
-               
+      options: function(){
+        return{
+          plotOptions: {
+            treemap: {
+              distributed: true, 
+            },
+          },
+          chart:{
+            type:"treemap",
+            events: {
+              click: function(event, chartContext, config) {
+                var index=0;
+                console.log(chartContext);
+                console.log(config);
+                console.log(config.dataPointIndex);
+                const data=JSON.parse(localStorage.getItem("data_algorithm"))
+                console.log(data[config.dataPointIndex]);
+                
+                const router=JSON.parse(localStorage.getItem("router"));
+                console.log(router);
+                // router.push({ name: 'event', params: {id:data[config.dataPointIndex].event, tweets:data[config.dataPointIndex].tweets}});  
               },
-
-            },
-            chart:{
-              type:"treemap",
-              events: {
-
-                click: function(event, chartContext, config) {
-                  
-                    var index=0;
-                    console.log(chartContext);
-                    console.log(config);
-                    console.log(config.dataPointIndex);
-                    const data=JSON.parse(localStorage.getItem("data_algorithm"))
-                    console.log(data[config.dataPointIndex]);
-                    
-                    // const router=JSON.parse(localStorage.getItem("router"));
-                    // console.log(router);
-                    // router.push({ name: 'event', params: {id:data[config.dataPointIndex].event, tweets:data[config.dataPointIndex].tweets}});
-                   
-            },
-
-            }}
-          
-            
-          }
-                }
+            }
+          } 
+        }
+      }
     },
-
-    
-
-    
+  
 }
 </script>
 
