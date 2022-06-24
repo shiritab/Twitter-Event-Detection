@@ -11,7 +11,6 @@ in order to be compatible with the systems front end.
 
 '''
 
-
 class DetectionAlgorithm:
 
     def __init__(self):
@@ -24,9 +23,6 @@ class DetectionAlgorithm:
         :param data:
         :return: JSON file with results
         '''
-        pass
-
-    def upload_data(self, data):
         pass
 
     def get_results(self, data):
@@ -56,7 +52,12 @@ class DetectionAlgorithm:
             json.dump(self.event_results, file_results)
 
     def get_results_by_date(self, date):
-        # TODO: check if works
+        '''
+        Given date, 
+        filters and returns events which occured that date.
+        :param date - string
+        :return events - list
+        '''
         events = []
         if self.event_results:
             for event_obj in self.event_results:
@@ -65,6 +66,9 @@ class DetectionAlgorithm:
         return events
 
     def summarize(self):
+        '''
+        Returns summarization for algorithm's results.
+        '''
         if os.path.isfile(self.results_path + "summarized_{}".format(self.data_name)):
             with open(self.results_path + "summarized_{}".format(self.data_name), "r") as summarized_file:
                 print(self.results_path + "summarized_{}".format(self.data_name))
@@ -88,3 +92,6 @@ class DetectionAlgorithm:
         print("this is data:")
         print(data)
         return data
+    
+    def upload_data(self, data):
+        pass
