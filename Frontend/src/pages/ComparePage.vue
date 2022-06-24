@@ -20,22 +20,22 @@
 
     <!-- Graphs -->
     <div id="compare">
-        <CompareColumn :algorithms="selected_algorithms"></CompareColumn>
-        <CompareBar :algorithms="selected_algorithms"></CompareBar>
+        <AlgorithmPerfomance :algorithms="selected_algorithms"></AlgorithmPerfomance>
+        <CompareAlgorithmEventAmount :algorithms="selected_algorithms"></CompareAlgorithmEventAmount>
     </div>
 
   </div>
 </template>
 
 <script>
-import CompareColumn from "../components/charts/algorithmPerfomance.vue"
-import CompareBar from "../components/charts/compareAlgorithmEventAmount.vue"
+import AlgorithmPerfomance from "../components/charts/algorithmPerfomance.vue"
+import CompareAlgorithmEventAmount from "../components/charts/compareAlgorithmEventAmount.vue"
 
 export default {
     name: 'ComparePage',
     components:{
-        CompareColumn,
-        CompareBar
+        AlgorithmPerfomance,
+        CompareAlgorithmEventAmount
     },
     data(){
         return{

@@ -11,7 +11,7 @@
 import VueApexCharts from 'vue-apexcharts'
 
 export default {
-    name: 'algorithmPerfomance',
+    name: 'AlgorithmPerfomance',
     components:{
         apexchart: VueApexCharts,
     },

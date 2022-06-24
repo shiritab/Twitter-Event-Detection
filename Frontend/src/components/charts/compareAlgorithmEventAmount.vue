@@ -22,90 +22,87 @@ export default {
     },
     data(){
         return{
-          algorithms_events_amount_dict:{"SedTwik":52,'Twembeddings':100,'Bert':40},
+          data_dict:{"SedTwik":52,'Twembeddings':100,'Bert':40},
         series: [{
             data: [52,100,100]
-        }],
-        chartOptions: {
-          chart: {
-            type: 'bar',
-            height: 200
-          },
-          plotOptions: {
-            bar: {
-              barHeight: '100%',
-              distributed: true,
-              horizontal: true,
-              dataLabels: {
-                position: 'bottom'
+          }],
+          chartOptions: {
+            chart: {
+              type: 'bar',
+              height: 200
+            },
+            plotOptions: {
+              bar: {
+                barHeight: '100%',
+                distributed: true,
+                horizontal: true,
+                dataLabels: {
+                  position: 'bottom'
+                },
+              }
+            },
+            colors: ['#69d2e7', '#f9a3a4', '#2b908f'
+            ],
+            dataLabels: {
+              enabled: true,
+              textAnchor: 'start',
+              style: {
+                colors: ['black']
+                
               },
-            }
-          },
-          colors: ['#69d2e7', '#f9a3a4', '#2b908f'
-          ],
-          dataLabels: {
-            enabled: true,
-            textAnchor: 'start',
-            style: {
-              colors: ['black']
-              
-            },
-            formatter: function (val, opt) {
-              return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
-            },
-            offsetX: 0,
+              formatter: function (val, opt) {
+                return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
+              },
+              offsetX: 0,
 
-          },
-          stroke: {
-            width: 1,
-            colors: ['#fff']
-          },
-          xaxis: {
-            categories: ['SedTwik','Twembeddings','Bert'],
-          },
-          yaxis: {
-            labels: {
-              show: false
-            }
-          },
-
-          tooltip: {
-            theme: 'dark',
-            x: {
-              show: false
             },
-            y: {
-              title: {
-                formatter: function () {
-                  return ''
+            stroke: {
+              width: 1,
+              colors: ['#fff']
+            },
+            xaxis: {
+              categories: ['SedTwik','Twembeddings','Bert'],
+            },
+            yaxis: {
+              labels: {
+                show: false
+              }
+            },
+
+            tooltip: {
+              theme: 'dark',
+              x: {
+                show: false
+              },
+              y: {
+                title: {
+                  formatter: function () {
+                    return ''
+                  }
                 }
               }
             }
-          }
-        }, 
-      }
+          }, 
+        }
     },
     computed:{
-      get_score(){
-        /** get score of each algorithm */
+    get_score(){
 
-        var events_amount_list=[];
+        var data_list=[];
         var categories_list=[];
-        for(var key in this.algorithms_events_amount_dict) {
+        for(var key in this.data_dict) {
             if (this.algorithms.includes(key)){
-              events_amount_list.push(this.algorithms_events_amount_dict[key]);
+              data_list.push(this.data_dict[key]);
               categories_list.push(key);
             }
         }
 
-        return [{data: events_amount_list}]
+        return [{data: data_list}]
       },
       get_category(){
-        /** set categories list according to algorithms prop*/
-
         var option=this.chartOptions;
         var categories_list=[];
-        for(var key in this.algorithms_events_amount_dict) {
+        for(var key in this.data_dict) {
             if (this.algorithms.includes(key)){
               categories_list.push(key);
             }
@@ -115,7 +112,6 @@ export default {
         return option;
       }
     },
-
 }
 </script>
 
