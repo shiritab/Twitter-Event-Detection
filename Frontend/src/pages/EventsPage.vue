@@ -1,36 +1,30 @@
 <template id="Events-By-Date-Page">
   <div>
-    <!-- <h1> Trending </h1> -->
     <br>
     <p>Events by algorithm: {{this.algorithm}}</p>
     <b-form-datepicker ref="datepicker"
-    v-model="dateValue"
-    :min="min"
-    :max="max"
-    @input="getEventsByDate()"
-    style="width: 18.3rem; margin: auto"
-    locale="en"></b-form-datepicker>
+      v-model="dateValue"
+      :min="min"
+      :max="max"
+      @input="getEventsByDate()"
+      style="width: 18.3rem; margin: auto"
+      locale="en">
+    </b-form-datepicker>
     <br>
-    <!-- <b-card-group style="display:block" class="events"> -->
-        <!-- <b-card v-for="event in eventsByValue"
-            :key="event.id"
-            style="max-width: 20rem; margin: auto;"
-            bg-variant="light" class="text-center">
-            <router-link :to="{ name: 'event', params:{id:event.id}}">
-                <b-card-text>{{ event.name  }}</b-card-text>
-            </router-link>
-        </b-card> -->
-        <div class="row">
-        <b-card v-for="event in events"
-            :key="event.event"
-            style="max-width: 20rem; margin: auto;"
-            bg-variant="light" class="text-center">
-            <router-link :to="{ name: 'event', params:{name:event.event, tweets:event.tweets,dates:event.dates,emotion:event.tweets_emotion}}">
-                <b-card-text>{{ event.event  }}</b-card-text>
-            </router-link>
-        </b-card>
-        </div>
-    <!-- </b-card-group> -->
+    <div class="row">
+      <b-card v-for="event in events"
+          :key="event.event"
+          style="max-width: 20rem; margin: auto;"
+          bg-variant="light" 
+          class="text-center">
+
+          <router-link :to="{ name: 'event', params:{name:event.event, tweets:event.tweets,dates:event.dates,emotion:event.tweets_emotion}}">
+              <b-card-text>{{ event.event  }}</b-card-text>
+          </router-link>
+
+      </b-card>
+    </div>
+    
   </div>
 </template>
 
@@ -40,6 +34,7 @@ export default {
     data() {
       const now = new Date();
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      
       // 1st two months prior
       const minDate = new Date(today);
       minDate.setYear(minDate.getYear() - 20);
@@ -48,7 +43,7 @@ export default {
       const maxDate = new Date(today)
 
       return {
-        algorithm:"",
+        algorithm: "",
         dateValue: '',
         min: minDate,
         max: maxDate,
@@ -100,55 +95,58 @@ export default {
               ]
             }
         ]
-        //
       }
     },
     methods:{
-    async getEventsByDate(){
-      
-      try{
 
-        console.log("getEventsByDate method in EventsPage")
-        console.log(" - Chosen algorithm: "+this.algorithm);
+      getEventsByDate(){
+        /* filters all events that occured on chose date */
+        
+        this.events = [];
+        try{
+          console.log("getEventsByDate method in EventsPage")
+          console.log(" - Chosen algorithm: "+this.algorithm);
 
-        const events_data=JSON.parse(localStorage.getItem("data_algorithm"))
-        this.events=events_data
-      } catch(error){
+          const events_data=JSON.parse(localStorage.getItem("data_algorithm"))
+          let eventsFiltered = []
+          events_data.map( (eventObject) => {
+            if (eventObject.dates_set.includes(this.dateValue)) {
+              eventsFiltered.push(eventObject);
+            }
+          })
+          this.events=eventsFiltered
+        } catch(error){
 
-        let eventsFiltered = []
-        this.eventsList.map( (eventObject) => {
-          if (eventObject.dates_set.includes(this.dateValue)) {
-            eventsFiltered.push(eventObject);
-          }
-        })
-        this.events= eventsFiltered;
+          let eventsFiltered = []
+          this.eventsList.map( (eventObject) => {
+            if (eventObject.dates_set.includes(this.dateValue)) {
+              eventsFiltered.push(eventObject);
+            }
+          })
+          this.events= eventsFiltered;
+          console.log(`error occured on getEventsByDate EventsPage. error: ${error}`);
+        }
+
       }
-    }},
+    },
     computed:{
         eventsByValue: function(){
-            var filteredEvents = this.events.filter((event)=>{
-                return event.date === this.value
-            });
-            return filteredEvents;
+          /* filters events by date */
+          var filteredEvents = this.events.filter((event)=>{
+              return event.date === this.value
+          });
+          return filteredEvents;
         }
     },
     created(){
         console.log("created ")
         this.algorithm = localStorage.getItem('algorithm');
-        // this.getEvents();
     }
 
 }
 </script>
 
 <style>
-/* #Events-By-Date-Page{
-    font-family: 'Balsamiq Sans', cursive;
-    font-family: 'Merienda', cursive;
-    text-align: center;
-    background-color: whitesmoke;
-    align-items: center;
-} */
 .events{
   display: block;
 }
