@@ -1,10 +1,10 @@
 <template>
   <div id="allCharts">
       <div id="charts1">
-      <Treemap :json_data="json_data"></Treemap>
-      <EventsAmountByDate :json_data="json_data"></EventsAmountByDate>
+      <Treemap :json_data="algorithm_results"></Treemap>
+      <EventsAmountByDate :json_data="algorithm_results"></EventsAmountByDate>
       </div>
-      <MultiEmotionEvent :json_data="json_data"></MultiEmotionEvent>
+      <MultiEmotionEvent :json_data="algorithm_results"></MultiEmotionEvent>
 
   </div>
 </template>
@@ -27,7 +27,7 @@ export default {
         {
             type:Array
         },
-        json_data:{
+        algorithm_results:{
             type:Array
 
         }
@@ -37,9 +37,9 @@ export default {
         }
     },
     watch: { 
-      	json_data: function(newVal, oldVal) { // watch it
+      	algorithm_results: function(newVal, oldVal) { // watch it
           console.log('Prop changed: ', newVal, ' | was: ', oldVal);
-          this.json_data=newVal;
+          this.algorithm_results = newVal;
         }
     },
     created(){
@@ -55,7 +55,6 @@ export default {
 }
 #charts1{
     margin-top: 2%;
-    
     margin-bottom: 2%;
     display:flex;
 }

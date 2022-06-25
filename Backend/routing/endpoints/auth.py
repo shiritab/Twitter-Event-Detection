@@ -6,6 +6,7 @@ from .algorithm import algorithms_object
 auth = Blueprint("auth", __name__)
 ####
 
+# will be expanded
 @auth.route("/login")
 def login_user():
     '''
@@ -14,7 +15,7 @@ def login_user():
     '''
     body_request = request.json
     print(body_request)
-    return jsonify({"name":"hadassa"})
+    return jsonify({"name":"admin"})
 
 @auth.route("/register")
 def register():

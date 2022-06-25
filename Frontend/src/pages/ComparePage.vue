@@ -1,24 +1,29 @@
 <template>
   <div id="Compare-Page">
-      <br>
-    <h1>Alghorithms Comparison </h1>
     <br>
+    <h1>Algorithms Comparison </h1>
+    <br>
+
+    <!-- Algorithms' checkboxes -->
     <div id="algo-checkbox">
         <b-form-group v-slot="{ ariaDescribedby }">
             <b-form-checkbox-group
                 id="checkbox-group-1"
-                v-model="selected"
-                :options="options"
+                v-model="selected_algorithms"
+                :options="options_algorithms"
                 :aria-describedby="ariaDescribedby"
                 name="flavour-1"
             ></b-form-checkbox-group>
 
         </b-form-group>
     </div>
+
+    <!-- Graphs -->
     <div id="compare">
         <CompareAlgorithmsPerfomance :algorithms="selected"></CompareAlgorithmsPerfomance>
         <CompareAlgorithmEventAmount :algorithms="selected"></CompareAlgorithmEventAmount>
     </div>
+
   </div>
 </template>
 

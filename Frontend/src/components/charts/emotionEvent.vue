@@ -48,6 +48,7 @@ export default {
             this.options.xaxis.categories=sort_date
             this.series=[{name:"emotion value",data:data_list}]
         },
+
         average(array){
             return array.reduce((a,b) => a + b, 0) / array.length
         }

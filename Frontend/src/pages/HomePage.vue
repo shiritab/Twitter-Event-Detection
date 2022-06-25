@@ -6,7 +6,7 @@
             <div class="col-4">
                 <a>Data Set:</a>
                 <br>
-                    <b-form-select style="width:100%; margin-left:2%" v-model="dataSet" :options="dataSetOption"></b-form-select>
+                    <b-form-select style="width:100%; margin-left:2%" v-model="dataset" :options="dataset_option"></b-form-select>
 
             </div>
             <div class="col-4">
@@ -14,16 +14,19 @@
                 <br>
                 <b-form-select style="width:100%" v-model="algorithm" :options="this.algorithms"></b-form-select>
             </div>
-<div class="col-4">
+            <div class="col-4">
 
-    <input type="file" id="uploadmyfile"  ref="file" @change="requestUploadFile" style="display: none">
-                <b-button style="margin-top:1%; width:100%" class="upload-button"   variant="info" @click="$refs.file.click()"><b-icon icon="cloud-arrow-up" aria-hidden="true"></b-icon> Upload Data </b-button>
+                <input type="file" id="uploadmyfile"  ref="file" @change="requestUploadFile" style="display: none">
+                <b-button style="margin-top:1%; width:100%" class="upload-button" variant="info" @click="$refs.file.click()">
+                    <b-icon icon="cloud-arrow-up" aria-hidden="true"></b-icon>
+                        Upload Data 
+                </b-button>
 
-            <b-button  style="margin-top:1%; width:100%"  class="upload-button" variant="info" @click="getEventSummary()">
+                <b-button  style="margin-top:1%; width:100%"  class="upload-button" variant="info" @click="getEventSummary()">
                     <b-icon icon="play" aria-hidden="true"></b-icon> Run
-                </b-button></div>
+                </b-button>
+            </div>
         </div>
-
     </div>
 
 
@@ -73,11 +76,11 @@
     </div>
 
                 
-    <Graph :v-if="created" :json_data="algorithm_results"></Graph>
+    <Graph :v-if="created" :algorithm_results="algorithm_results"></Graph>
     <br>
 <br>
         <h3>All Events</h3>
-        <b-table fixed striped hover :items="algorithm_results" :fields="fieldsTweetsInfo">
+        <b-table fixed striped hover :items="algorithm_results" :fields="fields_tweets_info">
             <template #cell(num_of_tweets)="data">
                 {{data.item.tweets.length}}
             </template>
@@ -107,29 +110,25 @@ import Graph from "../components/graph.vue"
 export default {
     name: "HomePage",
     components:{
-        Graph
-        
+        Graph 
     },
     data(){
         return{
-            dataSetOption:["event2012.json"],
+            created:false,
+            dataset_option: ["event2012.json"],
             algorithm: null,
             algorithms: [
                 {value: null, text: "Select algorithm"}
             ],
-            dataSet:"event2012.json",
-            selectedFile:"",
-            src:"",
-            file:"",
+            dataset: "event2012.json",
+            selected_file: "",
+            src: "",
+            file: "",
             total_autors:0,
             total_tweets:0,
             total_events:0,
-            created:false,
-            sedweek:true,
             algorithm_results:[],
-
-            // json format for events/summary
-            fieldsTweetsInfo:['event', 'num_of_tweets'],
+            fields_tweets_info:['event', 'num_of_tweets'],
         }
     },
     methods: {
@@ -149,10 +148,10 @@ export default {
 
             localStorage.setItem('algorithm',this.algorithm);
             try{
-                console.log(`selected: ${this.selectedFile}`);
+                console.log(`selected: ${this.selected_file}`);
                 
                 // run algorithm
-                const events = await this.axios.get(`${this.$root.serverLink}/algorithm/${this.algorithm}?dataset=${this.dataSet}`);
+                const events = await this.axios.get(`${this.$root.serverLink}/algorithm/${this.algorithm}?dataset=${this.dataset}`);
                 
                 // get events
                 const event = await this.axios.get(`${this.$root.serverLink}/events/summary/${this.algorithm}`);
@@ -167,7 +166,7 @@ export default {
                 localStorage.setItem("total_events", this.total_events);
                 localStorage.setItem("total_tweets", this.total_tweets);
                 localStorage.setItem("dates_range", this.dates_range);
-
+                localStorage.setItem("router", this.$router);
             } catch(error){
                 this.algorithm_results=require("../proccess_data.json")
                 console.log(`error ${error}\noccured at getEventsSummary on HomePage.vue`);
@@ -195,7 +194,7 @@ export default {
             /* Post request to save uploaded file to server side */
             this.file = this.$refs.file.files[0];
             this.src=this.file.name
-            this.dataSetOption.push(this.src)
+            this.dataset_option.push(this.src)
             const formData = new FormData();
             formData.append('file', this.file);
             const headers = { 'Content-Type': 'application/json' };
@@ -209,22 +208,35 @@ export default {
         
         async getAlgorithms() {
             /* Get request for all saved algorithms */
-            const algorithms = await this.axios.get(`${this.$root.serverLink}/algorithm/all`);
+
+            try {
+                const algorithms = await this.axios.get(`${this.$root.serverLink}/algorithm/all`);
            
-            algorithms.data.map((algorithm) => {
-                this.algorithms.push(algorithm);
-            })
+                algorithms.data.map((algorithm) => {
+                    this.algorithms.push(algorithm);
+                });
+            } catch (error) {
+                const default_algorithms = ['SedTwik', 'Twembeddings', 'Bert'];
+                default_algorithms.map((algorithm) => {
+                    this.algorithms.push(algorithm);
+                });
+                console.log(`error occured on getAlgorithms HomePage. error: ${error}`);
+            }
+
         },
 
         getLastRun() {
             /* If local storage contains past execution result, sets past results to variables and returns true,
              otherwise false */
+
             const algorithm = localStorage.getItem("algorithm");
             const data_algorithm = localStorage.getItem("data_algorithm");
-            this.algorithm=algorithm;
             
             if (algorithm && data_algorithm) {
-                this.algorithm = this.algorithm;
+                if (!this.algorithms.includes(algorithm)) {
+                   this.algorithms.push(algorithm);
+                }
+                this.algorithm = algorithm;
                 this.algorithm_results = JSON.parse(data_algorithm);
                 this.total_events = localStorage.getItem("total_events");
                 this.total_tweets = localStorage.getItem("total_tweets");
@@ -239,6 +251,8 @@ export default {
         
         console.log("HomePage created");
         this.getAlgorithms();
+
+        // if there is not previous results
         if (!this.getLastRun()) {
             this.getEventSummary();
             localStorage.setItem('algorithm', this.algorithm);

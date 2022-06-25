@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <div  class="container" >
@@ -25,7 +24,8 @@
   </div>
 </template>
 
-<script>import { Tweet } from 'vue-tweet-embed'
+<script>
+import { Tweet } from 'vue-tweet-embed'
 
 export default{
   name: "TweetD",

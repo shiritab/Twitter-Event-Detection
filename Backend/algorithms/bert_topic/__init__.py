@@ -1,5 +1,4 @@
 import torch
-
 torch.cuda.is_available()
 import pandas as pd
 import pickle

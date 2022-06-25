@@ -1,4 +1,5 @@
 import  flask
+#
 class TwitterCollector:
     '''
     Given a set of tweets' ids we collect the tweets' data from twitter api.
