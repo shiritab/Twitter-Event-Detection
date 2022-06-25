@@ -22,7 +22,7 @@ algorithms_object = eventDetectionAlgorithms()
 
 RELEVANT_TWEETS_PATH = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backend\data\relevant_tweets.tsv"
 ALGORITHM_FILE = r"C:\Users\user\Documents\GitHub\Twitter-Event-Detection\Backend\results\{}\results_event2012.json"
-#
+###
 
 @algorithm.route("/<algorithm>")
 def run_algorithm(algorithm):

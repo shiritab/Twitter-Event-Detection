@@ -11,7 +11,7 @@
 import VueApexCharts from 'vue-apexcharts'
 
 export default {
-    name: 'CompareColumn',
+    name: 'CompareAlgorithmEventAmount',
     components:{
         apexchart: VueApexCharts,
     },
@@ -22,7 +22,7 @@ export default {
     },
     data(){
         return{
-          data_dict:{"SedTwik":52,'Twembeddings':100,'Bert':40},
+          algorithm_event_amount_dict:{"SedTwik":52,'Twembeddings':100,'Bert':40},
         series: [{
             data: [52,100,100]
           }],
@@ -87,22 +87,25 @@ export default {
     },
     computed:{
     get_score(){
+        /** Sets events' amount of each algorithm */
 
-        var data_list=[];
+        var algorithm_events_amount_list=[];
         var categories_list=[];
-        for(var key in this.data_dict) {
+        for(var key in this.algorithm_event_amount_dict) {
             if (this.algorithms.includes(key)){
-              data_list.push(this.data_dict[key]);
+              algorithm_events_amount_list.push(this.algorithm_event_amount_dict[key]);
               categories_list.push(key);
             }
         }
 
-        return [{data: data_list}]
+        return [{data: algorithm_events_amount_list}]
       },
       get_category(){
+        /** Get algorithms as categories */
+        
         var option=this.chartOptions;
         var categories_list=[];
-        for(var key in this.data_dict) {
+        for(var key in this.algorithm_event_amount_dict) {
             if (this.algorithms.includes(key)){
               categories_list.push(key);
             }
@@ -112,16 +115,6 @@ export default {
         return option;
       }
     },
-      //  async mounted(){
-  //     try{
-  //               const compare_score = await this.axios.get(`http://127.0.0.1:5000/algorithm/compare`);
-  //               this.json_return = compare_score.data;
-  //               this.series=this.json_return;
-  //           } catch(error){
-                
-  //               console.log(`error ${error}\noccured at getEventsSummary on HomePage.vue`);
-  //           }
-  //   }
 }
 </script>
 

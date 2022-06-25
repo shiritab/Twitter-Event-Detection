@@ -67,17 +67,17 @@
 
             <div class="px-4 text-gray-700">
                 <h3 class="text-sm tracking-wider">Total Events</h3>
-                <p class="text-3xl">{{json_return.length}}</p>
+                <p class="text-3xl">{{algorithm_results.length}}</p>
             </div>
         </div>
     </div>
 
                 
-    <Graph :v-if="created" :json_data="json_return"></Graph>
+    <Graph :v-if="created" :json_data="algorithm_results"></Graph>
     <br>
 <br>
         <h3>All Events</h3>
-        <b-table fixed striped hover :items="json_return" :fields="fieldsTweetsInfo">
+        <b-table fixed striped hover :items="algorithm_results" :fields="fieldsTweetsInfo">
             <template #cell(num_of_tweets)="data">
                 {{data.item.tweets.length}}
             </template>
@@ -254,14 +254,7 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Merienda:wght@700&display=swap');
-/* #home-page{
-    font-family: 'Balsamiq Sans', cursive;
-    text-align: center;
-    background-color: whitesmoke;
-        align-items: center;
-        
 
-} */
 #charts{
     margin-top: 3%;
     margin-left: 2%;

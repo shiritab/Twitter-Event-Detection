@@ -16,27 +16,52 @@
         </b-form-group>
     </div>
     <div id="compare">
-        <CompareColumn :algorithms="selected"></CompareColumn>
-        <CompareBar :algorithms="selected"></CompareBar>
+        <CompareAlgorithmsPerfomance :algorithms="selected"></CompareAlgorithmsPerfomance>
+        <CompareAlgorithmEventAmount :algorithms="selected"></CompareAlgorithmEventAmount>
     </div>
   </div>
 </template>
 
 <script>
-import CompareColumn from "./../components/charts/CompareColumn.vue"
-import CompareBar from "./../components/charts/CompareBar.vue"
+import CompareAlgorithmsPerfomance from "./../components/charts/compareAlgorithmsPerfomance.vue";
+import CompareAlgorithmEventAmount from "../components/charts/compareAlgorithmEventAmount.vue";
 
 export default {
     name: 'ComparePage',
     components:{
-        CompareColumn,
-        CompareBar
+        CompareAlgorithmsPerfomance,
+        CompareAlgorithmEventAmount
     },
     data(){
         return{
-            selected: ['SedTwik', 'Twembeddings','Bert'],
-            options: ['SedTwik', 'Twembeddings','Bert'],
+            selected: null,
+            options: null,
         }
+    },
+
+    methods: {
+        async getAlgorithms() {
+            /** Get request for all saved algorithms in server */
+
+            this.selected = [];
+            this.options = [];
+            try {
+                const saves_algorithms = this.axios.get(`${this.$root.serverLink}/algorithm/all`);
+                saves_algorithms.data.map((algorithm) => {
+                    this.selected.push(algorithm);
+                    this.options.push(algorithm);
+                });
+
+            } catch (error) {
+                let default_algorithms = ['SedTwik', 'Twembeddings','Bert']
+                this.selected = default_algorithms;
+                this.options = default_algorithms;
+                console.log(`error ${error} occured in ComparePage`);
+            }
+        }
+    },
+    created() {
+        this.getAlgorithms();
     }
 }
 </script>

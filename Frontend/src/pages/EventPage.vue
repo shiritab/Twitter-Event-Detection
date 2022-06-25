@@ -28,7 +28,6 @@ export default {
     },
     created(){
         console.log("created event page");
-        console.log(this.emotion);
     }
 }
 </script>

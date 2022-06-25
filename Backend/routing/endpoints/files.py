@@ -2,12 +2,13 @@ import json
 import tempfile
 from flask import Blueprint, request, jsonify, Response
 from werkzeug.utils import secure_filename
+import markdown
 
 # Do not delete these lines
 files = Blueprint("files", __name__)
 
 UPLOADED_DATA = f"../../data/uploaded/"
-#
+##
 
 @files.route("/upload")
 def upload_file():
@@ -34,3 +35,11 @@ def get_all_files():
     Iterates through all files under UPLOADED_DATA
     '''
     pass
+
+@files.route("/markdown")
+def get_markdown():
+    '''
+    Returns markdown file as html string
+    '''
+    with open("./../../README.md", 'r') as readme_file:
+        return str(markdown.markdown(readme_file.read()))

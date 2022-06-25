@@ -104,19 +104,20 @@ export default {
         
         this.events = [];
         try{
-          console.log("getEventsByDate method in EventsPage")
           console.log(" - Chosen algorithm: "+this.algorithm);
 
           const events_data=JSON.parse(localStorage.getItem("data_algorithm"))
+
           let eventsFiltered = []
           events_data.map( (eventObject) => {
             if (eventObject.dates_set.includes(this.dateValue)) {
               eventsFiltered.push(eventObject);
             }
           })
-          this.events=eventsFiltered
-        } catch(error){
 
+          this.events=eventsFiltered
+
+        } catch(error){
           let eventsFiltered = []
           this.eventsList.map( (eventObject) => {
             if (eventObject.dates_set.includes(this.dateValue)) {
@@ -129,15 +130,7 @@ export default {
 
       }
     },
-    computed:{
-        eventsByValue: function(){
-          /* filters events by date */
-          var filteredEvents = this.events.filter((event)=>{
-              return event.date === this.value
-          });
-          return filteredEvents;
-        }
-    },
+
     created(){
         console.log("created ")
         this.algorithm = localStorage.getItem('algorithm');

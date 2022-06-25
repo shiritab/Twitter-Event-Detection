@@ -1,30 +1,25 @@
 <template>
   <div id="allCharts">
       <div id="charts1">
-      <!-- <Area :json_data="json_data"></Area> -->
       <Treemap :json_data="json_data"></Treemap>
-      <Area :json_data="json_data"></Area>
+      <EventsAmountByDate :json_data="json_data"></EventsAmountByDate>
       </div>
-      <Column :json_data="json_data"></Column>
+      <MultiEmotionEvent :json_data="json_data"></MultiEmotionEvent>
 
   </div>
 </template>
 
 <script>
-// import Area from "../components/charts/area.vue"
-import RadialBar from "../components/charts/radialBar.vue"
 import Treemap from "../components/charts/treemap.vue"
-import Column from "../components/charts/column.vue"
-import Area from '../components/charts/area.vue'
+import MultiEmotionEvent from "../components/charts/multiEmotionEvent.vue"
+import EventsAmountByDate from '../components/charts/eventsAmountByDate.vue'
 
 
 export default {
     components:{
-
-        // RadialBar,
         Treemap,
-        Column,
-        Area
+        MultiEmotionEvent,
+        EventsAmountByDate
     },
     props:
     {
@@ -41,18 +36,14 @@ export default {
         return{
         }
     },
-
-    created(){
-        console.log("graph created")
-        console.log(this.json_data);
-
-
-    },
     watch: { 
       	json_data: function(newVal, oldVal) { // watch it
           console.log('Prop changed: ', newVal, ' | was: ', oldVal);
           this.json_data=newVal;
         }
+    },
+    created(){
+        console.log("graph created")
     }
 
 }

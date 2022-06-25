@@ -1,40 +1,28 @@
 
 <template>
-<div>
-<div  class="container" >
-          <div class="row ">
+  <div>
+    <div  class="container" >
+      <div class="row ">
         <Tweet v-for="tweet in tweets_to_show"
-        :key="tweet"
-        :id="tweet"
-      
-        class = "tweets_class"
-        >
-        </Tweet></div>
-
-
-  <!-- <b-container id="tweets-show" class="bv-example-row">
-    <b-row >
-      <b-col class="row">
-        <Tweet v-for="tweet in tweets_to_show"
-        :key="tweet"
-        :id="tweet"
-      
-        class = "tweets_class"
-        >
+          :key="tweet"
+          :id="tweet"
+          error-message="This tweet could not be loaded"
+          class = "tweets_class"
+          >
         </Tweet>
-      </b-col>
-    </b-row>
-  </b-container>   -->
+      </div>
 
-    <b-pagination style="display:inline-flex"
-      v-model="currentPage"
-      :total-rows="tweets.length"
-      :per-page=12
-      :align="center"
-      aria-controls="tweets-show"
-      @change="onPageChange"
-    ></b-pagination> </div>
-</div>
+      <b-pagination style="display:inline-flex"
+        v-model="currentPage"
+        :total-rows="tweets.length"
+        :per-page=12
+        :align="center"
+        aria-controls="tweets-show"
+        @change="onPageChange"
+        >
+      </b-pagination> 
+    </div>
+  </div>
 </template>
 
 <script>import { Tweet } from 'vue-tweet-embed'
@@ -51,25 +39,17 @@ export default{
         }
   },
   data()  {
-
-return{
-  tweets_to_show:this.tweets.slice(0,12),
-  currentPage:1
-}
-
+    return{
+      tweets_to_show:this.tweets.slice(0,12),
+      currentPage: 1
+    }
   },
   methods:{
     onPageChange(page){
-      console.log(page)
-      
+      /** Each page contains at most 12 tweets */
       this.tweets_to_show=this.tweets.slice(page*12-12,page*12)
-
-
     }
   }
-
-
-
 }
 </script>
 

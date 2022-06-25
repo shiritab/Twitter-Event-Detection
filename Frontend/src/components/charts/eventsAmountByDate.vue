@@ -9,7 +9,8 @@
 import VueApexCharts from 'vue-apexcharts'
 
 export default {
-components:{
+    name: "EventsAmountByDate",
+    components:{
         apexchart: VueApexCharts,
         
     },
@@ -18,7 +19,6 @@ components:{
     },
     data(){
         return{
-  
             categories: ['event 1', 'event 2', 'event 3', 'event 4', 'event 5', 'event 6'],
             options : {
                 colors:["#8af136"],
@@ -53,9 +53,10 @@ components:{
     methods:{
 
     make_data(){
-        console.log("make_data");
+        /** Build xaxis and yaxis for graph */
         var date_dict={};
         var date_list=[];
+
         this.json_data.forEach((event)=>{
             event.dates_set.forEach((date)=>{
                 if (date in date_dict){
@@ -67,24 +68,19 @@ components:{
                 }
             })
         })
-        // sort(date_dict);
-        console.log("this is area dict");
-        console.log(date_dict);
-        //series =[{data:[1,1,1,1,1,1,1]}]
+        
         var sort_date=date_list.sort()
         var data_list=[];
         sort_date.forEach((date)=>{
             data_list.push(date_dict[date]);
         })
+
         this.series=[{data:data_list}];
         this.categories=sort_date;
-        console.log(this.categories);
         this.options.xaxis={categories:sort_date}
-
-
       }
     },
-      watch: { 
+    watch: { 
       	json_data: function(newVal, oldVal) { // watch it
             console.log('Prop changed on column: ', newVal, ' | was: ', oldVal)
             this.json_data=newVal
@@ -98,8 +94,8 @@ components:{
         }
     },
     created (){
-        console.log("this is area chart!!!!!")
-      this.make_data();
+        console.log("created eventsAmountByDate")
+        this.make_data();
 
 
     },

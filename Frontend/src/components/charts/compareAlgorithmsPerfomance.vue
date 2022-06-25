@@ -11,7 +11,7 @@
 import VueApexCharts from 'vue-apexcharts'
 
 export default {
-    name: 'CompareColumn',
+    name: 'CompareAlgorithmsPerfomance',
     components:{
         apexchart: VueApexCharts,
     },
@@ -22,27 +22,8 @@ export default {
     },
     data(){
         return{
-          json_return:[{
-                name: 'SedTwik',
-                data: [0.84,0.79]//, 56, 61, 58, 63, 60, 66]
-            }, {
-                name: 'Twembeddings',
-                data: [0.6,0.89]//, 98, 87, 105, 91, 114, 94]
-            }, {
-                name: 'Bert',
-                data: [0.77,0.55]//, 26, 45, 48, 52, 53, 41]
-            }],
-            series: [{
-                name: 'SedTwik',
-                data: [0.84,0.79]//, 56, 61, 58, 63, 60, 66]
-            }, {
-                name: 'Twembeddings',
-                data: [0.6,0.89]//, 98, 87, 105, 91, 114, 94]
-            }, {
-                name: 'Bert',
-                data: [0.77,0.55]//, 26, 45, 48, 52, 53, 41]
-            }],
-            
+            algorithm_measure_performance: [],
+            series: [],
             chartOptions: { 
                 chart: {
               type: 'bar',
@@ -64,7 +45,7 @@ export default {
               colors: ['transparent']
             },
             xaxis: {
-              categories: ["Normalized Mutual Info"," Adjusted Rand"], //, 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+              categories: ["Normalized Mutual Info"," Adjusted Rand"],
             },
 
             fill: {
@@ -83,25 +64,36 @@ export default {
 
     computed:{
       get_score(){
+        /** Get score of each algorithm */
+
         var new_list=[]
-        this.json_return.map(dict=>{
+        this.algorithm_measure_performance.map(dict=>{
             if (this.algorithms.includes(dict.name)){
               new_list.push(dict);
             }
         });
-        // console.log(this.json_return)
-        // console.log(new_list);
         return new_list
       }
     },
    async mounted(){
       try{
           const compare_score = await this.axios.get(`${this.$root.serverLink}/algorithm/compare`);
-          this.json_return = compare_score.data;
-          this.series=this.json_return;
+          this.algorithm_measure_performance = compare_score.data;
+          this.series=this.algorithm_measure_performance;
           console.log(this.series);
 
       } catch(error){  
+          this.algorithm_measure_performance = [{
+                name: 'SedTwik',
+                data: [0.84,0.79]
+            }, {
+                name: 'Twembeddings',
+                data: [0.6,0.89]
+            }, {
+                name: 'Bert',
+                data: [0.77,0.55]
+            }];
+          this.series = this.algorithm_measure_performance;
           console.log(`error ${error}\noccured at compare algorithms`);
       }
     }

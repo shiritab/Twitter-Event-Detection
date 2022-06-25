@@ -19,52 +19,20 @@ export default {
 
     data(){
         return{
-                test:"checkkkkkkk",
           list_data:[],
           series: [
               {
                 data: []
               }
-            ],
-          // options: {
-          //   plotOptions: {
-              
-          //     treemap: {
-          //       distributed: true,
-               
-          //     },
-
-          //   },
-          //   chart:{
-          //     type:"treemap",
-          //     events: {
-
-          //       click: function(event, chartContext, config) {
-                  
-          //           var index=0;
-                    
-          //           console.log(config.dataPointIndex);
-          //           change()
-          //   },
-
-          //   }}
-          
-            
-          // },
+          ],
           
 }},
     methods:{
-
-      change: function(index){
-        console.log("change")
-      },
-      handle(){
-        console.log("heyyy");
-        return "hellppppp"
-      },
       make_data(){
-        console.log("make_data");
+        /** Build data for graph */
         this.list_data = [];
+
+        // calculate number of tweets for each event
         this.json_data.forEach((event)=>{
           var dict={x:event.event,y:event.tweets.length};
           this.list_data.push(dict);
@@ -72,33 +40,39 @@ export default {
         })
         console.log(this.list_data);
         this.series[0].data=this.list_data;
+      },
+      change: function(index){
+        console.log("change")
+      },
+      handle(){
+        console.log("heyyy");
+        return "hellppppp"
       }
     },
     created (){
-      console.log(this.json_data);
+      console.log("created treemap");
       this.make_data();
-      // localStorage.setItem("router",JSON.stringify(this.$router))
-      console.log(this.series);
-
     },
     watch: { 
-      	json_data: function(newVal, oldVal) { // watch it
-          console.log('Prop changed: ', newVal, ' | was: ', oldVal)
-          this.json_data=newVal
-          this.make_data();
-          
-      this.$refs.realtimeChart.updateSeries([{
-        data: this.series[0].data,
-      }], false, true);
-    
-
-
-        }
+      json_data: function(newVal, oldVal) { // watch it
+        console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+        this.json_data=newVal
+        this.make_data();
+        
+        this.$refs.realtimeChart.updateSeries(
+          [
+            {
+              data: this.series[0].data,
+            }
+          ],
+          false, 
+          true
+        );
+      }
     },
     computed:{
-
-                options: function(){
-                  return{
+      options: function(){
+        return{
             plotOptions: {
               
               treemap: {
@@ -130,7 +104,7 @@ export default {
           
             
           }
-                }
+      }
     },
 
     
