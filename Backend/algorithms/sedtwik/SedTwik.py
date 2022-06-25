@@ -143,3 +143,7 @@ class SedTwik(DetectionAlgorithm):
         # return just the last excute of 6 json files. the others will be saved.
         self.event_results = to_ret_events
         return to_ret_events
+
+    def summarize(self):
+        summarize_reuslts=super().summarize()
+        return sorted(summarize_reuslts,key=lambda event:len(event['tweets']),reverse=True)
