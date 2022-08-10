@@ -1,15 +1,25 @@
 <template id="Events-By-Date-Page">
   <div>
     <br>
-    <p>Events by algorithm: {{this.algorithm}}</p>
-    <b-form-datepicker ref="datepicker"
-      v-model="dateValue"
-      :min="min"
-      :max="max"
-      @input="getEventsByDate()"
-      style="width: 18.3rem; margin: auto"
-      locale="en">
-    </b-form-datepicker>
+    <div id="date-picker__container">
+      <b-form-datepicker ref="datepicker"
+        v-model="dateValue"
+        :min="min"
+        :max="max"
+        @input="getEventsByDate()"
+        style="width: 18.3rem; margin: auto"
+        locale="en">
+      </b-form-datepicker>  
+      <b-button id="popover-target-1">
+        Details
+      </b-button>
+      <b-popover target="popover-target-1" triggers="hover" placement="top">
+          <template #title>Details</template>      
+            <p><b>Algorithm: </b>{{this.algorithm}}</p>
+            <p><b>Dataset: </b>{{this.dataset}}</p>
+            <p><b>Dates Range: </b>{{this.dates_range}}</p>
+      </b-popover>
+    </div>
     <br>
     <div class="row">
       <b-card v-for="event in events"
@@ -104,6 +114,9 @@ export default {
         
         this.events = [];
         try{
+          // save date picked
+          localStorage.setItem('date_picked', this.dateValue);
+
           console.log(" - Chosen algorithm: "+this.algorithm);
 
           const events_data=JSON.parse(localStorage.getItem("data_algorithm"))
@@ -116,6 +129,7 @@ export default {
           })
 
           this.events=eventsFiltered
+          localStorage.setItem('events_retrieved_by_date', JSON.stringify(this.events));
 
         } catch(error){
           let eventsFiltered = []
@@ -134,6 +148,18 @@ export default {
     created(){
         console.log("created ")
         this.algorithm = localStorage.getItem('algorithm');
+        this.dataset = localStorage.getItem('chosen_dataset');
+        this.dates_range = localStorage.getItem('dates_range');
+
+        const date_picked = localStorage.getItem('date_picked');
+        if (date_picked) {
+          this.dateValue = date_picked;
+        }
+
+        const events_retrieved_by_date = localStorage.getItem('events_retrieved_by_date');
+        if (events_retrieved_by_date) {
+          this.events = JSON.parse(events_retrieved_by_date);
+        }
     }
 
 }
@@ -142,5 +168,9 @@ export default {
 <style>
 .events{
   display: block;
+}
+
+#date-picker__container {
+  display: inline-flex;
 }
 </style>

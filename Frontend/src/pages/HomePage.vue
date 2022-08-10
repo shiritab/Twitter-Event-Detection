@@ -80,9 +80,16 @@
     <br>
 <br>
         <h3>All Events</h3>
-        <b-table fixed striped hover :items="algorithm_results" :fields="fields_tweets_info">
+        <b-table fixed striped hover 
+        :items="algorithm_results" 
+        :fields="fields_tweets_info"
+        :sort-by="sort_events_by"
+        :sort-compare="sortEventsCompare">
             <template #cell(num_of_tweets)="data">
                 {{data.item.tweets.length}}
+            </template>
+            <template #cell(event_date)="data">
+                {{data.item.dates.length > 0 ? data.item.dates[0]: " - "}}
             </template>
             <template #cell(event)="data">
                 <router-link :to="{ name: 'event', params: {name:data.item.event, tweets:data.item.tweets,dates:data.item.dates,emotion:data.item.tweets_emotion}}">
@@ -128,7 +135,12 @@ export default {
             total_tweets:0,
             total_events:0,
             algorithm_results:[],
-            fields_tweets_info:['event', 'num_of_tweets'],
+            fields_tweets_info:[
+                {key: 'event', sortable: true },
+                {key: 'event_date', sortable: true },
+                {key: 'num_of_tweets', sortable: true }
+            ],
+            sort_events_by: 'num_of_tweets'
         }
     },
     methods: {
@@ -147,6 +159,7 @@ export default {
             }
 
             localStorage.setItem('algorithm',this.algorithm);
+            localStorage.setItem('chosen_dataset', this.dataset);
             try{
                 console.log(`selected: ${this.selected_file}`);
                 
@@ -157,20 +170,21 @@ export default {
                 const event = await this.axios.get(`${this.$root.serverLink}/events/summary/${this.algorithm}`);
 
                 this.algorithm_results = event.data;
-                this.total_events = this.algorithm_results.length;
-                this.total_tweets = this.algorithm_results.reduce((total, event) => {
-                    return total + event.tweets.length;
-                }, 0)
-                this.dates_range = this.getEventsDates();
-                localStorage.setItem('data_algorithm',JSON.stringify(this.algorithm_results));
-                localStorage.setItem("total_events", this.total_events);
-                localStorage.setItem("total_tweets", this.total_tweets);
-                localStorage.setItem("dates_range", this.dates_range);
-                localStorage.setItem("router", this.$router);
             } catch(error){
-                this.algorithm_results=require("../proccess_data.json")
+                this.algorithm_results=require("../../../Backend/results/sedtwik/summarized_event2012.json");
                 console.log(`error ${error}\noccured at getEventsSummary on HomePage.vue`);
             }
+            
+            this.total_events = this.algorithm_results.length;
+            this.total_tweets = this.algorithm_results.reduce((total, event) => {
+                return total + event.tweets.length;
+            }, 0)
+            this.dates_range = this.getEventsDates();
+            localStorage.setItem('data_algorithm',JSON.stringify(this.algorithm_results));
+            localStorage.setItem("total_events", this.total_events);
+            localStorage.setItem("total_tweets", this.total_tweets);
+            localStorage.setItem("dates_range", this.dates_range);
+            localStorage.setItem("router", this.$router);
         },
         getEventsDates(){
             /* Computes and returns dates range (min date, max date) in algorithm's results */
@@ -222,7 +236,6 @@ export default {
                 });
                 console.log(`error occured on getAlgorithms HomePage. error: ${error}`);
             }
-
         },
 
         getLastRun() {
@@ -244,6 +257,34 @@ export default {
                 return true;
             }
             return false;
+        },
+        sortEventsCompare(row1, row2, key) {
+            /**
+             * Given two different rows and a column key, we compare them by substracting.
+             * if key is not event_date nor num_of_tweets, we compare by default.
+             */
+            if (key === 'event_date') {
+                return this.dateFormat(row1.dates[0]) - this.dateFormat(row2.dates[0]);
+            } else if (key === 'num_of_tweets') {
+                return row1.tweets.length - row2.tweets.length;
+            } else {
+                // Let b-table handle sorting other fields (other than `date` field)
+                return false;
+            }
+        },
+        dateFormat(dateString) {
+            /*
+            Given a string of the format "yyyy-mm-dd" we return a Date object.
+            notice: if date isn't valid we return current date.
+            */
+            const dateSplit = dateString.split("-");
+            let dateFormatted;
+            if (dateSplit.length == 3) {
+                dateFormatted = new Date(dateSplit[0], dateSplit[1], dateSplit[2]);
+            } else {
+                dateFormatted = new Date();
+            }
+            return dateFormatted;
         }
     },
 
