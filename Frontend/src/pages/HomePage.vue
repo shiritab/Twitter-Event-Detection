@@ -250,9 +250,6 @@ export default {
     created(){
         
         console.log("HomePage created");
-<<<<<<< HEAD
-        //this.getEventSummary();
-=======
         this.getAlgorithms();
 
         // if there is not previous results
@@ -262,7 +259,6 @@ export default {
         }
         
         this.created=true;
->>>>>>> main
     },
 
 

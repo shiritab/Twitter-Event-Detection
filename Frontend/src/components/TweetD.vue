@@ -1,14 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <b-container class="bv-example-row">
-    <b-row >
-      <b-col class="row">
-        <Tweet  v-for="tweet in tweets"
-        :key="tweet.id"
-        :id="tweet.id"
-        class = "tweets_class"
-        >
-=======
   <div>
     <div  class="container" >
       <div class="row ">
@@ -18,7 +8,6 @@
           error-message="This tweet could not be loaded"
           class = "tweets_class"
           >
->>>>>>> main
         </Tweet>
       </div>
 
