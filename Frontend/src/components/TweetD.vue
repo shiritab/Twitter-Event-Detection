@@ -1,31 +1,5 @@
-<!--<template>
-    <b-card-group deck>
-      <b-card v-for="tweet in tweets"
-        :key="tweet.id"
-        style="max-width: 20rem; margin: auto;"
-        bg-variant="light" :header="tweet.date" class="text-center">
-        <b-card-text>{{ tweet.content }}</b-card-text>
-      </b-card>
-    </b-card-group>
-</template>
-
-<script>
-export default {
-    name: "Tweet",
-    props:{
-        tweets:{
-            type: Array,
-            require: true,
-        }
-    }
-}
-</script>
-
-<style scope>
-
-</style>-->
-
 <template>
+<<<<<<< HEAD
   <b-container class="bv-example-row">
     <b-row >
       <b-col class="row">
@@ -34,16 +8,35 @@ export default {
         :id="tweet.id"
         class = "tweets_class"
         >
+=======
+  <div>
+    <div  class="container" >
+      <div class="row ">
+        <Tweet v-for="tweet in tweets_to_show"
+          :key="tweet"
+          :id="tweet"
+          error-message="This tweet could not be loaded"
+          class = "tweets_class"
+          >
+>>>>>>> main
         </Tweet>
-      </b-col>
-    </b-row>
-  </b-container>  
-  <!-- <Tweet id="692527862369357824" style="width: 5px; padding: 2px;">
-    <div class="spinner"></div>
-  </Tweet> -->
+      </div>
+
+      <b-pagination style="display:inline-flex"
+        v-model="currentPage"
+        :total-rows="tweets.length"
+        :per-page=12
+        :align="center"
+        aria-controls="tweets-show"
+        @change="onPageChange"
+        >
+      </b-pagination> 
+    </div>
+  </div>
 </template>
 
-<script>import { Tweet } from 'vue-tweet-embed'
+<script>
+import { Tweet } from 'vue-tweet-embed'
 
 export default{
   name: "TweetD",
@@ -56,6 +49,18 @@ export default{
             require: true,
         }
   },
+  data()  {
+    return{
+      tweets_to_show:this.tweets.slice(0,12),
+      currentPage: 1
+    }
+  },
+  methods:{
+    onPageChange(page){
+      /** Each page contains at most 12 tweets */
+      this.tweets_to_show=this.tweets.slice(page*12-12,page*12)
+    }
+  }
 }
 </script>
 
@@ -64,9 +69,16 @@ export default{
 .tweets_class{
   display: inline-block;
   position: relative;
-  padding: 10px;
+  padding: 2px;
 }
 .row col{
   max-height: 10px;
 }
+.searchRes{
+  overflow-x: hidden;
+  overflow-y:scroll;
+  max-height: fit-content;
+
+}
+
 </style>

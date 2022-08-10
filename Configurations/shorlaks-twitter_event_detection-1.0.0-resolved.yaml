@@ -24,21 +24,21 @@ tags:
 - name: authors
   description: End points related to information about authors
 paths:
-  /events/summary:
+  /events/summary/{algorithm}:
     get:
       tags:
       - events
       summary: display a summary of events and related tweets
       parameters:
-      - name: algorithem
-        in: query
-        description: name of the algorithem used to detect events
-        required: false
+      - name: algorithm
+        in: path
+        description: name of the algorithm used to detect events
+        required: true
         style: form
         explode: false
         schema:
           type: string
-          example: SEDTwik
+          example: sedtwik
       responses:
         "200":
           description: success
@@ -116,12 +116,21 @@ paths:
                 $ref: '#/components/schemas/inline_response_200_1'
         "204":
           description: could not retrieve information
-  /events/{date}:
+  /events/{algorithm}/{date}:
     get:
       tags:
       - events
       summary: returns all events by date
       parameters:
+      - name: algorithm
+        in: path
+        description: name of algorithm used
+          required: true
+          style: form
+          explode: false
+          schema:
+            type: string
+            example: sedtwik
       - name: date
         in: path
         description: date of event
@@ -130,7 +139,7 @@ paths:
         explode: false
         schema:
           type: string
-          example: 24-Feb-2021 00:03:21 GMT
+          example: 2012-10-12
       responses:
         "200":
           description: success
@@ -206,47 +215,49 @@ components:
   schemas:
     summary:
       type: object
-      properties:
-        event_name:
-          type: string
-          example: Bibi lose elections
-        event_description:
-          type: string
-          example: during the last elections Benjanim Netanyahu lost to Naftalie Bennet
-        tweets:
-          type: array
-          items:
-            $ref: '#/components/schemas/tweetObject'
-    tweetObject:
-      type: object
-      properties:
-        Id:
-          type: string
-          example: 264563843
-        date:
-          type: string
-          example: 2021-02-02
-        author:
-          type: string
-          example: niv
-        text:
-          type: string
-          example: Evarybody knows the Sorlaks are the best
-        url:
-          type: string
-          example: www.twitter.com
+      $ref: '#/components/schemas/eventObject'
+#      properties:
+#        event_name:
+#          type: string
+#          example: Bibi lose elections
+#        event_description:
+#          type: string
+#          example: during the last elections Benjanim Netanyahu lost to Naftalie Bennet
+#        tweets:
+#          type: array
+#          items:
+#            $ref: '#/components/schemas/eventObject'
+
+#    tweetObject:
+#      type: object
+#      properties:
+#        Id:
+#          type: string
+#          example: 264563843
+
     eventObject:
       type: object
       properties:
-        name:
+        event:
           type: string
           example: hadassa has given birth
-        related_tweets:
+        tweets:
           type: array
           items:
             type: int
-            # $ref: '#/components/schemas/tweetObject'
-            example: [1,2,3,4]
+#             $ref: '#/components/schemas/tweetObject'
+            example: 264563843
+         dirty_text:
+           type: array
+           items:
+             type: string
+             example: "bibi lost the elections this time!"
+         tweets_emotion:
+           type: array
+           items:
+             type: double
+             example: 0.75
+
     # authorObject:
     #   type: object
     #   properties:
@@ -256,6 +267,7 @@ components:
     #     number_of_tweets:
     #       type: integer
     #       example: 7
+
     inline_response_200:
       type: object
       properties:
@@ -264,6 +276,7 @@ components:
           example: 376
         query_response:
           $ref: '#/components/schemas/eventObject'
+
     inline_response_200_1:
       type: object
       properties:
@@ -276,6 +289,7 @@ components:
         f1_score:
           type: number
           example: 0.7
+
     inline_response_200_2:
       type: object
       properties:
