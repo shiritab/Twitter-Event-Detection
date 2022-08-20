@@ -1,7 +1,7 @@
 <template>
   <div id="Compare-Page">
     <br>
-    <h1>Algorithms Comparison </h1>
+    <h1>Algorithm Comparison </h1>
     <br>
 
     <!-- Algorithms' checkboxes -->
@@ -9,8 +9,8 @@
         <b-form-group v-slot="{ ariaDescribedby }">
             <b-form-checkbox-group
                 id="checkbox-group-1"
-                v-model="selected_algorithms"
-                :options="options_algorithms"
+                v-model="selected"
+                :options="options"
                 :aria-describedby="ariaDescribedby"
                 name="flavour-1"
             ></b-form-checkbox-group>

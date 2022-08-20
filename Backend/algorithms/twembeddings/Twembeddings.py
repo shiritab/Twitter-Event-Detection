@@ -3,14 +3,12 @@ import os
 import sys
 from . import *
 from .clustering import main
-# from ...summarization import hugging_faces
-# from ...utils_backend.emotion_tweet import EmotionTweet
 import pandas as pd
 
 TAGGED_TWEETS_PATH = f'C:\\Users\\user\\Desktop\\tagged tweets\\event2012_labeled_only.tsv'
 
-class Twembeddings(DetectionAlgorithm):
 
+class Twembeddings(DetectionAlgorithm):
 
     def __init__(self):
         self.results_path = "../results/twembeddings/"
@@ -27,13 +25,12 @@ class Twembeddings(DetectionAlgorithm):
         else:
             dataset = "../data/uploaded/" + data
         self.event_results = main({'model': ['tfidf_all_tweets'],
-              'dataset':dataset,
-              'lang': 'en',
-              'annotation': 'no',
-              'threshold': ['0.7'],
-              'batch_size': None,
-              'remove_mentions': None,
-              'window': 24})
+                                   'dataset': dataset,
+                                   'lang': 'en',
+                                   'annotation': 'no',
+                                   'threshold': ['0.7'],
+                                   'batch_size': None,
+                                   'remove_mentions': None,
+                                   'window': 24})
 
         self.save_results(data)
-

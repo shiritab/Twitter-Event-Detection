@@ -22,11 +22,11 @@ from ...utils_backend.emotion_tweet import EmotionTweet
 torch.cuda.is_available()
 PICKLE_FILE = "../data/tagged_tweets.pkl"
 
-# Todo: add documentation to functions
+
 def load_data(data):
     """
     :param data: Import data file from data2012 or from user files
-    :return:
+    :return: The loaded data from json/pickle files
     """
     if data == "event2012.json":
         path_file = PICKLE_FILE
@@ -38,12 +38,12 @@ def load_data(data):
 
 
 class Bert(DetectionAlgorithm):
-
+    # Bert class, implement Detection algorithm super class
     def __init__(self):
         """
         result_path : The path for the result to be saved
         event_results: The algorithm's results
-        data_name: The of the executed data
+        data_name: The name of the executed data
         """
         self.results_path = "../results/bert/"
         self.event_results = ""
@@ -51,8 +51,8 @@ class Bert(DetectionAlgorithm):
 
     def run_algorithm(self, data_name):
         """
-        :param data_name:
-        :return:
+        :param data_name: the name of the data  to be saved
+        :return:Algorithm's result
         """
         results = self.get_results(data_name)
         # already exist in the system
@@ -65,10 +65,10 @@ class Bert(DetectionAlgorithm):
     def get_topic_model(self, documents, n_neighbors, min_topic_size, calculate_probabilities=False):
         """
         :param documents: tweets as document
-        :param n_neighbors:
-        :param min_topic_size:
-        :param calculate_probabilities:
-        :return:
+        :param n_neighbors: Number of neighbors
+        :param min_topic_size: Minimum size of document
+        :param calculate_probabilities: Boolean param
+        :return: The topic model
         """
         umap_model = UMAP(n_neighbors=n_neighbors, n_components=10, min_dist=0.0, metric='cosine')
 
@@ -120,5 +120,6 @@ class Bert(DetectionAlgorithm):
         return events
 
     def summarize(self):
-        summerization=super().summarize()
-        return summerization[:40]
+        # summarize the results of Bert algorithm
+        summarization = super().summarize()
+        return summarization[:40]

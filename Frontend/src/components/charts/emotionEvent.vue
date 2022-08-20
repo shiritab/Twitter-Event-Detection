@@ -1,6 +1,6 @@
 <template>
   <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:48%; margin-right:3%">
-      <h3 class="text-xl text-gray-600 mb-4" style="font-size:22px" >Event's Average Sentiment By Date</h3>
+      <h3 class="text-xl text-gray-600 mb-4" style="font-size:22px" >Average Sentiment By Date </h3>
       <apexchart ref="realTimeChart" type="bar" height="180" :options="options" :series="series"></apexchart>
     </div>
 </template>

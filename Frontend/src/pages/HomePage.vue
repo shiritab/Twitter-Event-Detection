@@ -4,7 +4,7 @@
     <div class="run-data">
         <div class="row">
             <div class="col-4">
-                <a>Data Set:</a>
+                <a>Dataset:</a>
                 <br>
                     <b-form-select style="width:100%; margin-left:2%" v-model="dataset" :options="dataset_option"></b-form-select>
 
@@ -79,7 +79,7 @@
     <Graph :v-if="created" :algorithm_results="algorithm_results"></Graph>
     <br>
 <br>
-        <h3>All Events</h3>
+        <h3>Detected Events</h3>
         <b-table fixed striped hover :items="algorithm_results" :fields="fields_tweets_info">
             <template #cell(num_of_tweets)="data">
                 {{data.item.tweets.length}}
@@ -233,9 +233,6 @@ export default {
             const data_algorithm = localStorage.getItem("data_algorithm");
             
             if (algorithm && data_algorithm) {
-                if (!this.algorithms.includes(algorithm)) {
-                   this.algorithms.push(algorithm);
-                }
                 this.algorithm = algorithm;
                 this.algorithm_results = JSON.parse(data_algorithm);
                 this.total_events = localStorage.getItem("total_events");

@@ -1,6 +1,6 @@
 <template>
     <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:48%; margin-right:2%, height:180px">
-      <h3 class="text-xl text-gray-600 mb-4" style="font-size:22px">Tweets Amount By Date</h3>
+      <h3 class="text-xl text-gray-600 mb-4" style="font-size:22px">Tweets Count By Date</h3>
       <apexchart type="area" :height="180" :options="options" :series="series"></apexchart>
     </div>
 </template>

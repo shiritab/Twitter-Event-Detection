@@ -11,6 +11,7 @@ in order to be compatible with the systems front end.
 
 '''
 
+
 class DetectionAlgorithm:
 
     def __init__(self):
@@ -92,6 +93,6 @@ class DetectionAlgorithm:
         print("this is data:")
         print(data)
         return data
-    
+
     def upload_data(self, data):
         pass

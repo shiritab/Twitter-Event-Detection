@@ -47,7 +47,7 @@
       </b-button>
       <div class="mt-2">
         Do not have an account yet?
-        <router-link to="register" style="color:red"> Register in here</router-link>
+        <router-link to="register" style="color:red"> Sign Up </router-link>
       </div>
       
     </b-form>

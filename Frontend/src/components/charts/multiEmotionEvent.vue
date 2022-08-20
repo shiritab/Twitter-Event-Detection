@@ -1,6 +1,6 @@
 <template>
   <div class="px-4 py-2 bg-white border rounded-md overflow-hidden shadow" style="width:100%; margin-right:3%">
-      <h3 class="text-xl text-gray-600 mb-4" >Events' Average Sentiment</h3>
+      <h3 class="text-xl text-gray-600 mb-4" >Average Sentiment By Event </h3>
       <apexchart ref="realTimeChart" type="bar" height="350" :options="options" :series="series"></apexchart>
     </div>
 </template>
@@ -34,6 +34,10 @@ export default {
         average(array){
             return array.reduce((a,b) => a + b, 0) / array.length
         }
+    },
+    created(){
+        console.log("created emotionChart")
+        this.make_data()
     },
     data() {
         return{ 
@@ -111,11 +115,11 @@ export default {
             this.make_data();
         }
     },
-    computed: {
-        changeOptions: function() {
-            return null;
-        }
-    }
+    // computed: {
+    //     changeOptions: function() {
+    //         return null;
+    //     }
+    // }
 
 }
 </script>
