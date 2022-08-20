@@ -46,40 +46,7 @@ export default {
             options: {
                 plotOptions: {
                     bar: {
-                        colors: {
-                            ranges: [
-                                {
-                                    from: -100,
-                                    to: -30,
-                                    color: '#f13636'
-                                },
-                                {
-                                    from: -30,
-                                    to: -10,
-                                    color: '#F15B46'
-                                }, 
-                                {
-                                    from: -10,
-                                    to: 0,
-                                    color: '#FEB019'
-                                },
-                                {
-                                    from: 0,
-                                    to: 10,
-                                    color: 'rgb(15, 165, 224)'
-                                },
-                                {
-                                    from: 10,
-                                    to: 30,
-                                    color: 'rgb(17, 134, 180)'
-                                },
-                                {
-                                    from: 30,
-                                    to: 100,
-                                    color: 'rgb(12, 107, 145)'
-                                }
-                            ]
-                        },
+                    
                         columnWidth: '100%',
                     }
                 },
