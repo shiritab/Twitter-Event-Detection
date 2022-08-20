@@ -19,7 +19,6 @@ def create_app():
     app.register_blueprint(auth, url_prefix="/auth/")
     return app
 
-
 if __name__ == '__main__':
     context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
     app = create_app()
