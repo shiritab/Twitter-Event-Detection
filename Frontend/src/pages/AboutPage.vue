@@ -46,7 +46,7 @@
           4th year Software and Information Systems Engineering student at Ben Gurion University.
         </b-card-text>
 
-        <b-button href="#" variant="info">About Me</b-button>
+        <b-button href="https://www.linkedin.com/in/hadassa-siminovsky-39217221b/" variant="info">About Me</b-button>
       </b-card>
 
       <!-- Shiri -->
@@ -60,7 +60,7 @@
           4th year Software and Information Systems Engineering student at Ben Gurion University.
         </b-card-text>
 
-        <b-button href="#" variant="info">About Me</b-button>
+        <b-button href="https://www.linkedin.com/in/shiritabach/" variant="info">About Me</b-button>
       </b-card>
     </div>
       

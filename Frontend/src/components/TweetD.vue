@@ -48,8 +48,15 @@ export default{
     onPageChange(page){
       /** Each page contains at most 12 tweets */
       this.tweets_to_show=this.tweets.slice(page*12-12,page*12)
+    },
+    sortTweetIds(){
+      this.tweets = this.tweets.sort();
     }
-  }
+  },
+ created(){
+  this.sortTweetIds();
+ }
+ 
 }
 </script>
 

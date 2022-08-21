@@ -174,7 +174,12 @@ export default {
                 this.algorithm_results=require("../../../Backend/results/sedtwik/summarized_event2012.json");
                 console.log(`error ${error}\noccured at getEventsSummary on HomePage.vue`);
             }
-            
+
+            //  add here the trim function
+            this.algorithm_results.map((res) =>{
+                res.event = res.event.trim();
+                return res;
+            })
             this.total_events = this.algorithm_results.length;
             this.total_tweets = this.algorithm_results.reduce((total, event) => {
                 return total + event.tweets.length;
